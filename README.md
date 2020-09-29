@@ -9,11 +9,11 @@ In order to get started on this project, I recommend you watch the section on **
 1. Clone this repo
 2. Make sure you have Python 3 installed on your machine
 3. Install [Pillow library](https://pillow.readthedocs.io/en/stable/installation.html)
-4. run the command: `python3 make_art.py zeroToMasteryIcon.png`
+4. run the command: `python3 example/make_art.py ztm-logo.png`
 5. Stare with amazement 😮
 
 
-**All discussions around this event can now be had in our #hacktoberfest-2019 channel on Discord!**
+**All discussions around this event can now be had in our #hacktoberfest-2020 channel on Discord!**
 
 # How to contribute?
 
