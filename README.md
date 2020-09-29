@@ -9,7 +9,7 @@ Welcome to this years Python challenge for Hacktoberfest ([What is Hacktoberfest
 ~ [Wikipedia](https://en.wikipedia.org/wiki/ASCII_art)
 
 
-# How to get Started:
+## How to get Started:
 In order to get started on this project, it is recommended that you watch the section on **Scripting** in the [Python course](https://academy.zerotomastery.io/p/complete-python-developer-zero-to-mastery?utm_source=github&utm_campaign=ascii-art-hf20). We talk about ```sys.argv``` and ```Pillow``` library (Image processing) in that section which would help you!
 
 > If you've never made a pull request before, or participated in an open-source project, we recommend taking a look at our [Start Here Guidelines](https://github.com/zero-to-mastery/start-here-guidelines). This repo has everything you need to learn about open-source, with a step-by-step guide to making your very first PR.
@@ -27,7 +27,7 @@ In order to get started on this project, it is recommended that you watch the se
 6. Run the  example code with the command: `python3 example/make_art.py ztm-logo.png`
 5. Stare with amazement 😮
 
-# How to contribute?
+## How to contribute?
 
 Now that you see how this command line tool works, let's see how we can evolve it with our ZTM community help!! Maybe we want to display this on an HTML web page where users can submit images and we convert it to ASCII art? Maybe we want to improve how the Command Line Tool works/make it more customizeable? Or maybe modify the script to do many other types of art beyond ASCII. 
 
