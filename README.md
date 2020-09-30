@@ -36,7 +36,7 @@ The options are endless and there is no wrong answer. This is all for fun, so tr
 1. Examine the code in `community-version.py`, figure out what improvements your fellow community members have made. 
 2. Make an improvement, it doesnt have to be elaborate
 3. Create a pull request
-4. [Tweet about making your first Hacktoberfest pull request](https://ctt.ac/6TNVS)
+4. [Tweet about making your first Hacktoberfest pull request](https://ctt.ac/bbIct)
 
 > Congratulations! You are now one pull request closer to getting that free t-shirt. Repeat these steps until you have made at least 4 qualifying pull requests. You can check how many qualifying pull requests you have made at <https://hacktoberfest.digitalocean.com/profile> Have Fun and Happy Coding!
 
