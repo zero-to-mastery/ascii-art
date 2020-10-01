@@ -9,7 +9,7 @@ Usage  : python community-version.py [option] [input_file]
 Options:
          no options will run the default ASCII_CHARS
     -r   reverse the ASCII_CHARS
-    -s   save the output to file (by default the output file is output_[input_file].txt)
+    -s   save the output to file (by default the output file is [input_file]_output.txt)
     -rs  save the reversed output to file
 """
 
@@ -52,7 +52,7 @@ def convert_image_to_ascii(image, new_width=100):
 
     return "\n".join(image_ascii)
 
-def handle_image_conversion(image_filepath):
+def handle_image_conversion(image_filepath, arg=""):
     image = None
     try:
         image = Image.open(image_filepath)
@@ -64,6 +64,16 @@ def handle_image_conversion(image_filepath):
     image_ascii = convert_image_to_ascii(image)
     print(image_ascii)
 
+    if arg == "-s":
+        output_name = image_file_path.split('.')[0] + "_output.txt" 
+        try:
+            f = open(output_name, "w")
+            f.write(image_ascii)
+            f.close
+            print(f"Image {output_name} saved")
+        except:
+            print("An error occured!")
+            return False
 
 def check_file(f):
     allowed_inputs_file = ["png"]
@@ -106,4 +116,12 @@ if __name__=='__main__':
         print(image_file_path)
         handle_image_conversion(image_file_path)
     elif todo == "-s":
+        image_file_path = sys.argv[2]
+        print(image_file_path)
+        handle_image_conversion(image_file_path, "-s")
+    elif todo == "-rs":
+        ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
+        image_file_path = sys.argv[2]
+        print(image_file_path)
+        handle_image_conversion(image_file_path, "-s")
 
