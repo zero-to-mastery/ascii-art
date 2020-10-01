@@ -1,12 +1,8 @@
 # this project requires Pillow installation: https://pillow.readthedocs.io/en/stable/installation.html
-
-
 #code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
 #code modified to work with Python 3 by @aneagoie
 from PIL import Image
-
 ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
-
 
 def scale_image(image, new_width=100):
     """Resizes an image preserving the aspect ratio.
@@ -17,11 +13,9 @@ def scale_image(image, new_width=100):
 
     new_image = image.resize((new_width, new_height))
     return new_image
-
-
+    
 def convert_to_grayscale(image):
     return image.convert('L')
-
 
 def map_pixels_to_ascii_chars(image, range_width=25):
     """Maps each pixel to an ascii char based on the range
@@ -35,7 +29,6 @@ def map_pixels_to_ascii_chars(image, range_width=25):
 
     return "".join(pixels_to_chars)
 
-
 def convert_image_to_ascii(image, new_width=100):
     image = scale_image(image)
     image = convert_to_grayscale(image)
@@ -47,7 +40,6 @@ def convert_image_to_ascii(image, new_width=100):
             range(0, len_pixels_to_chars, new_width)]
 
     return "\n".join(image_ascii)
-
 
 def write_image_to_text_file(image_ascii):
 
@@ -62,8 +54,7 @@ def write_image_to_text_file(image_ascii):
 
     with open(text_file_name, "w") as f:
         f.write(image_ascii)
-
-
+        
 def handle_image_conversion(image_filepath, save):
     image = None
     try:
@@ -77,7 +68,6 @@ def handle_image_conversion(image_filepath, save):
     print(image_ascii)
     if save == 1:
         write_image_to_text_file(image_ascii)
-
 
 if __name__=='__main__':
     import sys
