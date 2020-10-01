@@ -70,7 +70,7 @@ def handle_image_conversion(image_filepath, arg=""):
             f = open(output_name, "w")
             f.write(image_ascii)
             f.close
-            print(f"Image {output_name} saved")
+            print(f"Image saved to -> {output_name}")
         except:
             print("An error occured!")
             return False
