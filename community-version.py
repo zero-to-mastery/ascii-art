@@ -10,6 +10,7 @@ Options:
          no options will run the default ASCII_CHARS
     -r   reverse the ASCII_CHARS
     -s   save the output to file (by default the output file is output_[input_file].txt)
+    -rs  save the reversed output to file
 """
 
 
@@ -76,18 +77,33 @@ def check_file(f):
         return False
 
 def check_inputs():
-    arguments = [x for x in sys.arg]
-    if len(arguments) == 2 and check_file(arguments[-1]):
+    arguments = [x for x in sys.argv]
+    if 2 > len(arguments) or len(arguments) > 3 or check_file(arguments[-1]) == False:
+        print(help_msg)
+        return False
+    elif len(arguments) == 2 and check_file(arguments[-1]):
+        return ""
+    elif len(arguments) == 3 and arguments[1] == "-r" and check_file(arguments[-1]):
+        return arguments[1]
+    elif len(arguments) == 3 and arguments[1] == "-s" and check_file(arguments[-1]):
+        return arguments[1]
+    elif len(arguments) == 3 and arguments[1] == "-rs" and check_file(arguments[-1]):
+        return arguments[1]
+
 
 if __name__=='__main__':
     import sys
     todo = check_inputs()
-    arguments = [x for x in sys.argv]
-    if '-r' in arguments:
-        ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
-    else:
-        ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
+    ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
-    image_file_path = sys.argv[1]
-    print(image_file_path)
-    handle_image_conversion(image_file_path)
+    if todo == "":
+        image_file_path = sys.argv[1]
+        print(image_file_path)
+        handle_image_conversion(image_file_path)
+    elif todo == '-r':
+        ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
+        image_file_path = sys.argv[2]
+        print(image_file_path)
+        handle_image_conversion(image_file_path)
+    elif todo == "-s":
+
