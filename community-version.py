@@ -7,6 +7,7 @@ from PIL import Image
 help_msg = """
 Usage  : python community-version.py [option] [input_file]
 Options:
+         no options will run the default ASCII_CHARS
     -r   reverse the ASCII_CHARS
     -s   save the output to file (by default the output file is output_[input_file].txt)
 """
@@ -65,10 +66,10 @@ def handle_image_conversion(image_filepath):
 def check_inputs():
     allowed_inputs_file = ["png"]
     arguments = [x for x in sys.arg]
+    
 
 if __name__=='__main__':
     import sys
-    # allowed_inputs_file = ["png"]
     todo = check_inputs()
     arguments = [x for x in sys.argv]
     if '-r' in arguments:
