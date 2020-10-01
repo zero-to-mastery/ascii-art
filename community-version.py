@@ -63,10 +63,21 @@ def handle_image_conversion(image_filepath):
     image_ascii = convert_image_to_ascii(image)
     print(image_ascii)
 
-def check_inputs():
+
+def check_file(f):
     allowed_inputs_file = ["png"]
+    try:
+        if f.split('.')[-1] in allowed_inputs_file:
+            return True
+        else:
+            return False
+    except:
+        print(help_msg)
+        return False
+
+def check_inputs():
     arguments = [x for x in sys.arg]
-    
+    if len(arguments) == 2 and check_file(arguments[-1]):
 
 if __name__=='__main__':
     import sys
