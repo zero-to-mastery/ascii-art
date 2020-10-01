@@ -1,5 +1,3 @@
-# this project requires Pillow installation: https://pillow.readthedocs.io/en/stable/installation.html
-
 #code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
 #code modified to work with Python 3 by @aneagoie
 from PIL import Image
@@ -124,4 +122,3 @@ if __name__=='__main__':
         image_file_path = sys.argv[2]
         print(image_file_path)
         handle_image_conversion(image_file_path, "-s")
-
