@@ -2,6 +2,10 @@
 #code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
 #code modified to work with Python 3 by @aneagoie
 from PIL import Image
+from colorama import init
+from termcolor import colored
+
+init()
 
 help_msg = """
 Usage  : python community-version.py [option] [input_file]
@@ -35,8 +39,12 @@ def map_pixels_to_ascii_chars(image, range_width=25):
     pixels_in_image = list(image.getdata())
     pixels_to_chars = [ASCII_CHARS[int(pixel_value/range_width)] for pixel_value in
             pixels_in_image]
-
     return "".join(pixels_to_chars)
+
+
+def convertTuple(tup): 
+    str =  ''.join(tup) 
+    return str
 
 def convert_image_to_ascii(image, new_width=100):
     image = scale_image(image)
@@ -47,7 +55,6 @@ def convert_image_to_ascii(image, new_width=100):
 
     image_ascii = [pixels_to_chars[index: index + new_width] for index in
             range(0, len_pixels_to_chars, new_width)]
-
     return "\n".join(image_ascii)
 
 def write_image_to_text_file(image_ascii):
@@ -88,7 +95,7 @@ def handle_image_conversion(image_filepath, arg=""):
             return False
 
 def check_file(f):
-    allowed_inputs_file = ["png"]
+    allowed_inputs_file = ["png", "jpg"]
     try:
         if f.split('.')[-1] in allowed_inputs_file:
             return True
