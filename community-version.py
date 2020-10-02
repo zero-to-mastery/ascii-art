@@ -5,7 +5,6 @@
 from PIL import Image
 import os
 import sys
-
 ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
 
@@ -27,6 +26,7 @@ def save_ascii_art(image_ascii_art):
             my_file.write(image_ascii_art)
     except ValueError:
         print('please check image is converted to image ascii art.')
+
 
 def scale_image(image, new_width=100):
     """Resizes an image preserving the aspect ratio.
@@ -64,6 +64,8 @@ def convert_image_to_ascii(image, new_width=100):
     image_ascii = [pixels_to_chars[index: index + new_width] for index in
             range(0, len_pixels_to_chars, new_width)]
 
+    save_ascii_art(image_ascii)
+
     return "\n".join(image_ascii)
 
 def write_image_to_text_file(image_ascii):
@@ -86,6 +88,7 @@ def handle_image_conversion(image_filepath, save):
         write_image_to_text_file(image_ascii)
 
 if __name__=='__main__':
+    import sys
 
     image_file_path = sys.argv[1]
     if sys.argv[2]:
