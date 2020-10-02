@@ -1,10 +1,18 @@
 # this project requires Pillow installation: https://pillow.readthedocs.io/en/stable/installation.html
-
 #code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
 #code modified to work with Python 3 by @aneagoie
 from PIL import Image
-
 ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
+
+help_msg = """
+Usage  : python community-version.py [option] [input_file]
+Options:
+         no options will run the default ASCII_CHARS
+    -r   reverse the ASCII_CHARS
+    -s   save the output to file (by default the output file is [input_file]_output.txt)
+    -rs  save the reversed output to file
+"""
+
 
 import os
 import sys
@@ -44,7 +52,6 @@ def convert_to_grayscale(image):
 def map_pixels_to_ascii_chars(image, range_width=25):
     """Maps each pixel to an ascii char based on the range
     in which it lies.
-
     0-255 is divided into 11 ranges of 25 pixels each.
     """
 
@@ -68,10 +75,19 @@ def convert_image_to_ascii(image, new_width=100):
 
 def write_image_to_text_file(image_ascii):
 
-    with open("ascii_image.txt", "w") as f:
+    if "/" in image_file_path:
+        split_file_name = image_file_path.split('/')
+        image_name = split_file_name[-1]
+    else:
+        image_name = image_file_path
+    split_image_name = image_name.split('.')
+    file_name = split_image_name[0]
+    text_file_name = file_name + ".txt"
+
+    with open(text_file_name, "w") as f:
         f.write(image_ascii)
 
-def handle_image_conversion(image_filepath, save):
+def handle_image_conversion(image_filepath, arg=""):
     image = None
     try:
         image = Image.open(image_filepath)
@@ -82,8 +98,43 @@ def handle_image_conversion(image_filepath, save):
 
     image_ascii = convert_image_to_ascii(image)
     print(image_ascii)
-    if save == 1:
-        write_image_to_text_file(image_ascii)
+
+    if arg == "-s":
+        output_name = image_file_path.split('.')[0] + "_output.txt" 
+        try:
+            f = open(output_name, "w")
+            f.write(image_ascii)
+            f.close
+            print(f"Image saved to -> {output_name}")
+        except:
+            print("An error occured!")
+            return False
+
+def check_file(f):
+    allowed_inputs_file = ["png"]
+    try:
+        if f.split('.')[-1] in allowed_inputs_file:
+            return True
+        else:
+            return False
+    except:
+        print(help_msg)
+        return False
+
+def check_inputs():
+    arguments = [x for x in sys.argv]
+    if 2 > len(arguments) or len(arguments) > 3 or check_file(arguments[-1]) == False:
+        print(help_msg)
+        return False
+    elif len(arguments) == 2 and check_file(arguments[-1]):
+        return ""
+    elif len(arguments) == 3 and arguments[1] == "-r" and check_file(arguments[-1]):
+        return arguments[1]
+    elif len(arguments) == 3 and arguments[1] == "-s" and check_file(arguments[-1]):
+        return arguments[1]
+    elif len(arguments) == 3 and arguments[1] == "-rs" and check_file(arguments[-1]):
+        return arguments[1]
+
 
 if __name__=='__main__':
 
@@ -92,3 +143,25 @@ if __name__=='__main__':
         handle_image_conversion(image_file_path, 1)
     print(image_file_path)
     handle_image_conversion(image_file_path, 0)
+    import sys
+    todo = check_inputs()
+    ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
+
+    if todo == "":
+        image_file_path = sys.argv[1]
+        print(image_file_path)
+        handle_image_conversion(image_file_path)
+    elif todo == '-r':
+        ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
+        image_file_path = sys.argv[2]
+        print(image_file_path)
+        handle_image_conversion(image_file_path)
+    elif todo == "-s":
+        image_file_path = sys.argv[2]
+        print(image_file_path)
+        handle_image_conversion(image_file_path, "-s")
+    elif todo == "-rs":
+        ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
+        image_file_path = sys.argv[2]
+        print(image_file_path)
+        handle_image_conversion(image_file_path, "-s")
