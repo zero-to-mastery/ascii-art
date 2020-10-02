@@ -10,9 +10,6 @@ ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
 image_file_path = sys.argv[1]
 
-print()
-
-
 def save_ascii_art(image_ascii_art):
     """
     saving the ascii art 
