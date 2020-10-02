@@ -3,6 +3,7 @@
 #code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
 #code modified to work with Python 3 by @aneagoie
 from PIL import Image
+import requests
 ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
 def scale_image(image, new_width=100):
@@ -47,7 +48,10 @@ def handle_image_conversion(image_filepath, new_width=100, gray=False):
     width = new_width
     image = None
     try:
-        image = Image.open(image_filepath)
+        if image_filepath[:4]=='http':
+            image = Image.open(requests.get(image_filepath,stream=True).raw)
+        else:
+            image = Image.open(image_filepath)
     except Exception as e:
         print(f"Unable to open image file {image_filepath}.")
         print(e)
