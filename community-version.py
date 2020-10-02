@@ -2,6 +2,7 @@
 #code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
 #code modified to work with Python 3 by @aneagoie
 from PIL import Image
+import sys, time, os
 
 help_msg = """
 Usage  : python community-version.py [option] [input_file]
@@ -11,7 +12,17 @@ Options:
     -s   save the output to file (by default the output file is [input_file]_output.txt)
     -rs  save the reversed output to file
 """
+message = "We The Members Of ZTM Community Will Grab That Tshirt By Showcasing Our Efforts In HacktoberFest "
+def typewriter(message):
+    for char in message:
+        sys.stdout.write(char)
+        sys.stdout.flush()
 
+        if char!= '\n':
+            time.sleep(0.1)
+
+        else:
+            time.sleep(1)
 
 def scale_image(image, new_width=100):
     """Resizes an image preserving the aspect ratio.
@@ -115,6 +126,8 @@ def check_inputs():
 
 if __name__=='__main__':
     import sys
+    os.system('cls')
+    typewriter(message)
     todo = check_inputs()
     ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
