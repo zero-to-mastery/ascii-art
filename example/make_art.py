@@ -6,7 +6,7 @@ from PIL import Image
 ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
 def scale_image(image, new_width=100):
-    """Resizes an image preserving the aspect ratio.
+    """Resize an image preserving the aspect ratio.
     """
     (original_width, original_height) = image.size
     aspect_ratio = original_height/float(original_width)
