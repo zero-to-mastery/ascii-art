@@ -13,7 +13,7 @@ from PIL import Image
 ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
 
-# Modified example code for Creating GUI Applicatio using Tkinter by @Jude_Savio
+# Modified example code for Creating GUI Application using Tkinter by @Jude_Savio
 app = tkinter.Tk()
 text_box = scrolledtext.ScrolledText(app,bg='white',fg='#4682B4')
 text_box.tag_configure("center",justify="center")
