@@ -10,7 +10,7 @@ Welcome to this years Python challenge for Hacktoberfest ([What is Hacktoberfest
 
 
 ## How to get Started:
-In order to get started on this project, it is recommended that you watch the section on **Scripting** in the [Python course](https://academy.zerotomastery.io/p/complete-python-developer-zero-to-mastery?utm_source=github&utm_campaign=ascii-art-hf20). We talk about ```sys.argv``` and ```Pillow``` library (Image processing) in that section which would help you!
+In order to get started on this project, it is recommended that you watch the section on **Scripting** in the [Python course](https://academy.zerotomastery.io/p/complete-python-developer-zero-to-mastery?utm_source=github&utm_campaign=ascii-art-hf20). We talk about ```sys.argv``` (https://docs.python.org/3/library/sys.html#sys.argv) and ```Pillow``` library (Image processing) in that section which would help you!
 
 > If you've never made a pull request before, or participated in an open-source project, we recommend taking a look at our [Start Here Guidelines](https://github.com/zero-to-mastery/start-here-guidelines). This repo has everything you need to learn about open-source, with a step-by-step guide to making your very first PR.
 > Once you've got your feet wet, you're ready to come back and dive into Hacktoberfest fun!
