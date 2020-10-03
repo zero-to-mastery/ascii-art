@@ -8,6 +8,8 @@ Welcome to this years Python challenge for Hacktoberfest ([What is Hacktoberfest
 > ASCII art is a graphic design technique that uses computers for presentation and consists of pictures pieced together from the 95 printable characters defined by the ASCII Standard from 1963 and ASCII compliant character sets with proprietary extended characters.
 ~ [Wikipedia](https://en.wikipedia.org/wiki/ASCII_art)
 
+~ Here is the link which has character representaions of grey scale to learn more about ascii art: http://paulbourke.net/dataformats/asciiart/
+
 
 ## How to get Started:
 In order to get started on this project, it is recommended that you watch the section on **Scripting** in the [Python course](https://academy.zerotomastery.io/p/complete-python-developer-zero-to-mastery?utm_source=github&utm_campaign=ascii-art-hf20). We talk about ```sys.argv``` and ```Pillow``` library (Image processing) in that section which would help you!
