@@ -22,6 +22,9 @@ Colors:
     "cyan"
     "white"
     
+Or you can convert multiple images at once in current directory like this:
+Usage  : python community-version.py all
+    
 """
 
 
@@ -181,21 +184,47 @@ if __name__ == '__main__':
     todo = check_inputs()
     ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
-    if todo == "":
-        image_file_path = sys.argv[1]
-        print(image_file_path)
-        handle_image_conversion(image_file_path)
-    elif todo == '-r':
-        ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
-        image_file_path = sys.argv[2]
-        print(image_file_path)
-        handle_image_conversion(image_file_path)
-    elif todo == "-s":
-        image_file_path = sys.argv[2]
-        print(image_file_path)
-        handle_image_conversion(image_file_path, "-s")
-    elif todo == "-rs":
-        ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
-        image_file_path = sys.argv[2]
-        print(image_file_path)
-        handle_image_conversion(image_file_path, "-s")
+    if len(arguments) == 2 and arguments[1] == "all":
+        arr = os.listdir()
+        listOfImages = []
+        for i in arr:
+            if i.lower().endswith(('.png', '.jpg')):
+                listOfImages.append(i)
+        if len(listOfImages) == 0:
+            print("There is no image...please make sure that there is image for convert!")
+        else:
+            for images in listOfImages:
+                image = Image.open(images)
+                image_ascii = convert_image_to_ascii(image)
+                print(image_ascii)
+                im = images[:-4]
+                im = im + ".txt"
+                try:
+                    f = open(im, "w")
+                    f.write(image_ascii)
+                    f.close
+                    print(f"Image saved to -> {im}")
+                except:
+                    print("An error occured!")
+
+
+    else:
+
+        if todo == "":
+            image_file_path = sys.argv[1]
+            print(image_file_path)
+            handle_image_conversion(image_file_path)
+        elif todo == '-r':
+            ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
+            image_file_path = sys.argv[2]
+            print(image_file_path)
+            handle_image_conversion(image_file_path)
+        elif todo == "-s":
+            image_file_path = sys.argv[2]
+            print(image_file_path)
+            handle_image_conversion(image_file_path, "-s")
+        elif todo == "-rs":
+            ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
+            image_file_path = sys.argv[2]
+            print(image_file_path)
+            handle_image_conversion(image_file_path, "-s")
