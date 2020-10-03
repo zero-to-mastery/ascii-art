@@ -1,8 +1,15 @@
 # this project requires Pillow installation: https://pillow.readthedocs.io/en/stable/installation.html
 # code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
 # code modified to work with Python 3 by @aneagoie
-from PIL import Image
+from __future__ import division
 import os
+from PIL import Image
+from asciimatics.effects import Print, Clock
+from asciimatics.renderers import FigletText, Rainbow
+from asciimatics.scene import Scene
+from asciimatics.screen import Screen
+from asciimatics.exceptions import ResizeScreenError
+
 
 help_msg = """
 Usage  : python community-version.py [option] [input_file] [color]
@@ -24,6 +31,11 @@ Colors:
     
 Or you can convert multiple images at once in current directory like this:
 Usage  : python community-version.py all
+
+You can type clock to show clock as a colorful animation:
+Usage  : python community-version.py clock
+< resize the terminal or press "q" or "x" to exit the clock >
+
     
 """
 
@@ -176,8 +188,20 @@ def check_inputs():
     else:
         return ""
 
+def demo(screen):
+    effects = [
+        Print(screen, Rainbow(screen, FigletText("Hacktoberfest")),
+              y=screen.height//2 - 8),
+        Print(screen, Rainbow(screen, FigletText("ASCII Art 2020")),
+              y=screen.height//2 + 3),
+        Clock(screen, screen.width//2, screen.height//2, screen.height//2),
+    ]
+    screen.play([Scene(effects, -1)], stop_on_resize=True)
+    screen.refresh()
+
 
 if __name__ == '__main__':
+	
     import sys
 
     arguments = [x for x in sys.argv]
@@ -207,6 +231,13 @@ if __name__ == '__main__':
                 except:
                     print("An error occured!")
 
+    elif len(arguments) == 2 and arguments[1] == "clock":
+
+    		try:
+        		Screen.wrapper(demo)
+        		sys.exit(0)
+    		except ResizeScreenError:
+        		pass
 
     else:
 
