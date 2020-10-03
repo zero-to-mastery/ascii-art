@@ -1,3 +1,3 @@
 Pillow==7.2.0
 
-For pygame module use "pip install pygame" , make sure you have upgraded pip 
+pygame 
