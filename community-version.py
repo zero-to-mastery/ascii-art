@@ -23,10 +23,17 @@ def save_ascii_art(image_ascii_art):
     """
     saving the ascii art 
     """
-    try:
-        image_output_folder = sys.argv[2]
-        file_path = os.path.split(image_file_path)[1]
-        file_name = os.path.splitext(file_path)[0]
+    image_output_folder = ""
+    file_name=""
+    
+    try:        
+        try:
+            image_output_folder = sys.argv[2]
+            file_path = os.path.split(image_file_path)[1]
+            file_name = os.path.splitext(file_path)[0]
+        except:
+            image_output_folder="ztm-ascii"
+            file_name="ztm-default-ascii"
 
         if not os.path.exists(image_output_folder):
             os.makedirs(image_output_folder)
@@ -35,6 +42,7 @@ def save_ascii_art(image_ascii_art):
             my_file.write(image_ascii_art)
     except ValueError:
         print('please check image is converted to image ascii art.')
+
 
 
 def scale_image(image, new_width=100):
@@ -144,21 +152,25 @@ if __name__=='__main__':
     todo = check_inputs()
     ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
+    image_file_path = ""
+
+    try:
+        image_file_path = sys.argv[2]
+    except:
+        image_file_path = "ztm-ascii/ztm-default-ascii.txt"
+
     if todo == "":
         image_file_path = sys.argv[1]
         print(image_file_path)
         handle_image_conversion(image_file_path)
     elif todo == '-r':
         ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
-        image_file_path = sys.argv[2]
         print(image_file_path)
         handle_image_conversion(image_file_path)
     elif todo == "-s":
-        image_file_path = sys.argv[2]
         print(image_file_path)
         handle_image_conversion(image_file_path, "-s")
     elif todo == "-rs":
         ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
-        image_file_path = sys.argv[2]
         print(image_file_path)
         handle_image_conversion(image_file_path, "-s")
