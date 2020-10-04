@@ -18,6 +18,7 @@ import pyfiglet
 import sys, time #used for displaying running text
 import pygame #used for sound for running text
 import random
+import pyjokes #return running random jokes at every starting of the code
 help_msg = """
 Usage  : python community-version.py [option] [input_file] [color]
 Options:
@@ -206,7 +207,7 @@ def demo(screen):
 
 
 #this is message ie the running text
-message = "We The Members Of ZTM Community Will Grab That Tshirt By Showcasing Our Efforts In HacktoberFest "
+message = (pyjokes.get_joke())
 
 #typerwriter is the method for running the text
 def typewriter(message):
