@@ -17,6 +17,7 @@ from asciimatics.exceptions import ResizeScreenError
 from asciimatics.renderers import FigletText, Rainbow
 from asciimatics.scene import Scene
 from asciimatics.screen import Screen
+import random
 
 ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 COLOR_OPTIONS = ['black', 'blue', 'cyan', 'green', 'magenta', 'red', 'white', 'yellow']
@@ -120,7 +121,8 @@ def show_clock():
 #typerwriter is the method for running the text
 def typewriter(message):
     #the spaces are for format on the splash screen
-    print(pyfiglet.figlet_format("   zTm ", font="doh").rstrip())
+    font = ['alligator', 'slant', '3-d', '3x5','5lineoblique','banner3-D']
+    print(pyfiglet.figlet_format("   zTm ", font = random.choice(font)).rstrip())
     print(pyfiglet.figlet_format("Community Presents -- "))
     print(pyfiglet.figlet_format("                           ASCII ART"))
     # print(pyfiglet.figlet_format("==> "))
@@ -128,7 +130,7 @@ def typewriter(message):
     for char in message:
         sys.stdout.write(char)
         sys.stdout.flush()
-        if char != '\n':
+        if char!= '\n':
             time.sleep(0.1)
         else:
             time.sleep(1)
