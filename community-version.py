@@ -11,6 +11,9 @@ from asciimatics.scene import Scene
 from asciimatics.screen import Screen
 from asciimatics.exceptions import ResizeScreenError
 
+
+
+
 import pyfiglet
 import sys, time #used for displaying running text
 import pygame #used for sound for running text
@@ -214,6 +217,7 @@ def typewriter(message):
     print(pyfiglet.figlet_format("                           ASCII ART"))
     # print(pyfiglet.figlet_format("==> "))
 
+
     for char in message:
         sys.stdout.write(char)
         sys.stdout.flush()
@@ -227,6 +231,7 @@ def typewriter(message):
 if __name__ == '__main__':
  	
     import sys
+
     pygame.mixer.init()
     pygame.mixer.music.load("typewriter.wav") #run typewriter sound file
     pygame.mixer.music.play(loops=-1)
@@ -234,6 +239,7 @@ if __name__ == '__main__':
     typewriter(message) #calling the typewriter function
     pygame.mixer.music.stop()
     pygame.mixer.quit()
+
     arguments = [x for x in sys.argv]
     todo = check_inputs()
     ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
