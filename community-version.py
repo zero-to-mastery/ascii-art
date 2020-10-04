@@ -11,15 +11,11 @@ from asciimatics.scene import Scene
 from asciimatics.screen import Screen
 from asciimatics.exceptions import ResizeScreenError
 
-<<<<<<< HEAD
 
 ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
-||||||| merged common ancestors
-=======
 import sys, time #used for displaying running text
 import pygame #used for sound for running text
->>>>>>> upstream/master
 help_msg = """
 Usage  : python community-version.py [option] [input_file] [color]
 Options:
@@ -44,8 +40,8 @@ Usage  : python community-version.py all
 You can type clock to show clock as a colorful animation:
 Usage  : python community-version.py clock
 < resize the terminal or press "q" or "x" to exit the clock >
+"""
 
-<<<<<<< HEAD
 import os
 import sys
 
@@ -77,11 +73,6 @@ def save_ascii_art(image_ascii_art):
 
 
 
-||||||| merged common ancestors
-=======
-    
-"""
->>>>>>> upstream/master
 def scale_image(image, new_width=100):
     """Resizes an image preserving the aspect ratio.
     """
@@ -257,7 +248,6 @@ def typewriter(message):
         else:
             time.sleep(1)
 
-<<<<<<< HEAD
 if __name__=='__main__':
     image_file_path = sys.argv[1]
     if sys.argv[2]:
@@ -278,10 +268,6 @@ if __name__=='__main__':
     print(image_file_path)
     handle_image_conversion(image_file_path, 0)
 
-||||||| merged common ancestors
-if __name__=='__main__':
-    import sys
-=======
 
 
 if __name__ == '__main__':
@@ -295,9 +281,7 @@ if __name__ == '__main__':
     pygame.mixer.music.stop()
     pygame.mixer.quit()
     arguments = [x for x in sys.argv]
->>>>>>> upstream/master
     todo = check_inputs()
-<<<<<<< HEAD
     ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
     image_file_path = ""
@@ -322,28 +306,6 @@ if __name__ == '__main__':
         ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
         print(image_file_path)
         handle_image_conversion(image_file_path, "-s")
-||||||| merged common ancestors
-    ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
-
-    if todo == "":
-        image_file_path = sys.argv[1]
-        print(image_file_path)
-        handle_image_conversion(image_file_path)
-    elif todo == '-r':
-        ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
-        image_file_path = sys.argv[2]
-        print(image_file_path)
-        handle_image_conversion(image_file_path)
-    elif todo == "-s":
-        image_file_path = sys.argv[2]
-        print(image_file_path)
-        handle_image_conversion(image_file_path, "-s")
-    elif todo == "-rs":
-        ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
-        image_file_path = sys.argv[2]
-        print(image_file_path)
-        handle_image_conversion(image_file_path, "-s")
-=======
     ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
     if len(arguments) == 2 and arguments[1] == "all":
@@ -397,4 +359,3 @@ if __name__ == '__main__':
             image_file_path = sys.argv[2]
             print(image_file_path)
             handle_image_conversion(image_file_path, "-s")
->>>>>>> upstream/master
