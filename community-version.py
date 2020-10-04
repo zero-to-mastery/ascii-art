@@ -12,7 +12,11 @@ from asciimatics.screen import Screen
 from asciimatics.exceptions import ResizeScreenError
 
 
+
+
+import pyfiglet
 import sys, time #used for displaying running text
+import pygame #used for sound for running text
 help_msg = """
 Usage  : python community-version.py [option] [input_file] [color]
 Options:
@@ -205,6 +209,14 @@ message = "We The Members Of ZTM Community Will Grab That Tshirt By Showcasing O
 
 #typerwriter is the method for running the text
 def typewriter(message):
+
+    #the spaces are for format on the splash screen 
+    print(pyfiglet.figlet_format("   zTm ", font = "doh").rstrip())
+    print(pyfiglet.figlet_format("Community Presents -- "))
+    print(pyfiglet.figlet_format("                           ASCII ART"))
+    # print(pyfiglet.figlet_format("==> "))
+
+
     for char in message:
         sys.stdout.write(char)
         sys.stdout.flush()
@@ -216,10 +228,17 @@ def typewriter(message):
 
 
 if __name__ == '__main__':
-	
+ 	
     import sys
+
+    pygame.mixer.init()
+    pygame.mixer.music.load("typewriter.wav") #run typewriter sound file
+    pygame.mixer.music.play(loops=-1)
     os.system('cls') #used for clearing the screen output
     typewriter(message) #calling the typewriter function
+    pygame.mixer.music.stop()
+    pygame.mixer.quit()
+
     arguments = [x for x in sys.argv]
     todo = check_inputs()
     ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
