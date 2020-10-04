@@ -17,6 +17,7 @@ from asciimatics.exceptions import ResizeScreenError
 import pyfiglet
 import sys, time #used for displaying running text
 import pygame #used for sound for running text
+import random
 help_msg = """
 Usage  : python community-version.py [option] [input_file] [color]
 Options:
@@ -209,9 +210,9 @@ message = "We The Members Of ZTM Community Will Grab That Tshirt By Showcasing O
 
 #typerwriter is the method for running the text
 def typewriter(message):
-
-    #the spaces are for format on the splash screen 
-    print(pyfiglet.figlet_format("   zTm ", font = "doh").rstrip())
+    #the spaces are for format on the splash screen
+    font = ['alligator', 'slant', '3-d', '3x5','5lineoblique','banner3-D'] 
+    print(pyfiglet.figlet_format("   zTm ", font = random.choice(font)).rstrip())
     print(pyfiglet.figlet_format("Community Presents -- "))
     print(pyfiglet.figlet_format("                           ASCII ART"))
     # print(pyfiglet.figlet_format("==> "))
