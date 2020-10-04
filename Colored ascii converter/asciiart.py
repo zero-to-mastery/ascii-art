@@ -35,5 +35,6 @@ for i in range(h):
         pixels[j,i] = (grey,grey,grey)
         draw.text((j*charWidth,i*charHeight),getSomeChar(grey),
         font=font,fill = (r,g,b))
-
+        
+image.resize(outputImage,(w,h))
 outputImage.save("output.png")
