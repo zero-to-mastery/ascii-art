@@ -4,7 +4,7 @@
 #provide image path as
 #Enter the image path: lena.jpg
 
-from PIL import Image,ImageDraw,ImageFont
+from PIL import Image,ImageDraw
 import math
 
 imagepath=input('Enter the image path : ') 
@@ -17,7 +17,7 @@ image = image.resize((int(scaleFac*w),int(scaleFac*h*(charWidth/charHeight))),Im
 w,h = image.size
 pixels = image.load()
 
-font = ImageFont.truetype('C:\\Windows\\Fonts\\lucon.ttf',15)
+
 outputImage = Image.new('RGB',(charWidth*w,charHeight*h),color=(0,0,0))
 draw = ImageDraw.Draw(outputImage)
 
