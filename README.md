@@ -1,10 +1,10 @@
 <img src="https://raw.githubusercontent.com/dawsonbooth/ascii-art/master/logo.png" width="400" align="right"/>
 
-# ASCII Art - Hacktoberfest 2020
+# ASCII Art - Hacktoberfest 2020✔
 
 Welcome to this years Python challenge for Hacktoberfest ([What is Hacktoberfest?](https://github.com/zero-to-mastery/coding_challenge-31/blob/master/README.md#what-is-hacktoberfest)) A project with beginners and aspiring developers in mind, utilizing Python to convert images into ASCII Art.
 
-#### What is ASCII Art?
+#### What is ASCII Art❓
 > ASCII art is a graphic design technique that uses computers for presentation and consists of pictures pieced together from the 95 printable characters defined by the ASCII Standard from 1963 and ASCII compliant character sets with proprietary extended characters.
 ~ [Wikipedia](https://en.wikipedia.org/wiki/ASCII_art)
 
@@ -43,11 +43,11 @@ The options are endless and there is no wrong answer. This is all for fun, so tr
 
 > Congratulations! You are now one pull request closer to getting that free t-shirt. Repeat these steps until you have made at least 4 qualifying pull requests. You can check how many qualifying pull requests you have made at <https://hacktoberfest.digitalocean.com/profile> Have Fun and Happy Coding!
 
-### Bonus Task
+### Bonus Task➕
 Looking for a challenge?
 We have left the original code which was written in Python 2 under the `example/make_art_python2.py` file. See what happens when you run it with Python 3. See all of the errors? Can you fix it so it works with python 3? The answer is with the `example/make_art.py` file which is written in Python 3.
 
 **All discussions around this event can now be had in our #hacktoberfest-2020 channel on Discord!**
 
-## Disclaimer
+## Disclaimer🔴
 Zero To Mastery receive no commission or incentives for your participating in either this project or entering the Hacktoberfest event. 
