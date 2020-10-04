@@ -2,8 +2,8 @@
 #code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
 #code modified to work with Python 3 by @aneagoie
 from PIL import Image
-import os
-import sys
+
+
 ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
 help_msg = """
@@ -16,6 +16,8 @@ Options:
 """
 
 
+import os
+import sys
 
 image_file_path = sys.argv[1]
 
@@ -148,7 +150,25 @@ def check_inputs():
 
 
 if __name__=='__main__':
-    import sys
+    image_file_path = sys.argv[1]
+    if sys.argv[2]:
+        handle_image_conversion(image_file_path, 1)
+    print(image_file_path)
+    handle_image_conversion(image_file_path, 0)
+
+    image_file_path = sys.argv[1]
+    if sys.argv[2]:
+        handle_image_conversion(image_file_path, 1)
+    print(image_file_path)
+    handle_image_conversion(image_file_path, 0)
+
+
+    image_file_path = sys.argv[1]
+    if sys.argv[2]:
+        handle_image_conversion(image_file_path, 1)
+    print(image_file_path)
+    handle_image_conversion(image_file_path, 0)
+
     todo = check_inputs()
     ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
