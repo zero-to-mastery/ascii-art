@@ -3,6 +3,7 @@
 # code modified to work with Python 3 by @aneagoie
 from __future__ import division
 import os
+import sys
 
 from PIL import Image
 from asciimatics.effects import Print, Clock
@@ -12,8 +13,9 @@ from asciimatics.screen import Screen
 from asciimatics.exceptions import ResizeScreenError
 
 import pyfiglet
-import sys, time #used for displaying running text
-import pygame #used for sound for running text
+import time  # used for displaying running text
+import pygame  # used for sound for running text
+
 help_msg = """
 Usage  : python community-version.py [option] [input_file] [color]
 Options:
@@ -41,6 +43,8 @@ Usage  : python community-version.py clock
 
     
 """
+
+
 def scale_image(image, new_width=100):
     """Resizes an image preserving the aspect ratio.
     """
@@ -119,7 +123,7 @@ def color_change():
         return "none"
 
 
-def colorText(text):
+def color_text(text):
     COLORS = {
         "black": "\u001b[30;1m",
         "red": "\u001b[31;1m",
@@ -129,7 +133,6 @@ def colorText(text):
         "magenta": "\u001b[35m",
         "cyan": "\u001b[36m",
         "white": "\u001b[37m",
-
     }
     for color in COLORS:
         text = text.replace("[[" + color + "]]", COLORS[color])
@@ -153,17 +156,18 @@ def handle_image_conversion(image_filepath, arg=""):
         os.system("cls")
         color = color_change()
         text = f"[[{color}]]" + image_ascii + "[[white]]"
-        print(colorText(text))
+        print(color_text(text))
 
     if arg == "-s":
         output_name = image_file_path.split('.')[0] + "_output.txt"
         try:
             f = open(output_name, "w")
             f.write(image_ascii)
-            f.close
+            f.close()
             print(f"Image saved to -> {output_name}")
-        except:
+        except (OSError, IOError) as e:
             print("An error occured!")
+            print(e)
             return False
 
 
@@ -189,25 +193,27 @@ def check_inputs():
     else:
         return ""
 
+
 def demo(screen):
     effects = [
         Print(screen, Rainbow(screen, FigletText("Hacktoberfest")),
-              y=screen.height//2 - 8),
+              y=screen.height // 2 - 8),
         Print(screen, Rainbow(screen, FigletText("ASCII Art 2020")),
-              y=screen.height//2 + 3),
-        Clock(screen, screen.width//2, screen.height//2, screen.height//2),
+              y=screen.height // 2 + 3),
+        Clock(screen, screen.width // 2, screen.height // 2, screen.height // 2),
     ]
     screen.play([Scene(effects, -1)], stop_on_resize=True)
     screen.refresh()
 
 
-#this is message ie the running text
+# this is message ie the running text
 message = "We The Members Of ZTM Community Will Grab That Tshirt By Showcasing Our Efforts In HacktoberFest "
 
-#typerwriter is the method for running the text
+
+# typerwriter is the method for running the text
 def typewriter(message):
-    #the spaces are for format on the splash screen 
-    print(pyfiglet.figlet_format("   zTm ", font = "doh").rstrip())
+    # the spaces are for format on the splash screen
+    print(pyfiglet.figlet_format("   zTm ", font="doh").rstrip())
     print(pyfiglet.figlet_format("Community Presents -- "))
     print(pyfiglet.figlet_format("                           ASCII ART"))
     # print(pyfiglet.figlet_format("==> "))
@@ -215,21 +221,18 @@ def typewriter(message):
     for char in message:
         sys.stdout.write(char)
         sys.stdout.flush()
-        if char!= '\n':
+        if char != '\n':
             time.sleep(0.1)
         else:
             time.sleep(1)
 
 
-
 if __name__ == '__main__':
- 	
-    import sys
     pygame.mixer.init()
-    pygame.mixer.music.load("typewriter.wav") #run typewriter sound file
+    pygame.mixer.music.load("typewriter.wav")  # run typewriter sound file
     pygame.mixer.music.play(loops=-1)
-    os.system('cls') #used for clearing the screen output
-    typewriter(message) #calling the typewriter function
+    os.system('cls')  # used for clearing the screen output
+    typewriter(message)  # calling the typewriter function
     pygame.mixer.music.stop()
     pygame.mixer.quit()
     arguments = [x for x in sys.argv]
@@ -254,18 +257,18 @@ if __name__ == '__main__':
                 try:
                     f = open(im, "w")
                     f.write(image_ascii)
-                    f.close
+                    f.close()
                     print(f"Image saved to -> {im}")
-                except:
+                except (OSError, IOError) as e:
                     print("An error occured!")
+                    print(e)
 
     elif len(arguments) == 2 and arguments[1] == "clock":
-
-    		try:
-        		Screen.wrapper(demo)
-        		sys.exit(0)
-    		except ResizeScreenError:
-        		pass
+        try:
+            Screen.wrapper(demo)
+            sys.exit(0)
+        except ResizeScreenError:
+            pass
 
     else:
 
