@@ -1,0 +1,19 @@
+In program file asciiart.py,any given image can be converted to an artistic ASCII colored image.
+
+Requirements:
+
+1.Must have python installed on your system along with pillow python package.
+
+2.Run the program with following command:
+
+STEP1:$python asciiart.py
+
+Command prompt will ask : Enter the image path: 
+
+STEP2:provide image path as
+
+Enter the image path: lena.jpg
+
+STEP3:output image will be saved in same directory with name as output.png
+
+
