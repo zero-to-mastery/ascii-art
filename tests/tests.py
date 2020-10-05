@@ -48,5 +48,6 @@ class Testing(unittest.TestCase):
     def test_10_all_supported_files(self):
         self.assertIs(type(community_file.all_supported_files()),list)
 
+
 if __name__ == '__main__':
     unittest.main()
