@@ -240,27 +240,6 @@ def cli(input_files, reverse, save, output, width, credits, clock, all, color):
     if not input_files:
         print("There is no image...please make sure that there is image for convert!")
 
-<<<<<<< HEAD
-        if todo == "":
-            image_file_path = sys.argv[1]
-            print(image_file_path)
-            handle_image_conversion(image_file_path)
-        elif todo == '-r':
-            ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
-            image_file_path = sys.argv[2]
-            print(image_file_path)
-            handle_image_conversion(image_file_path)
-        elif todo == "-s":
-            image_file_path = sys.argv[2]
-            print(image_file_path)
-            handle_image_conversion(image_file_path, "-s")
-        elif todo == "-rs":
-            ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
-            image_file_path = sys.argv[2]
-            print(image_file_path)
-            handle_image_conversion(image_file_path, "-s")
-=======
 
 if __name__ == '__main__':
     cli()
->>>>>>> 5f595f98f5e9db661e3a8f419396ed9cbd557798
