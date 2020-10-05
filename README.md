@@ -23,7 +23,7 @@ In order to get started on this project, it is recommended that you watch the se
     - `git pull upstream master`
     - The above 2 commands will synchronize your forked version of the project with the actual repository.
 4. Make sure you have Python 3 installed on your machine
-5. Install [Pillow library](https://pillow.readthedocs.io/en/stable/installation.html), for example with `pip`:
+5. Install project dependencies:
     ```bash
     pip install -r requirements.txt
     ```
@@ -37,6 +37,7 @@ Now that you see how this command line tool works, let's see how we can evolve i
 The options are endless and there is no wrong answer. This is all for fun, so try to customize the tool whichever way you think would be best and let's see what we get at the end of the month! Enjoy! 
 
 1. Examine the code in `community-version.py`, figure out what improvements your fellow community members have made. 
+    > Run `python community-version.py --help` to see how the program works and play around with it.
 2. Make an improvement, it doesnt have to be elaborate
 3. Create a pull request
 4. [Tweet about making your first Hacktoberfest pull request](https://ctt.ac/bbIct)

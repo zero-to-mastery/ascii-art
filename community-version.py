@@ -8,6 +8,10 @@ import os
 import sys
 import time
 
+# Silence pygame message. This must precede the lib import
+from os import environ
+environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
+
 import click
 import pyfiglet
 import pygame
