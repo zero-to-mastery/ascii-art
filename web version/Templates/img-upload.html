@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>image to ascii converter</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+
+            <h1>Upload an image</h1>
+            <hr>
+            <form action="/" method="POST" enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <label>Select image</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="image" id="image" oninput="filesize(this);">
+                        <label class="custom-file-label" for="image">Select image...</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Upload</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function filesize(elem){
+        document.cookie = `filesize=${elem.files[0].size}`
+    }
+</script>
+</html>

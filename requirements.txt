@@ -1,3 +1,5 @@
+werkzeug
+flask
 asciimatics==1.11.0
 click==7.1.2
 future==0.18.2
