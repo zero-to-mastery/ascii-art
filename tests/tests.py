@@ -49,5 +49,19 @@ class Testing(unittest.TestCase):
         self.assertIs(type(community_file.all_supported_files()),list)
 
 
+# pytest - simple examples:
+def test_ascii_chars():
+    ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
+    assert ASCII_CHARS == community_file.ASCII_CHARS
+
+def test_color_options():
+    COLOR_OPTIONS = ['black', 'blue', 'cyan', 'green', 'magenta', 'red', 'white', 'yellow']
+    assert COLOR_OPTIONS == community_file.COLOR_OPTIONS
+
+def test_supported_image_types():
+    SUPPORTED_IMAGE_TYPES = ('.png', '.jpeg', '.jpg')
+    assert SUPPORTED_IMAGE_TYPES == community_file.SUPPORTED_IMAGE_TYPES
+
+
 if __name__ == '__main__':
     unittest.main()
