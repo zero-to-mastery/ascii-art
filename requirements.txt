@@ -4,4 +4,8 @@ future==0.18.2
 Pillow==7.2.0
 pyfiglet==0.8.post1
 pygame==2.0.0.dev6
+
+
+
 wcwidth==0.2.5
+pyjokes
