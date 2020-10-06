@@ -21,7 +21,7 @@ See the report:
 `coverage report`
 
 See the report in html with a view of what was tested:
-```cov
+```
 coverage html
 (this command will create a folder 'htmlcov' with the test report in html)
 ```
