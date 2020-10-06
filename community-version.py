@@ -18,6 +18,8 @@ from asciimatics.renderers import FigletText, Rainbow
 from asciimatics.scene import Scene
 from asciimatics.screen import Screen
 import random
+import pyjokes
+
 
 ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 COLOR_OPTIONS = ['black', 'blue', 'cyan', 'green', 'magenta', 'red', 'white', 'yellow']
@@ -25,7 +27,6 @@ SUPPORTED_IMAGE_TYPES = ('.png', '.jpeg', '.jpg')
 
 
 
-import pyjokes #return running random jokes at every starting of the code
 help_msg = """
 Usage  : python community-version.py [option] [input_file] [color]
 Options:
@@ -33,7 +34,7 @@ Options:
     -r   reverse the ASCII_CHARS
     -s   save the output to file (by default the output file is [input_file]_output.txt)
     -rs  save the reversed output to file
-    
+
 Colors:
     "black"
     "red"
@@ -43,7 +44,7 @@ Colors:
     "magenta"
     "cyan"
     "white"
-    
+
 Or you can convert multiple images at once in current directory like this:
 Usage  : python community-version.py all
 
@@ -51,7 +52,7 @@ You can type clock to show clock as a colorful animation:
 Usage  : python community-version.py clock
 < resize the terminal or press "q" or "x" to exit the clock >
 
-    
+
 """
 
 def scale_image(image, new_width=100):
@@ -139,10 +140,6 @@ def demo(screen):
     screen.refresh()
 
 
-
-
-
-
 def show_clock():
     try:
         Screen.wrapper(demo)
@@ -150,7 +147,9 @@ def show_clock():
     except ResizeScreenError:
         pass
 
-message = (pyjokes.get_joke()) #this is message ie the running text obtained from pyjokes library function
+
+def get_joke():
+    return pyjokes.get_joke())
 
 
 
