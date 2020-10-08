@@ -24,6 +24,7 @@ import pyjokes
 ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 COLOR_OPTIONS = ['black', 'blue', 'cyan', 'green', 'magenta', 'red', 'white', 'yellow']
 SUPPORTED_IMAGE_TYPES = ('.png', '.jpeg', '.jpg')
+font = ['alligator', 'slant', '3-d', '3x5','5lineoblique','banner3-D'] 
 
 
 
@@ -60,7 +61,7 @@ def scale_image(image, new_width=100):
     """
     (original_width, original_height) = image.size
     aspect_ratio = original_height / float(original_width)
-    new_height = int(aspect_ratio * new_width)
+    new_height = int(aspect_ratio * new_width * 0.5)
 
     new_image = image.resize((new_width, new_height))
     return new_image
@@ -148,8 +149,10 @@ def show_clock():
         pass
 
 
+
 def get_joke():
     return pyjokes.get_joke())
+
 
 
 
@@ -169,6 +172,12 @@ def typewriter(message):
             time.sleep(0.1)
         else:
             time.sleep(1)
+
+
+def ascii_text(): #function to convert simple text into random font ascii format text
+    text = str(input('\n Enter The Text To Convert To Ascii-Art \n'))
+    print(pyfiglet.figlet_format(text, font = random.choice(font)).rstrip())
+     
 
 
 def is_supported(path):
@@ -206,7 +215,7 @@ def output_name(input):
 
 def show_credits():
     """Show credits"""
-    message = "We The Members Of ZTM Community Will Grab That Tshirt By Showcasing Our Efforts In HacktoberFest "
+    message = (pyjokes.get_joke()) #this is message ie the running text obtained from pyjokes library function
     pygame.mixer.init()
     pygame.mixer.music.load("typewriter.wav")
     pygame.mixer.music.play(loops=-1)
@@ -259,7 +268,8 @@ def process(input_file, reverse=False, save=False, output=None, width=None, colo
 @click.option('--all', is_flag=True, help='convert all supported files')
 @click.option('-c', '--color', type=click.Choice(COLOR_OPTIONS, case_sensitive=False), default='black',
               help='Set output color')
-def cli(input_files, reverse, save, output, width, credits, clock, all, color):
+@click.option('--text', is_flag=True, help='Convert Simple Text Into Ascii Text Format, Enter Text After Prompt')
+def cli(input_files, reverse, save, output, width, credits, clock, all, color,text):
     if clock:
         show_clock()
         return
@@ -269,6 +279,9 @@ def cli(input_files, reverse, save, output, width, credits, clock, all, color):
 
     if all:
         input_files = all_supported_files()
+
+    if text:
+        ascii_text()
 
     for file in input_files:
         process(file, reverse=reverse, save=save, output=output, width=width, color=color.lower())
