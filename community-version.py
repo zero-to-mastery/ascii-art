@@ -151,7 +151,7 @@ def show_clock():
 
 
 def get_joke():
-    return pyjokes.get_joke())
+    return pyjokes.get_joke()
 
 
 
