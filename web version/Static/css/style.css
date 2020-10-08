@@ -1,0 +1,12 @@
+.acimg {
+    background-color: white;
+    padding: 10px; 
+    background-repeat: no-repeat;
+}
+
+.actxt {
+    text-align: center;
+    color: blue;
+    font-size: 8px;
+    font-family: "Bitstream Vera Sans Mono", monospace;
+}

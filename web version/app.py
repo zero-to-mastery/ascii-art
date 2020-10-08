@@ -3,7 +3,6 @@ from pathlib import Path
 from flask import Flask, render_template, request, redirect
 from werkzeug.utils import secure_filename
 
-
 import sys
 sys.path.append('../')
 from oop_version.make_art_oo import ConvertImageToASCII
