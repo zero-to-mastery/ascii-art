@@ -25,10 +25,10 @@ import pyjokes
 
 
 ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
-COLOR_OPTIONS = ['black', 'blue', 'cyan', 'green', 'magenta', 'red', 'white', 'yellow']
+COLOR_OPTIONS = ['black', 'blue', 'cyan',
+                 'green', 'magenta', 'red', 'white', 'yellow']
 SUPPORTED_IMAGE_TYPES = ('.png', '.jpeg', '.jpg')
-font = ['alligator', 'slant', '3-d', '3x5','5lineoblique','banner3-D'] 
-
+font = ['alligator', 'slant', '3-d', '3x5', '5lineoblique', 'banner3-D']
 
 
 
@@ -87,6 +87,7 @@ def save_ascii_art(image_ascii_art):
 
 
 
+
 def scale_image(image, new_width=100):
     """Resizes an image preserving the aspect ratio.
     """
@@ -103,18 +104,19 @@ def convert_to_grayscale(image):
 
 
 def map_pixels_to_ascii_chars(image, reverse, range_width=25):
-        """Maps each pixel to an ascii char based on the range
-        in which it lies.
-        0-255 is divided into 11 ranges of 25 pixels each.
-        """
+    """Maps each pixel to an ascii char based on the range
+    in which it lies.
+    0-255 is divided into 11 ranges of 25 pixels each.
+    """
 
-        # We make a local copy on reverse so we don't modify the global array.
-        ascii_chars = ASCII_CHARS if not reverse else ASCII_CHARS[::-1]
+    # We make a local copy on reverse so we don't modify the global array.
+    ascii_chars = ASCII_CHARS if not reverse else ASCII_CHARS[::-1]
 
-        pixels_in_image = list(image.getdata())
-        pixels_to_chars = [ascii_chars[int(pixel_value / range_width)] for pixel_value in pixels_in_image]
+    pixels_in_image = list(image.getdata())
+    pixels_to_chars = [
+        ascii_chars[int(pixel_value / range_width)] for pixel_value in pixels_in_image]
 
-        return "".join(pixels_to_chars)
+    return "".join(pixels_to_chars)
 
 
 def convert_image_to_ascii(image, reverse=False, new_width=None):
@@ -127,7 +129,7 @@ def convert_image_to_ascii(image, reverse=False, new_width=None):
     len_pixels_to_chars = len(pixels_to_chars)
 
     image_ascii = [pixels_to_chars[index: index + new_width] for index in
-            range(0, len_pixels_to_chars, new_width)]
+                   range(0, len_pixels_to_chars, new_width)]
 
     return "\n".join(image_ascii)
 
@@ -180,18 +182,15 @@ def show_clock():
         pass
 
 
-
 def get_joke():
-    return pyjokes.get_joke())
+    return pyjokes.get_joke()
 
 
-
-
-#typerwriter is the method for running the text
+# typerwriter is the method for running the text
 def typewriter(message):
-    #the spaces are for format on the splash screen
-    font = ['alligator', 'slant', '3-d', '3x5','5lineoblique','banner3-D']
-    print(pyfiglet.figlet_format("   zTm ", font = random.choice(font)).rstrip())
+    # the spaces are for format on the splash screen
+    font = ['alligator', 'slant', '3-d', '3x5', '5lineoblique', 'banner3-D']
+    print(pyfiglet.figlet_format("   zTm ", font=random.choice(font)).rstrip())
     print(pyfiglet.figlet_format("Community Presents -- "))
     print(pyfiglet.figlet_format("                           ASCII ART"))
     # print(pyfiglet.figlet_format("==> "))
@@ -199,10 +198,11 @@ def typewriter(message):
     for char in message:
         sys.stdout.write(char)
         sys.stdout.flush()
-        if char!= '\n':
+        if char != '\n':
             time.sleep(0.1)
         else:
             time.sleep(1)
+
 
 
 if __name__=='__main__':
@@ -218,11 +218,12 @@ if __name__ == '__main__':
  	
     import sys
 
-=======
 def ascii_text(): #function to convert simple text into random font ascii format text
+
+def ascii_text():  # function to convert simple text into random font ascii format text
+
     text = str(input('\n Enter The Text To Convert To Ascii-Art \n'))
-    print(pyfiglet.figlet_format(text, font = random.choice(font)).rstrip())
-     
+    print(pyfiglet.figlet_format(text, font=random.choice(font)).rstrip())
 
 
 def is_supported(path):
@@ -260,7 +261,12 @@ def output_name(input):
 
 def show_credits():
     """Show credits"""
+
     message = (pyjokes.get_joke()) #this is message ie the running text obtained from pyjokes library function
+
+
+    message = (pyjokes.get_joke(
+    ))  # this is message ie the running text obtained from pyjokes library function
 
     pygame.mixer.init()
     pygame.mixer.music.load("typewriter.wav")
@@ -315,7 +321,7 @@ def process(input_file, reverse=False, save=False, output=None, width=None, colo
 @click.option('-c', '--color', type=click.Choice(COLOR_OPTIONS, case_sensitive=False), default='black',
               help='Set output color')
 @click.option('--text', is_flag=True, help='Convert Simple Text Into Ascii Text Format, Enter Text After Prompt')
-def cli(input_files, reverse, save, output, width, credits, clock, all, color,text):
+def cli(input_files, reverse, save, output, width, credits, clock, all, color, text):
     if clock:
         show_clock()
         return
@@ -330,7 +336,8 @@ def cli(input_files, reverse, save, output, width, credits, clock, all, color,te
         ascii_text()
 
     for file in input_files:
-        process(file, reverse=reverse, save=save, output=output, width=width, color=color.lower())
+        process(file, reverse=reverse, save=save,
+                output=output, width=width, color=color.lower())
     if not input_files:
         print("There is no image...please make sure that there is image for convert!")
 
