@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>image to ascii converter</title>
+    <link rel="stylesheet" href="../static/style.css">
 </head>
+
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col">
-
-            <h1>Upload an image</h1>
-            <hr>
-            <form action="/" method="POST" enctype="multipart/form-data">
-
-                <div class="form-group">
-                    <label>Select image</label>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="image" id="image" oninput="filesize(this);">
-                        <label class="custom-file-label" for="image">Select image...</label>
+    <div class="container">
+        <h1>ASCII ART GENERATOR</h1>
+        <div class="file-overlay">
+            <div class="file-wrapper">
+                <form action="/" method="POST" enctype="multipart/form-data">
+                    <div class="file-content">
+                        <input type="file" name="image" id="image" class="inputfile" oninput="filesize(this);">
+                        <label for="image" class="file-select">
+                            <img src="../static/assets/file-upload-solid.svg" alt="file upload button">
+                            <p>Click to Upload a File</p>
+                        </label>
                     </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Upload</button>
-
-            </form>
-
+                    <div class="file-functions">
+                        <p class="file-name">No file selected</p>
+                        <button type="submit">Convert</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 </body>
 <script>
     function filesize(elem){
