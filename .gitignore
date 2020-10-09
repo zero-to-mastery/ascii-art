@@ -10,3 +10,4 @@ tests/.coverage
 tests/__pycache__/
 tests/test
 tests/.pytest_cache/
+.vscode/
