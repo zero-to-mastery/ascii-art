@@ -1,0 +1,10 @@
+
+HOW DO ASCII ART IMAGE CONVERSION ALFORITHMS WORK?
+
+1.Scaling of a given image to a standard resolution that suitably represents the ASCII version of a given image is done.
+
+2. The scaled version is then converted to a grayscale image. In a grayscale image, there are 256 shades of gray, or in other words, each pixel carries only the intensity information which is represented by an 8 bit value. 
+
+3.A pixel with a value of 0 is assumed to be black and the one with 255 is assumed to be white. We divide the whole range of 0-255 into 11 smaller ranges of 25 pixels each and then assign each pixel a character according to the range it falls in. 
+
+4.The point is to assign a group of pixels with slightly varying intensity the same ASCII char. We use the PIL library to play with the images. The code make_art.py is almost self explanatory. The default char mapping and resolution doesn't render good ASCII arts for every image size and modifying the char mapping and image size to the one that best represents the given image.
