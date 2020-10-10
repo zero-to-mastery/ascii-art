@@ -1,6 +1,13 @@
 .idea/
 **/__pycache__
 venv/
-# Guard against commiting generated ascii files
+# Guard against committing generated ascii files
 *.txt
 !requirements.txt
+# Guard against committing test coverage files and folders
+tests/htmlcov/
+tests/.coverage
+tests/__pycache__/
+tests/test
+tests/.pytest_cache/
+.vscode/
