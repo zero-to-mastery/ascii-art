@@ -8,135 +8,36 @@ import os
 import sys
 import time
 
-# Silence pygame message. This must precede the lib import
-from os import environ
-environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
-
 import click
 import pyfiglet
-import pygame
-from PIL import Image
-
-ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
+import pyjokes
+import random
 
 from asciimatics.effects import Print, Clock
 from asciimatics.exceptions import ResizeScreenError
 from asciimatics.renderers import FigletText, Rainbow
 from asciimatics.scene import Scene
 from asciimatics.screen import Screen
-import random
-import pyjokes
+from PIL import Image
 
+# Silence pygame message. This must precede the lib import
+from os import environ
+environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
+import pygame
 
 ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
-COLOR_OPTIONS = ['black', 'blue', 'cyan',
-                 'green', 'magenta', 'red', 'white', 'yellow']
+COLOR_OPTIONS = ['black', 'blue', 'cyan', 'green', 'magenta', 'red', 'white', 'yellow']
+FONTS = ['alligator', 'slant', '3-d', '3x5', '5lineoblique', 'banner3-D']
 SUPPORTED_IMAGE_TYPES = ('.png', '.jpeg', '.jpg')
-font = ['alligator', 'slant', '3-d', '3x5', '5lineoblique', 'banner3-D']
-
-
-
-
-
-ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
-
-import pyfiglet
-
-import sys, time #used for displaying running text
-import pygame #used for sound for running text
-
-help_msg = """
-Usage  : python community-version.py [option] [input_file] [color]
-Options:
-         no options will run the default ASCII_CHARS
-    -r   reverse the ASCII_CHARS
-    -s   save the output to file (by default the output file is [input_file]_output.txt)
-    -rs  save the reversed output to file
-
-Colors:
-    "black"
-    "red"
-    "green"
-    "yellow"
-    "blue"
-    "magenta"
-    "cyan"
-    "white"
-
-Or you can convert multiple images at once in current directory like this:
-Usage  : python community-version.py all
-
-You can type clock to show clock as a colorful animation:
-Usage  : python community-version.py clock
-< resize the terminal or press "q" or "x" to exit the clock >
-"""
-
-import os
-import sys
-
-image_file_path = sys.argv[1]
-
-
-def save_ascii_art(image_ascii_art):
-    """
-    saving the ascii art 
-    """
-    image_output_folder = ""
-    file_name=""
-    
-    try:        
-        try:
-            image_output_folder = sys.argv[2]
-            file_path = os.path.split(image_file_path)[1]
-            file_name = os.path.splitext(file_path)[0]
-        except:
-            image_output_folder="ztm-ascii"
-            file_name="ztm-default-ascii"
-
-        if not os.path.exists(image_output_folder):
-            os.makedirs(image_output_folder)
-
-        with open(f"{image_output_folder}/{file_name}.txt", mode='w') as my_file:
-            my_file.write(image_ascii_art)
-    except ValueError:
-        print('please check image is converted to image ascii art.')
-
-
-
-import sys
-
-image_file_path = sys.argv[1]
-
-def save_ascii_art(image_ascii_art):
-    """
-    saving the ascii art 
-    """
-    try:
-        image_output_folder = sys.argv[2]
-        file_path = os.path.split(image_file_path)[1]
-        file_name = os.path.splitext(file_path)[0]
-
-        if not os.path.exists(image_output_folder):
-            os.makedirs(image_output_folder)
-
-        with open(f"{image_output_folder}/{file_name}.txt", mode='w') as my_file:
-            my_file.write(image_ascii_art)
-    except ValueError:
-        print('please check image is converted to image ascii art.')
-
-
-
 
 
 def scale_image(image, new_width=100):
-    """Resizes an image preserving the aspect ratio.
-    """
+    """Resizes an image preserving the aspect ratio."""
     (original_width, original_height) = image.size
     aspect_ratio = original_height / float(original_width)
     new_height = int(aspect_ratio * new_width * 0.5)
 
-    new_image = image.resize((new_width, new_height), Image.ANTIALIAS)
-    return new_image
+    return image.resize((new_width, new_height), Image.ANTIALIAS)
 
 
 def convert_to_grayscale(image):
@@ -171,8 +72,6 @@ def convert_image_to_ascii(image, reverse=False, new_width=None):
     image_ascii = [pixels_to_chars[index: index + new_width] for index in
                    range(0, len_pixels_to_chars, new_width)]
 
-    save_ascii_art(image_ascii)
-
     return "\n".join(image_ascii)
 
 
@@ -193,15 +92,16 @@ def colorText(text):
     return text
 
 
-def handle_image_conversion(image_filepath, reverse, width):
+def open_image(path: str) -> Image:
+    """
+    Wrapper for creation of an Image.
+    We just use this to handle errors when opening the file.
+    """
     try:
-        image = Image.open(image_filepath)
+        return Image.open(path)
     except Exception as e:
-        print(f"Unable to open image file {image_filepath}.")
-        print(e)
+        print(f"Unable to open image file {path}.\n{e}")
         return None
-
-    return convert_image_to_ascii(image, reverse, width)
 
 
 def demo(screen):
@@ -231,8 +131,7 @@ def get_joke():
 # typerwriter is the method for running the text
 def typewriter(message):
     # the spaces are for format on the splash screen
-    font = ['alligator', 'slant', '3-d', '3x5', '5lineoblique', 'banner3-D']
-    print(pyfiglet.figlet_format("   zTm ", font=random.choice(font)).rstrip())
+    print(pyfiglet.figlet_format("   zTm ", font=random.choice(FONTS)).rstrip())
     print(pyfiglet.figlet_format("Community Presents -- "))
     print(pyfiglet.figlet_format("                           ASCII ART"))
     # print(pyfiglet.figlet_format("==> "))
@@ -245,50 +144,18 @@ def typewriter(message):
         else:
             time.sleep(1)
 
-if __name__=='__main__':
-    image_file_path = sys.argv[1]
-    if sys.argv[2]:
-        handle_image_conversion(image_file_path, 1)
-    print(image_file_path)
-    handle_image_conversion(image_file_path, 0)
 
-    image_file_path = sys.argv[1]
-    if sys.argv[2]:
-        handle_image_conversion(image_file_path, 1)
-    print(image_file_path)
-    handle_image_conversion(image_file_path, 0)
-
-
-    image_file_path = sys.argv[1]
-    if sys.argv[2]:
-        handle_image_conversion(image_file_path, 1)
-    print(image_file_path)
-    handle_image_conversion(image_file_path, 0)
-
-
-
-if __name__=='__main__':
-
-    image_file_path = sys.argv[1]
-    if sys.argv[2]:
-        handle_image_conversion(image_file_path, 1)
-    print(image_file_path)
-    handle_image_conversion(image_file_path, 0)
-
-
-if __name__ == '__main__':
- 	
-    import sys
-
-def ascii_text(): #function to convert simple text into random font ascii format text
-
-def ascii_text():  # function to convert simple text into random font ascii format text
-
+def ascii_text():
+    """Converts simple text into random font ascii format text"""
     text = str(input('\n Enter The Text To Convert To Ascii-Art \n'))
-    print(pyfiglet.figlet_format(text, font=random.choice(font)).rstrip())
+    print(pyfiglet.figlet_format(text, font=random.choice(FONTS)).rstrip())
 
 
 def is_supported(path):
+    """
+    Returns True if given path points to a supported image,
+            False otherwise
+    """
     if not path:
         return False
     _, ext = os.path.splitext(path)
@@ -296,7 +163,11 @@ def is_supported(path):
 
 
 def check_file(path):
-    """Check if the path leads to a supported image supported"""
+    """
+    Does validation.
+    Check if the given path leads to a supported image type. It exits the program (with printed message) if
+    the image is unsupported.
+    """
     if not is_supported(path):
         print(f"{path} is not supported")
         print("Supported file types: ", end='')
@@ -317,18 +188,16 @@ def write_file(ascii, filename):
 
 
 def output_name(input):
-    """Works out the ascii filename from the input name"""
+    """
+    Works out the ascii filename from the input name.
+    It'll attempt to save the output in the same directory as that of the input file.
+    """
     return f"{os.path.splitext(input if input else '')[0]}_output.txt"
 
 
 def show_credits():
     """Show credits"""
-
-    message = (pyjokes.get_joke()) #this is message ie the running text obtained from pyjokes library function
-
-
-    message = (pyjokes.get_joke(
-    ))  # this is message ie the running text obtained from pyjokes library function
+    message = (pyjokes.get_joke())  # this is message ie the running text obtained from pyjokes library function
 
     pygame.mixer.init()
     pygame.mixer.music.load("typewriter.wav")
@@ -337,66 +206,6 @@ def show_credits():
     typewriter(message)
     pygame.mixer.music.stop()
     pygame.mixer.quit()
-
-    arguments = [x for x in sys.argv]
-    todo = check_inputs()
-    ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
-
-    image_file_path = ""
-
-    try:
-        image_file_path = sys.argv[2]
-    except:
-        image_file_path = "ztm-ascii/ztm-default-ascii.txt"
-
-    if todo == "":
-        image_file_path = sys.argv[1]
-        print(image_file_path)
-        handle_image_conversion(image_file_path)
-    elif todo == '-r':
-        ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
-        print(image_file_path)
-        handle_image_conversion(image_file_path)
-    elif todo == "-s":
-        print(image_file_path)
-        handle_image_conversion(image_file_path, "-s")
-    elif todo == "-rs":
-        ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
-        print(image_file_path)
-        handle_image_conversion(image_file_path, "-s")
-    ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
-
-    if len(arguments) == 2 and arguments[1] == "all":
-        arr = os.listdir()
-        listOfImages = []
-        for i in arr:
-            if i.lower().endswith(('.png', '.jpg')):
-                listOfImages.append(i)
-        if len(listOfImages) == 0:
-            print("There is no image...please make sure that there is image for convert!")
-        else:
-            for images in listOfImages:
-                image = Image.open(images)
-                image_ascii = convert_image_to_ascii(image)
-                print(image_ascii)
-                im = images[:-4]
-                im = im + ".txt"
-                try:
-                    f = open(im, "w")
-                    f.write(image_ascii)
-                    f.close
-                    print(f"Image saved to -> {im}")
-                except:
-                    print("An error occured!")
-
-    elif len(arguments) == 2 and arguments[1] == "clock":
-
-    		try:
-        		Screen.wrapper(demo)
-        		sys.exit(0)
-    		except ResizeScreenError:
-        		pass
-
 
 
 def all_supported_files():
@@ -416,7 +225,8 @@ def process(input_file, reverse=False, save=False, output=None, width=None, colo
     save = save or (output is not None)
     if save and not output:
         output = output_name(input_file)
-    ascii_str = handle_image_conversion(input_file, reverse, width)
+    image = open_image(input_file)
+    ascii_str = convert_image_to_ascii(image, reverse, width)
 
     if save:
         if write_file(ascii_str, output):
@@ -443,7 +253,15 @@ def process(input_file, reverse=False, save=False, output=None, width=None, colo
 @click.option('-c', '--color', type=click.Choice(COLOR_OPTIONS, case_sensitive=False), default='black',
               help='Set output color')
 @click.option('--text', is_flag=True, help='Convert Simple Text Into Ascii Text Format, Enter Text After Prompt')
-def cli(input_files, reverse, save, output, width, credits, clock, all, color, text):
+@click.option('--types', is_flag=True, help='list supported image formats and exit.')
+def cli(input_files, reverse, save, output, width, credits, clock, all, color, text, types):
+    """
+    Processes the command-line arguments and starts the relevant processes.
+    Arguments shouldn't be accessed beyond this function.
+    """
+    if types:
+        print(', '.join(SUPPORTED_IMAGE_TYPES))
+        return
     if clock:
         show_clock()
         return
@@ -456,34 +274,14 @@ def cli(input_files, reverse, save, output, width, credits, clock, all, color, t
 
     if text:
         ascii_text()
-
-
-        if todo == "":
-            image_file_path = sys.argv[1]
-            print(image_file_path)
-            handle_image_conversion(image_file_path)
-        elif todo == '-r':
-            ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
-            image_file_path = sys.argv[2]
-            print(image_file_path)
-            handle_image_conversion(image_file_path)
-        elif todo == "-s":
-            image_file_path = sys.argv[2]
-            print(image_file_path)
-            handle_image_conversion(image_file_path, "-s")
-        elif todo == "-rs":
-            ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@'][::-1]
-            image_file_path = sys.argv[2]
-            print(image_file_path)
-            handle_image_conversion(image_file_path, "-s")
+        return
 
     for file in input_files:
         process(file, reverse=reverse, save=save,
                 output=output, width=width, color=color.lower())
-    if not input_files:
-        print("There is no image...please make sure that there is image for convert!")
+    if not input_files and len(sys.argv) == 0:
+        print("Image not specified. Please specify image or add --help for help.")
 
 
 if __name__ == '__main__':
     cli()
-

@@ -38,8 +38,13 @@ The options are endless and there is no wrong answer. This is all for fun, so tr
 1. Examine the code in `community-version.py`, figure out what improvements your fellow community members have made. 
     > Run `python community-version.py --help` to see how the program works and play around with it.
 2. Make an improvement, it doesnt have to be elaborate
-3. Create a pull request
-4. [Tweet about making your first Hacktoberfest pull request](https://ctt.ac/bbIct)
+3. Test the program to ensure you haven't broken the existing functionality (this will help you catch a lot of mistakes before making your changes public)
+4. Commit your changes and push to your remote repository
+```bash
+git push origin <branch>
+```
+5. Create a pull request
+6. [Tweet about making your first Hacktoberfest pull request](https://ctt.ac/bbIct)
 
 > Congratulations! You are now one pull request closer to getting that free t-shirt. Repeat these steps until you have made at least 4 qualifying pull requests. You can check how many qualifying pull requests you have made at <https://hacktoberfest.digitalocean.com/profile> Have Fun and Happy Coding!
 
