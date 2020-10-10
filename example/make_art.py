@@ -3,7 +3,33 @@
 # code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
 # code modified to work with Python 3 by @aneagoie
 from PIL import Image
+
+import os
+import sys
+
+ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
+
 ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
+
+
+image_file_path = sys.argv[1]
+
+def save_ascii_art(image_ascii_art):
+    """
+    saving the ascii art 
+    """
+    try:
+        image_output_folder = sys.argv[2]
+        file_path = os.path.split(image_file_path)[1]
+        file_name = os.path.splitext(file_path)[0]
+
+        if not os.path.exists(image_output_folder):
+            os.makedirs(image_output_folder)
+
+        with open(f"{image_output_folder}/{file_name}.txt", mode='w') as my_file:
+            my_file.write(image_ascii_art)
+    except ValueError:
+        print('please check image is converted to image ascii art.')
 
 
 def scale_image(image, new_width=100):
@@ -13,7 +39,8 @@ def scale_image(image, new_width=100):
     aspect_ratio = original_height/float(original_width)
     new_height = int(aspect_ratio * new_width)
 
-    new_image = image.resize((new_width, new_height))
+    new_image = image.resize((new_width, new_height), Image.ANTIALIAS)
+
     return new_image
 
 
@@ -45,7 +72,11 @@ def convert_image_to_ascii(image, new_width=100):
     image_ascii = [pixels_to_chars[index: index + new_width] for index in
                    range(0, len_pixels_to_chars, new_width)]
 
-    return "\n".join(image_ascii)
+    image_ascii_art = "\n".join(image_ascii)
+
+    save_ascii_art(image_ascii_art)
+
+    return image_ascii_art
 
 
 def handle_image_conversion(image_filepath):
@@ -61,9 +92,14 @@ def handle_image_conversion(image_filepath):
     print(image_ascii)
 
 
+if __name__=='__main__':
+
+
 if __name__ == '__main__':
     import sys
 
-    image_file_path = sys.argv[1]
+
     print(image_file_path)
     handle_image_conversion(image_file_path)
+
+

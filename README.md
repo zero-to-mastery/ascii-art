@@ -22,12 +22,19 @@ In order to get started on this project, it is recommended that you watch the se
     - `git remote add upstream https://github.com/zero-to-mastery/ascii-art.git`
     - `git pull upstream master`
     - The above 2 commands will synchronize your forked version of the project with the actual repository.
+4. Make sure you have [Python 3](https://www.python.org/downloads/) installed on your machine.
+5. Install [Pillow library](https://pillow.readthedocs.io/en/stable/installation.html)
+6. Run the  example code with the command: `python3 example/make_art.py example/ztm-logo.png`
 4. Make sure you have Python 3 installed on your machine
+
+5. Install [Pillow library](https://pillow.readthedocs.io/en/stable/installation.html)
+6. Run the  example code with the command: `python3 example/make_art.py example/ztm-logo.png`
 5. Install [Pillow library](https://pillow.readthedocs.io/en/stable/installation.html), for example with `pip`:
     ```bash
     pip install -r requirements.txt
     ```
 6. Run the  example code with the command: `python3 example/make_art.py ztm-logo.png`
+
 5. Stare with amazement 😮
 
 ## How to contribute?
