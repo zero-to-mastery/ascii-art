@@ -12,6 +12,9 @@ import click
 import pyfiglet
 import pygame
 from PIL import Image
+
+ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
+
 from asciimatics.effects import Print, Clock
 from asciimatics.exceptions import ResizeScreenError
 from asciimatics.renderers import FigletText, Rainbow
@@ -30,8 +33,8 @@ font = ['alligator', 'slant', '3-d', '3x5', '5lineoblique', 'banner3-D']
 
 
 
-ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
+ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
 import pyfiglet
 
@@ -85,6 +88,29 @@ def save_ascii_art(image_ascii_art):
         except:
             image_output_folder="ztm-ascii"
             file_name="ztm-default-ascii"
+
+        if not os.path.exists(image_output_folder):
+            os.makedirs(image_output_folder)
+
+        with open(f"{image_output_folder}/{file_name}.txt", mode='w') as my_file:
+            my_file.write(image_ascii_art)
+    except ValueError:
+        print('please check image is converted to image ascii art.')
+
+
+
+import sys
+
+image_file_path = sys.argv[1]
+
+def save_ascii_art(image_ascii_art):
+    """
+    saving the ascii art 
+    """
+    try:
+        image_output_folder = sys.argv[2]
+        file_path = os.path.split(image_file_path)[1]
+        file_name = os.path.splitext(file_path)[0]
 
         if not os.path.exists(image_output_folder):
             os.makedirs(image_output_folder)
@@ -236,7 +262,24 @@ if __name__=='__main__':
     handle_image_conversion(image_file_path, 0)
 
 
+
+if __name__=='__main__':
+
+    image_file_path = sys.argv[1]
+    if sys.argv[2]:
+        handle_image_conversion(image_file_path, 1)
+    print(image_file_path)
+    handle_image_conversion(image_file_path, 0)
+
+
+if __name__ == '__main__':
+ 	
+    import sys
+
+def ascii_text(): #function to convert simple text into random font ascii format text
+
 def ascii_text():  # function to convert simple text into random font ascii format text
+
     text = str(input('\n Enter The Text To Convert To Ascii-Art \n'))
     print(pyfiglet.figlet_format(text, font=random.choice(font)).rstrip())
 
@@ -276,8 +319,13 @@ def output_name(input):
 
 def show_credits():
     """Show credits"""
+
+    message = (pyjokes.get_joke()) #this is message ie the running text obtained from pyjokes library function
+
+
     message = (pyjokes.get_joke(
     ))  # this is message ie the running text obtained from pyjokes library function
+
     pygame.mixer.init()
     pygame.mixer.music.load("typewriter.wav")
     pygame.mixer.music.play(loops=-1)
