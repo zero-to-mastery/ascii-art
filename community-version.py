@@ -66,7 +66,7 @@ def convert_image_to_ascii(image, reverse=False, new_width=None):
     image = scale_image(image, new_width)
     image = convert_to_grayscale(image)
 
-    pixels_to_chars = map_pixels_to_ascii_chars(image, reverse, new_width)
+    pixels_to_chars = map_pixels_to_ascii_chars(image, reverse)
     len_pixels_to_chars = len(pixels_to_chars)
 
     image_ascii = [pixels_to_chars[index: index + new_width] for index in
