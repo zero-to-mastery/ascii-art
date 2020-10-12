@@ -18,24 +18,16 @@ In order to get started on this project, it is recommended that you watch the se
 1. First up you need to fork (make a copy) of this repo to your Github account.
 2. Clone (download) your fork to your computer
 3. Set your streams so you can sync your clone with the original repo (get the latest updates)
-
     - `git remote add upstream https://github.com/zero-to-mastery/ascii-art.git`
     - `git pull upstream master`
     - The above 2 commands will synchronize your forked version of the project with the actual repository.
 4. Make sure you have [Python 3](https://www.python.org/downloads/) installed on your machine.
-5. Install [Pillow library](https://pillow.readthedocs.io/en/stable/installation.html)
-6. Run the  example code with the command: `python3 example/make_art.py example/ztm-logo.png`
-4. Make sure you have Python 3 installed on your machine
-
-5. Install [Pillow library](https://pillow.readthedocs.io/en/stable/installation.html)
-6. Run the  example code with the command: `python3 example/make_art.py example/ztm-logo.png`
-5. Install [Pillow library](https://pillow.readthedocs.io/en/stable/installation.html), for example with `pip`:
+5. Install project dependencies:
     ```bash
     pip install -r requirements.txt
     ```
 6. Run the  example code with the command: `python3 example/make_art.py ztm-logo.png`
-
-5. Stare with amazement 😮
+7. Stare with amazement 😮
 
 ## How to contribute?
 
@@ -44,9 +36,15 @@ Now that you see how this command line tool works, let's see how we can evolve i
 The options are endless and there is no wrong answer. This is all for fun, so try to customize the tool whichever way you think would be best and let's see what we get at the end of the month! Enjoy! 
 
 1. Examine the code in `community-version.py`, figure out what improvements your fellow community members have made. 
+    > Run `python community-version.py --help` to see how the program works and play around with it.
 2. Make an improvement, it doesnt have to be elaborate
-3. Create a pull request
-4. [Tweet about making your first Hacktoberfest pull request](https://ctt.ac/bbIct)
+3. Test the program to ensure you haven't broken the existing functionality (this will help you catch a lot of mistakes before making your changes public)
+4. Commit your changes and push to your remote repository
+```bash
+git push origin <branch>
+```
+5. Create a pull request
+6. [Tweet about making your first Hacktoberfest pull request](https://ctt.ac/bbIct)
 
 > Congratulations! You are now one pull request closer to getting that free t-shirt. Repeat these steps until you have made at least 4 qualifying pull requests. You can check how many qualifying pull requests you have made at <https://hacktoberfest.digitalocean.com/profile> Have Fun and Happy Coding!
 
