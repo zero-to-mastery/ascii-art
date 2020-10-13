@@ -97,33 +97,6 @@ def save_ascii_art(image_ascii_art):
     except ValueError:
         print('please check image is converted to image ascii art.')
 
-
-
-import sys
-
-image_file_path = sys.argv[1]
-
-def save_ascii_art(image_ascii_art):
-    """
-    saving the ascii art 
-    """
-    try:
-        image_output_folder = sys.argv[2]
-        file_path = os.path.split(image_file_path)[1]
-        file_name = os.path.splitext(file_path)[0]
-
-        if not os.path.exists(image_output_folder):
-            os.makedirs(image_output_folder)
-
-        with open(f"{image_output_folder}/{file_name}.txt", mode='w') as my_file:
-            my_file.write(image_ascii_art)
-    except ValueError:
-        print('please check image is converted to image ascii art.')
-
-
-
-
-
 def scale_image(image, new_width=100):
     """Resizes an image preserving the aspect ratio.
     """
@@ -276,7 +249,7 @@ if __name__ == '__main__':
  	
     import sys
 
-def ascii_text(): #function to convert simple text into random font ascii format text
+# def ascii_text(): #function to convert simple text into random font ascii format text
 
 def ascii_text():  # function to convert simple text into random font ascii format text
 
