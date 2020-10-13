@@ -1,13 +1,13 @@
-import time
+import sys
 from pathlib import Path
+
 from flask import Flask, render_template, request, redirect
 from werkzeug.utils import secure_filename
 
-import sys
 sys.path.append('../')
 from oop_version.make_art_oo import ConvertImageToASCII
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='./Templates')
 
 BASE_DIR = Path(__file__).parent.as_posix()
 app.config["IMAGE_UPLOADS"] = f"{BASE_DIR}/input_images"
