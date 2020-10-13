@@ -92,8 +92,6 @@ def handle_image_conversion(image_filepath):
     print(image_ascii)
 
 
-if __name__=='__main__':
-
 
 if __name__ == '__main__':
     import sys
@@ -101,5 +99,3 @@ if __name__ == '__main__':
 
     print(image_file_path)
     handle_image_conversion(image_file_path)
-
-
