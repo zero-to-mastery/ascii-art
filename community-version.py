@@ -19,6 +19,7 @@ from asciimatics.renderers import FigletText, Rainbow
 from asciimatics.scene import Scene
 from asciimatics.screen import Screen
 from PIL import Image
+from math import ceil
 
 # Silence pygame message. This must precede the lib import
 from os import environ
@@ -26,6 +27,12 @@ environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 import pygame
 
 ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
+ASCII_CHARS_HR = ['-', '_', '+', '<', '>', 'i', '!', 'l', 'I', '?',
+                  '/', '\\', '|', '(', ')', '1', '{', '}', '[', ']',
+                  'r', 'c', 'v', 'u', 'n', 'x', 'z', 'j', 'f', 't',
+                  'L', 'C', 'J', 'U', 'Y', 'X', 'Z', 'O', '0', 'Q',
+                  'o', 'a', 'h', 'k', 'b', 'd', 'p', 'q', 'w', 'm',
+                  '*', 'W', 'M', 'B', '8', '&', '%', '$', '#', '@']
 COLOR_OPTIONS = ['black', 'blue', 'cyan', 'green', 'magenta', 'red', 'white', 'yellow']
 FONTS = ['alligator', 'slant', '3-d', '3x5', '5lineoblique', 'banner3-D']
 SUPPORTED_IMAGE_TYPES = ('.png', '.jpeg', '.jpg')
@@ -44,15 +51,20 @@ def convert_to_grayscale(image):
     return image.convert('L')
 
 
-def map_pixels_to_ascii_chars(image, reverse, range_width=25):
+def map_pixels_to_ascii_chars(image, reverse, highres=False):
     """Maps each pixel to an ascii char based on the range
     in which it lies.
-    0-255 is divided into 11 ranges of 25 pixels each.
+    0-255 is divided into ranges of pixels based on the number of
+    characters in ASCII_CHARS.
     """
-
     # We make a local copy on reverse so we don't modify the global array.
-    ascii_chars = ASCII_CHARS if not reverse else ASCII_CHARS[::-1]
+    if highres:
+        ascii_chars = ASCII_CHARS_HR if not reverse else ASCII_CHARS_HR[::-1]
+    else:
+        ascii_chars = ASCII_CHARS if not reverse else ASCII_CHARS[::-1]
 
+    # Calculates the ranges of pixels based on the number of characters in ascii_chars
+    range_width = ceil(255/len(ascii_chars))
     pixels_in_image = list(image.getdata())
     pixels_to_chars = [
         ascii_chars[int(pixel_value / range_width)] for pixel_value in pixels_in_image]
@@ -60,13 +72,13 @@ def map_pixels_to_ascii_chars(image, reverse, range_width=25):
     return "".join(pixels_to_chars)
 
 
-def convert_image_to_ascii(image, reverse=False, new_width=None):
+def convert_image_to_ascii(image, reverse=False, new_width=None, highres=False):
     if not new_width:
         new_width = image.width
     image = scale_image(image, new_width)
     image = convert_to_grayscale(image)
+    pixels_to_chars = map_pixels_to_ascii_chars(image, reverse, highres)
 
-    pixels_to_chars = map_pixels_to_ascii_chars(image, reverse, new_width)
     len_pixels_to_chars = len(pixels_to_chars)
 
     image_ascii = [pixels_to_chars[index: index + new_width] for index in
@@ -219,14 +231,14 @@ def set_color(image_ascii, color):
     return colorText(text)
 
 
-def process(input_file, reverse=False, save=False, output=None, width=None, color=None):
+def process(input_file, reverse=False, save=False, output=None, width=None, color=None, highres=False):
     """Orchestrates the conversion of a single image to ascii."""
     check_file(input_file)
     save = save or (output is not None)
     if save and not output:
         output = output_name(input_file)
     image = open_image(input_file)
-    ascii_str = convert_image_to_ascii(image, reverse, width)
+    ascii_str = convert_image_to_ascii(image, reverse, width, highres)
 
     if save:
         if write_file(ascii_str, output):
@@ -254,7 +266,8 @@ def process(input_file, reverse=False, save=False, output=None, width=None, colo
               help='Set output color')
 @click.option('--text', is_flag=True, help='Convert Simple Text Into Ascii Text Format, Enter Text After Prompt')
 @click.option('--types', is_flag=True, help='list supported image formats and exit.')
-def cli(input_files, reverse, save, output, width, credits, clock, all, color, text, types):
+@click.option('-hr', '--highres', is_flag=True, help='Converts using a wide range of Ascii characters.')
+def cli(input_files, reverse, save, output, width, credits, clock, all, color, text, types, highres):
     """
     Processes the command-line arguments and starts the relevant processes.
     Arguments shouldn't be accessed beyond this function.
@@ -278,7 +291,7 @@ def cli(input_files, reverse, save, output, width, credits, clock, all, color, t
 
     for file in input_files:
         process(file, reverse=reverse, save=save,
-                output=output, width=width, color=color.lower())
+                output=output, width=width, color=color.lower(),highres=highres)
     if not input_files and len(sys.argv) == 0:
         print("Image not specified. Please specify image or add --help for help.")
 
