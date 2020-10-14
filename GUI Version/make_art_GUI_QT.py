@@ -80,6 +80,9 @@ def handle_image_conversion(image_filepath):
     text_box.insert(tkinter.INSERT,message)
     text_box.tag_add("center", "1.0", "end")
 
+def clear_screen():
+    text_box.delete('1.0', 'end')
+
 def browse_file():
     """ For Getting the file path that gets chosen by the user 
     """
@@ -108,8 +111,11 @@ def create_window():
     button_frame = tkinter.Frame(app,bg='#003366')
     button_frame.pack(side='bottom',pady=15)
     choose_button = tkinter.Button(button_frame, text="Choose",width=10,activebackground='white',activeforeground='#4682B4',font=bt_font,command=browse_file)
+    clear_button = tkinter.Button(button_frame, text="Clear", width=10, activebackground='white',
+                                   activeforeground='#4682B4', font=bt_font, command=clear_screen)
     cancel_button = tkinter.Button(button_frame,text="Quit",width=10,activebackground='white',activeforeground='#4682B4',font=bt_font,command=quit_app)
     choose_button.pack(side = 'left',padx=25)
+    clear_button.pack(side='left', padx=25)
     cancel_button.pack(side = 'left',padx=25)
     app.mainloop()
 
