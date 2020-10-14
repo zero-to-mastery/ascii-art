@@ -9,6 +9,7 @@ import tkinter.font as tkfont
 import tkinter.scrolledtext as scrolledtext
 from tkinter import filedialog as fd
 from PIL import Image
+from math import ceil
 
 ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
@@ -30,15 +31,20 @@ def scale_image(image, new_width=100):
     new_image = image.resize((new_width, new_height))
     return new_image
 
+
 def convert_to_grayscale(image):
     return image.convert('L')
 
-def map_pixels_to_ascii_chars(image, range_width=25):
+
+def map_pixels_to_ascii_chars(image):
     """Maps each pixel to an ascii char based on the range
     in which it lies.
 
-    0-255 is divided into 11 ranges of 25 pixels each.
+    0-255 is divided into ranges of pixels based on the number of
+    characters in ASCII_CHARS
     """
+    # Calculates the ranges of pixels based on the number of characters in ascii_chars
+    range_width = ceil(255 / len(ASCII_CHARS))
 
     pixels_in_image = list(image.getdata())
     pixels_to_chars = [ASCII_CHARS[int(pixel_value/range_width)] for pixel_value in
@@ -74,6 +80,9 @@ def handle_image_conversion(image_filepath):
     text_box.insert(tkinter.INSERT,message)
     text_box.tag_add("center", "1.0", "end")
 
+def clear_screen():
+    text_box.delete('1.0', 'end')
+
 def browse_file():
     """ For Getting the file path that gets chosen by the user 
     """
@@ -102,8 +111,11 @@ def create_window():
     button_frame = tkinter.Frame(app,bg='#003366')
     button_frame.pack(side='bottom',pady=15)
     choose_button = tkinter.Button(button_frame, text="Choose",width=10,activebackground='white',activeforeground='#4682B4',font=bt_font,command=browse_file)
+    clear_button = tkinter.Button(button_frame, text="Clear", width=10, activebackground='white',
+                                   activeforeground='#4682B4', font=bt_font, command=clear_screen)
     cancel_button = tkinter.Button(button_frame,text="Quit",width=10,activebackground='white',activeforeground='#4682B4',font=bt_font,command=quit_app)
     choose_button.pack(side = 'left',padx=25)
+    clear_button.pack(side='left', padx=25)
     cancel_button.pack(side = 'left',padx=25)
     app.mainloop()
 
