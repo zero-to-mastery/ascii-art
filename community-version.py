@@ -158,8 +158,19 @@ def typewriter(message):
 
 
 def ascii_text():
-    """Converts simple text into random font ascii format text"""
-    text = str(input('\n Enter The Text To Convert To Ascii-Art \n'))
+    """
+    Converts simple text into random font ascii format text
+    User can choose normal text or backwards text
+    """
+    text = str(input('\nEnter The Text To Convert To Ascii-Art \n'))
+    type_of_text = input('''
+Would you like the text to be backwards?
+Enter \"yes\" or \"no\"
+''')
+    while type_of_text != "yes" and type_of_text != "no":
+        type_of_text = input("You must enter either \"yes\" or \"no\". Try again\n")
+    if type_of_text == "yes":
+        text = text[::-1]
     print(pyfiglet.figlet_format(text, font=random.choice(FONTS)).rstrip())
 
 
@@ -297,4 +308,4 @@ def cli(input_files, reverse, save, output, width, credits, clock, all, color, t
 
 
 if __name__ == '__main__':
-    cli()
+    ascii_text()
