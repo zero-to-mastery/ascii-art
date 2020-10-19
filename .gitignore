@@ -3,7 +3,7 @@
 venv/
 # Guard against committing generated ascii files
 *.txt
-!requirements.txt
+!requirements*.txt
 # Guard against committing test coverage files and folders
 tests/htmlcov/
 tests/.coverage
@@ -11,3 +11,7 @@ tests/__pycache__/
 tests/test
 tests/.pytest_cache/
 .vscode/
+.nox
+test
+.eggs
+ascii_art.egg-info/
