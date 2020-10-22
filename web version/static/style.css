@@ -142,7 +142,6 @@ button {
     border-color: var(--icon-color);
     color: var(--icon-color);
     cursor: pointer;
-    display: inline-block;
     font-family: 'Rubik', sans-serif;
     font-size: inherit;
     font-weight: 600;

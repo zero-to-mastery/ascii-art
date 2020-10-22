@@ -1,7 +1,7 @@
 import sys
 from pathlib import Path
 
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 
 sys.path.append('../')
@@ -11,8 +11,9 @@ app = Flask(__name__, template_folder='./Templates')
 
 BASE_DIR = Path(__file__).parent.as_posix()
 app.config["IMAGE_UPLOADS"] = f"{BASE_DIR}/input_images"
-app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["PNG"]
+app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["PNG", "JPG"]
 app.config["MAX_IMAGE_FILESIZE"] = 5 * 1024 * 1024
+app.secret_key = "secret key"
 
 file_path = ""
 
@@ -35,20 +36,25 @@ def allowed_image_size(filesize):
     return True
 
 
+@app.route('/<string:page_name>')
+def html_page(page_name):
+    return render_template(page_name)
+
+
 @app.route('/', methods=['GET', 'POST'])
 def img_upload():
     if request.method == "POST":
         if request.files:
             if "filesize" in request.cookies:
                 if not allowed_image_size(request.cookies["filesize"]):
-                    print("filesize exceeded max limit")
-                    return redirect(request.url)
+                    flash("filesize exceeded max limit")
+                    return redirect('error-page.html')
 
                 image = request.files["image"]
 
                 if image.filename == "":
-                    print("no filename")
-                    return redirect(request.url)
+                    flash("no filename")
+                    return redirect('error-page.html')
 
                 if allowed_image(image.filename):
                     filename = secure_filename(image.filename)
@@ -68,11 +74,16 @@ def img_upload():
                     return render_template('img-display.html', content=file_path)
 
                 else:
-                    print("only png files are accepted")
-                    return redirect(request.url)
+                    flash("only \".png\" or \".jpg\" files are accepted")
+                    return redirect('error-page.html')
 
             return redirect(request.url)
     return render_template("img-upload.html")
+
+@app.route('/error_message')
+def error_message():
+    return render_template('error-page.html',
+                           title=Oops)
 
 
 def clean_up(file):
