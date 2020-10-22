@@ -74,8 +74,10 @@ def img_upload():
                     return render_template('img-display.html', content=file_path)
 
                 else:
+
                     flash("only \".png\" or \".jpg\" files are accepted")
                     return redirect('error-page.html')
+
 
             return redirect(request.url)
     return render_template("img-upload.html")
