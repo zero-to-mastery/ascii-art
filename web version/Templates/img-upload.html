@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>image to ascii converter</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% with messages = get_flashed_messages() %}
+	  {% if messages %}
+	    {% for message in messages %}
+            <h2><strong>{{message}}</strong></h2>
+		{% endfor %}
+	  {% endif %}
+	{% endwith %}
 </head>
 
 <body>
@@ -22,7 +29,7 @@
                         </label>
                     </div>
                     <div class="file-functions">
-                        <p class="file-name">No file selected</p>
+                        <p class="file-name">Input File</p>
                         <button type="submit">Convert</button>
                     </div>
                 </form>

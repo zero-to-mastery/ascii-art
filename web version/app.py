@@ -36,11 +36,6 @@ def allowed_image_size(filesize):
     return True
 
 
-@app.route('/<string:page_name>')
-def html_page(page_name):
-    return render_template(page_name)
-
-
 @app.route('/', methods=['GET', 'POST'])
 def img_upload():
     if request.method == "POST":
@@ -48,13 +43,13 @@ def img_upload():
             if "filesize" in request.cookies:
                 if not allowed_image_size(request.cookies["filesize"]):
                     flash("filesize exceeded max limit")
-                    return redirect('error-page.html')
+                    return redirect(url_for('error_message'))
 
                 image = request.files["image"]
 
                 if image.filename == "":
                     flash("no filename")
-                    return redirect('error-page.html')
+                    return redirect(url_for('error_message'))
 
                 if allowed_image(image.filename):
                     filename = secure_filename(image.filename)
@@ -76,7 +71,7 @@ def img_upload():
                 else:
 
                     flash("only \".png\" or \".jpg\" files are accepted")
-                    return redirect('error-page.html')
+                    return redirect(url_for('error_message'))
 
 
             return redirect(request.url)
@@ -84,8 +79,7 @@ def img_upload():
 
 @app.route('/error_message')
 def error_message():
-    return render_template('error-page.html',
-                           title=Oops)
+    return render_template('img-upload.html')
 
 
 def clean_up(file):
