@@ -45,7 +45,7 @@ Get Started!
 
 Ready to contribute? Here's how to set up ascii\-art for local development.
 
-1.  Fork the ascii\_art repo on GitHub.
+1.  Fork the ascii-art repo on GitHub.
 2.  Clone your fork locally:
 
         $ git clone git@github.com:your_name_here/ascii-art.git

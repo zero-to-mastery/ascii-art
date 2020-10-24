@@ -31,13 +31,18 @@ In order to get started on this project, it is recommended that you watch the se
 7. Stare with amazement 😮
 
 ## How to contribute?
+> For more extensive instruction on how to contribute, see [CONTRIBUTING.md](CONTRIBUTING.md). It has instructions about setting up a package as a developer (instead of a user of the package).
 
 Now that you see how this command line tool works, let's see how we can evolve it with our ZTM community help!! Maybe we want to display this on an HTML web page where users can submit images and we convert it to ASCII art? Maybe we want to improve how the Command Line Tool works/make it more customizeable? Or maybe modify the script to do many other types of art beyond ASCII. 
 
 The options are endless and there is no wrong answer. This is all for fun, so try to customize the tool whichever way you think would be best and let's see what we get at the end of the month! Enjoy! 
 
-1. Examine the code in `community-version.py`, figure out what improvements your fellow community members have made. 
-    > Run `python community-version.py --help` to see how the program works and play around with it.
+0. Run `pip install -e .` in your environment to install the ascii_art package. This way your changes to it will reflect without needing a reinstall.
+1. Examine the code in `ascii_art/`, figure out what improvements your fellow community members have made. 
+    > Run `ascii_art --help` to see how the program works and play around with it.
+    > The interesting files in ascii_art/ are: `ascii_art.py`, `cli.py`
+    > `ascii_art.py` has the implementation of creating ascii art.
+    > 'cli.py` implements how the commandline interaction is handled. It uses `ascii_art.py` to do the actual work.
 2. Make an improvement, it doesnt have to be elaborate
 3. Test the program to ensure you haven't broken the existing functionality (this will help you catch a lot of mistakes before making your changes public)
 4. Commit your changes and push to your remote repository
