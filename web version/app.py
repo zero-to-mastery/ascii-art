@@ -69,7 +69,10 @@ def img_upload():
                     return render_template('img-display.html', content=file_path)
 
                 else:
-                    print("only \".png\" or \".jpg\" files are accepted")
+                    print("only", end='')
+                    for toggle in app.config["ALLOWED_IMAGE_EXTENSIONS"]:
+                        print(" \b", toggle, "or", end='')
+                    print(" \b\b\bfiles are accepted")
                     return redirect(request.url)
 
             return redirect(request.url)
