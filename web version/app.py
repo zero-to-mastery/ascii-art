@@ -11,8 +11,9 @@ app = Flask(__name__, template_folder='./Templates')
 
 BASE_DIR = Path(__file__).parent.as_posix()
 app.config["IMAGE_UPLOADS"] = f"{BASE_DIR}/input_images"
-app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["PNG"]
+app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["PNG", "JPG"]
 app.config["MAX_IMAGE_FILESIZE"] = 5 * 1024 * 1024
+app.secret_key = "secret key"
 
 file_path = ""
 
@@ -68,7 +69,10 @@ def img_upload():
                     return render_template('img-display.html', content=file_path)
 
                 else:
-                    print("only png files are accepted")
+                    print("only", end='')
+                    for toggle in app.config["ALLOWED_IMAGE_EXTENSIONS"]:
+                        print(" \b", toggle, "or", end='')
+                    print(" \b\b\bfiles are accepted")
                     return redirect(request.url)
 
             return redirect(request.url)
