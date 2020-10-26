@@ -1,21 +1,9 @@
-import sys
+from ascii_art import app
 from pathlib import Path
 
-from flask import Flask, render_template, request, redirect
+from flask import render_template, request, redirect
 from werkzeug.utils import secure_filename
-
-sys.path.append('../')
 from oop_version.make_art_oo import ConvertImageToASCII
-
-app = Flask(__name__, template_folder='./Templates')
-
-BASE_DIR = Path(__file__).parent.as_posix()
-app.config["IMAGE_UPLOADS"] = f"{BASE_DIR}/input_images"
-app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["PNG", "JPG"]
-app.config["MAX_IMAGE_FILESIZE"] = 5 * 1024 * 1024
-app.secret_key = "secret key"
-
-file_path = ""
 
 
 def allowed_image(filename):
@@ -57,16 +45,20 @@ def img_upload():
                         Path.mkdir(Path(app.config["IMAGE_UPLOADS"]))
 
                     # make sure the path is a unix based path to escape dependency from oop_version for windows users
-                    full_path = Path.joinpath(Path(app.config["IMAGE_UPLOADS"]), Path(filename)).as_posix()
+                    full_path = Path.joinpath(
+                        Path(app.config["IMAGE_UPLOADS"]),
+                        Path(filename)).as_posix()
                     image.save(full_path)
 
                     # convert image to acsii
-                    ascii_convert_obj = ConvertImageToASCII(file_path=full_path, option="-s")
+                    ascii_convert_obj = ConvertImageToASCII(
+                        file_path=full_path, option="-s")
                     global file_path
                     file_path = ascii_convert_obj.handle_image_conversion()
 
                     # display ascii art in webpage
-                    return render_template('img-display.html', content=file_path)
+                    return render_template('img-display.html',
+                                           content=file_path)
 
                 else:
                     print("only", end='')
@@ -81,7 +73,3 @@ def img_upload():
 
 def clean_up(file):
     pass
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
