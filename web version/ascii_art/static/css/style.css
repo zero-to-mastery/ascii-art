@@ -173,3 +173,7 @@ button {
     outline: none;
     padding: 1rem 50px;
 }
+
+.padding{
+    margin: 16px 0px;
+}
