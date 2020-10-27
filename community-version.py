@@ -291,7 +291,7 @@ def cli(input_files, reverse, save, output, width, credits, clock, all, color, t
 
     for file in input_files:
         process(file, reverse=reverse, save=save,
-                output=output, width=width, color=color.lower(),highres=highres)
+                output=output, width=width, color=color.lower(), highres=highres)
     if not input_files and len(sys.argv) == 0:
         print("Image not specified. Please specify image or add --help for help.")
 
