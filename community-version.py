@@ -87,8 +87,8 @@ def convert_image_to_ascii(image, reverse=False, new_width=None, highres=False):
     return "\n".join(image_ascii)
 
 
-def colorText(text):
-    COLORS = {
+def color_text(text):
+    colors = {
         "black": "\u001b[30;1m",
         "red": "\u001b[31;1m",
         "green": "\u001b[32m",
@@ -99,8 +99,8 @@ def colorText(text):
         "white": "\u001b[37m",
 
     }
-    for color in COLORS:
-        text = text.replace("[[" + color + "]]", COLORS[color])
+    for color in colors:
+        text = text.replace("[[" + color + "]]", colors[color])
     return text
 
 
@@ -187,24 +187,24 @@ def check_file(path):
         sys.exit(1)
 
 
-def write_file(ascii, filename):
+def write_file(ascii_file, filename):
     """Write ascii text to file"""
-    if not ascii or not filename:
+    if not ascii_file or not filename:
         return False
     try:
         with open(filename, "w") as f:
-            f.write(ascii)
+            f.write(ascii_file)
             return True
-    except:
+    except FileNotFoundError:
         return False
 
 
-def output_name(input):
+def output_name(input_name):
     """
     Works out the ascii filename from the input name.
     It'll attempt to save the output in the same directory as that of the input file.
     """
-    return f"{os.path.splitext(input if input else '')[0]}_output.txt"
+    return f"{os.path.splitext(input_name if input_name else '')[0]}_output.txt"
 
 
 def show_credits():
@@ -228,7 +228,7 @@ def set_color(image_ascii, color):
     if not color or color == 'black':
         return image_ascii
     text = f"[[{color}]]{image_ascii}[[white]]"
-    return colorText(text)
+    return color_text(text)
 
 
 def process(input_file, reverse=False, save=False, output=None, width=None, color=None, highres=False):
