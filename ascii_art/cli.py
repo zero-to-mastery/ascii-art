@@ -23,10 +23,10 @@ from ascii_art.ascii_art import (all_supported_files, ascii_text, process, show_
               help='Set output color')
 @click.option('--text', is_flag=True, help='Convert Simple Text Into Ascii Text Format, Enter Text After Prompt')
 @click.option('--types', is_flag=True, help='list supported image formats and exit.')
-def main(input_files, reverse, save, output, width, credits, clock, all, color, text, types):
+@click.option('-hr', '--highres', is_flag=True, help='Converts using a wide range of Ascii characters.')
+def main(input_files, reverse, save, output, width, credits, clock, all, color, text, types, highres):
     """
-    Processes the command-line arguments and starts the relevant processes.
-    Arguments shouldn't be accessed beyond this function.
+    Converts an image to a text file, using ascii characters to display it.
     """
     if types:
         print(', '.join(SUPPORTED_IMAGE_TYPES))
@@ -47,7 +47,7 @@ def main(input_files, reverse, save, output, width, credits, clock, all, color, 
 
     for file in input_files:
         process(file, reverse=reverse, save=save,
-                output=output, width=width, color=color.lower())
+                output=output, width=width, color=color.lower(), highres=highres)
     if not input_files and len(sys.argv) == 1:
         print("Image not specified. Please specify image or add --help for help.")
 
