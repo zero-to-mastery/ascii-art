@@ -1,27 +1,11 @@
-from ascii_art import app
 from pathlib import Path
 
 from flask import render_template, request, redirect
 from werkzeug.utils import secure_filename
 from oop_version.make_art_oo import ConvertImageToASCII
 
-
-def allowed_image(filename):
-    # accept only files with .ext
-    if '.' not in filename:
-        return False
-
-    # accept only .png or .jpg file extensions
-    ext = filename.rsplit('.', 1)[1]
-    if not ext.upper() in app.config["ALLOWED_IMAGE_EXTENSIONS"]:
-        return False
-    return True
-
-
-def allowed_image_size(filesize):
-    if not int(filesize) <= app.config["MAX_IMAGE_FILESIZE"]:
-        return False
-    return True
+from ascii_art_web import app
+from ascii_art_web.util import *
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -69,7 +53,3 @@ def img_upload():
 
             return redirect(request.url)
     return render_template("img-upload.html")
-
-
-def clean_up(file):
-    pass
