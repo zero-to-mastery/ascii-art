@@ -13,5 +13,5 @@ tests/.pytest_cache/
 .vscode/
 .nox
 test
-.eggs
+.eggs/
 ascii_art.egg-info/
