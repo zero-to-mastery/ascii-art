@@ -15,7 +15,7 @@
             <div class="file-wrapper">
                 <form action="/" method="POST" enctype="multipart/form-data">
                     <div class="file-content">
-                        <input type="file" name="image" id="image" class="inputfile" oninput="filesize(this);">
+                        <input type="file" name="image" id="image" class="inputfile" oninput="onUpload(this);">
                         <label for="image" class="file-select">
                             <img src="../static/assets/file-upload-solid.svg" alt="file upload button">
                             <p>Click to Upload a File</p>
@@ -29,11 +29,6 @@
             </div>
         </div>
     </div>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </body>
-<script>
-    function filesize(elem) {
-        document.cookie = `filesize=${elem.files[0].size}`
-    }
-</script>
-
 </html>
