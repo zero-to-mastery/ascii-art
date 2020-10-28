@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # code credit goes to:
 #   https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
 # code modified to work with Python 3 by @aneagoie
