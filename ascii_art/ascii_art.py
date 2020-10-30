@@ -156,9 +156,14 @@ def typewriter(message):
             time.sleep(1)
 
 
-def ascii_text():
-    """Converts simple text into random font ascii format text"""
+def ascii_textinput():
+    """Converts text entered by the user into random font ascii format text"""
     text = str(input('\n Enter The Text To Convert To Ascii-Art \n'))
+    ascii_text(text)
+
+
+def ascii_text(text: str):
+    """Converts simple text into random font ascii format text"""
     print(pyfiglet.figlet_format(text, font=random.choice(FONTS)).rstrip())
 
 
