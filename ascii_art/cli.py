@@ -24,7 +24,7 @@ def main():
 @click.option('-c', '--color', type=click.Choice(COLOR_OPTIONS, case_sensitive=False), default='black',
               help='Set output color')
 @click.option('-hr', '--highres', is_flag=True, help='Converts using a wide range of Ascii characters.')
-def process(input_files, reverse, save, output, width, all, color, highres):
+def convert(input_files, reverse, save, output, width, all, color, highres):
     """
     Converts images to text files, using ascii characters to display it.
     """
