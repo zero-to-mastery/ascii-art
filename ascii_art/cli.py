@@ -3,7 +3,7 @@ import click
 import sys
 
 from ascii_art.ascii_art import (all_supported_files, ascii_textinput, process, show_clock, show_credits,
-                                 COLOR_OPTIONS, SUPPORTED_IMAGE_TYPES, ascii_text)
+                                 COLOR_OPTIONS, SUPPORTED_IMAGE_TYPES, ascii_text, show_timer)
 
 
 @click.group()
@@ -62,6 +62,11 @@ def text(value):
 def textinput():
     ascii_textinput()
 
+
+@main.command(help='Count down n seconds to zero.')
+@click.argument("seconds", type=int, default=10)
+def timer(seconds: int):
+    show_timer(seconds)
 
 
 if __name__ == '__main__':
