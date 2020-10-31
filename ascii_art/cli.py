@@ -2,8 +2,8 @@
 import click
 import sys
 
-from ascii_art.ascii_art import (all_supported_files, ascii_text, process, show_clock, show_credits,
-                                 COLOR_OPTIONS, SUPPORTED_IMAGE_TYPES)
+from ascii_art.ascii_art import (all_supported_files, ascii_textinput, process, show_clock, show_credits,
+                                 COLOR_OPTIONS, SUPPORTED_IMAGE_TYPES, ascii_text)
 
 
 @click.command()
@@ -21,10 +21,11 @@ from ascii_art.ascii_art import (all_supported_files, ascii_text, process, show_
 @click.option('--all', is_flag=True, help='convert all supported files')
 @click.option('-c', '--color', type=click.Choice(COLOR_OPTIONS, case_sensitive=False), default='black',
               help='Set output color')
-@click.option('--text', is_flag=True, help='Convert Simple Text Into Ascii Text Format, Enter Text After Prompt')
+@click.option('--textinput', is_flag=True, help='Convert Simple Text Into Ascii Text Format, Enter Text After Prompt')
+@click.option('--text', default=None, type=str, help='Convert Simple Text Into Ascii Text Format')
 @click.option('--types', is_flag=True, help='list supported image formats and exit.')
 @click.option('-hr', '--highres', is_flag=True, help='Converts using a wide range of Ascii characters.')
-def main(input_files, reverse, save, output, width, credits, clock, all, color, text, types, highres):
+def main(input_files, reverse, save, output, width, credits, clock, all, color, textinput, text, types, highres):
     """
     Converts an image to a text file, using ascii characters to display it.
     """
@@ -41,9 +42,12 @@ def main(input_files, reverse, save, output, width, credits, clock, all, color, 
     if all:
         input_files = all_supported_files()
 
-    if text:
-        ascii_text()
+    if textinput:
+        ascii_textinput()
         return
+
+    if text:
+        ascii_text(text)
 
     for file in input_files:
         process(file, reverse=reverse, save=save,
