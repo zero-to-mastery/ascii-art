@@ -218,7 +218,7 @@ def show_credits():
     pygame.mixer.init()
     pygame.mixer.music.load("typewriter.wav")
     pygame.mixer.music.play(loops=-1)
-    os.system('cls')
+    click.termui.clear()
     typewriter(message)
     pygame.mixer.music.stop()
     pygame.mixer.quit()
