@@ -47,6 +47,7 @@ def types():
 def credits():
     show_credits()
 
+
 @main.command(help='show clock as a colorful animation. resize the terminal or press "q" or "x" to exit the clock.')
 def clock():
     show_clock()
@@ -59,6 +60,7 @@ def text(words):
         ascii_textinput()
     else:
         ascii_text(" ".join(words))
+
 
 @main.command(help='Count down n seconds to zero.')
 @click.argument("seconds", type=int, default=10)
