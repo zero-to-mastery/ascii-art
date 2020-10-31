@@ -3,7 +3,7 @@ import click
 import sys
 
 from ascii_art.ascii_art import (all_supported_files, ascii_text, process, show_clock, show_credits,
-                                 COLOR_OPTIONS, SUPPORTED_IMAGE_TYPES)
+                                 COLOR_OPTIONS, SUPPORTED_IMAGE_TYPES, show_timer)
 
 
 @click.command()
@@ -18,13 +18,15 @@ from ascii_art.ascii_art import (all_supported_files, ascii_text, process, show_
 @click.option('--credits', is_flag=True, help="Show credits")
 @click.option('--clock', is_flag=True,
               help='show clock as a colorful animation. resize the terminal or press "q" or "x" to exit the clock.')
+@click.option('--timer', default=None, type=int,
+              help='Count down n seconds to zero.')
 @click.option('--all', is_flag=True, help='convert all supported files')
 @click.option('-c', '--color', type=click.Choice(COLOR_OPTIONS, case_sensitive=False), default='black',
               help='Set output color')
 @click.option('--text', is_flag=True, help='Convert Simple Text Into Ascii Text Format, Enter Text After Prompt')
 @click.option('--types', is_flag=True, help='list supported image formats and exit.')
 @click.option('-hr', '--highres', is_flag=True, help='Converts using a wide range of Ascii characters.')
-def main(input_files, reverse, save, output, width, credits, clock, all, color, text, types, highres):
+def main(input_files, reverse, save, output, width, credits, clock, timer, all, color, text, types, highres):
     """
     Converts an image to a text file, using ascii characters to display it.
     """
@@ -34,6 +36,9 @@ def main(input_files, reverse, save, output, width, credits, clock, all, color, 
     if clock:
         show_clock()
         return
+    if timer is not None:
+        return show_timer(timer)
+
     if credits:
         show_credits()
         print()

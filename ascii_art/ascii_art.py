@@ -13,7 +13,7 @@ import pyjokes
 import random
 
 from asciimatics.effects import Print, Clock
-from asciimatics.exceptions import ResizeScreenError
+from asciimatics.exceptions import ResizeScreenError, StopApplication
 from asciimatics.renderers import FigletText, Rainbow
 from asciimatics.scene import Scene
 from asciimatics.screen import Screen
@@ -133,6 +133,39 @@ def show_clock():
         sys.exit(0)
     except ResizeScreenError:
         pass
+
+
+class Timer:
+    def __init__(self, seconds: int):
+        self.seconds = seconds
+
+    def screen_logic(self, screen: Screen):
+        from datetime import datetime, timedelta
+        t0 = datetime.now()
+        try:
+            for t in range(self.seconds + 1):
+                # For best accuracy, calculate time till next "frame" based on actual time
+                wait_for_it = t0 + timedelta(seconds=t)
+                seconds_to_wait = (wait_for_it - datetime.now()).total_seconds()
+                if seconds_to_wait > 0:
+                    time.sleep(seconds_to_wait)
+                elif seconds_to_wait < -0.1:
+                    # Skip a frame if we're running late
+                    continue
+
+                effects = [Print(screen, FigletText(str(self.seconds - t)), 0)]
+                scene = Scene(effects, 40)
+                screen.set_scenes([scene])
+                # Strange, it seems a few frames need to be skipped.
+                for _ in range(10):
+                    screen.draw_next_frame(repeat=False)
+        except StopApplication:
+            return
+
+
+def show_timer(seconds):
+    timer = Timer(seconds)
+    Screen.wrapper(timer.screen_logic)
 
 
 def get_joke():
