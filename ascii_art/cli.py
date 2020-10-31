@@ -47,20 +47,19 @@ def types():
 def credits():
     show_credits()
 
+
 @main.command(help='show clock as a colorful animation. resize the terminal or press "q" or "x" to exit the clock.')
 def clock():
     show_clock()
 
 
-@main.command(help='Convert simple text into ASCII text format')
-@click.argument("value", type=str, default="ASCII ART")
-def text(value):
-    ascii_text(value)
-
-
-@main.command(help='Convert simple text into ASCII text format, enter text after prompt')
-def textinput():
-    ascii_textinput()
+@main.command(help='Convert simple text into ASCII text format. Will prompt for the text if not specified.')
+@click.argument("words", type=str, default=None, nargs=-1)
+def text(words):
+    if not words:
+        ascii_textinput()
+    else:
+        ascii_text(" ".join(words))
 
 
 @main.command(help='Count down n seconds to zero.')
