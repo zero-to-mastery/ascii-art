@@ -9,6 +9,17 @@
 </head>
 
 <body>
+    <div class="message_box">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash_messages">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
     <div class="container">
         <h1>ASCII ART GENERATOR</h1>
         <div class="file-overlay">

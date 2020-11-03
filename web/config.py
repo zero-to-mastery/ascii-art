@@ -24,7 +24,7 @@ class StagingConfig(Config):
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
-    SECRET_KEY = 'devlopment_key',
+    SECRET_KEY = 'development_key'
 
 
 class TestingConfig(Config):

@@ -1,3 +1,6 @@
+from ascii_art_web import app
+
+
 def allowed_image(filename):
     # accept only files with .ext
     if '.' not in filename:
