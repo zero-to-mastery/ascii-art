@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, flash
 from werkzeug.utils import secure_filename
 from oop_version.make_art_oo import ConvertImageToASCII
 
@@ -14,13 +14,13 @@ def img_upload():
         if request.files:
             if "filesize" in request.cookies:
                 if not allowed_image_size(request.cookies["filesize"]):
-                    print("filesize exceeded max limit")
+                    flash("filesize exceeded max limit")
                     return redirect(request.url)
 
                 image = request.files["image"]
 
                 if image.filename == "":
-                    print("no filename")
+                    flash("no filename")
                     return redirect(request.url)
 
                 if allowed_image(image.filename):
@@ -45,10 +45,7 @@ def img_upload():
                                            content=file_path)
 
                 else:
-                    print("only", end='')
-                    for toggle in app.config["ALLOWED_IMAGE_EXTENSIONS"]:
-                        print(" \b", toggle, "or", end='')
-                    print(" \b\b\bfiles are accepted")
+                    flash("Only PNG or JPG files are accepted.")
                     return redirect(request.url)
 
             return redirect(request.url)

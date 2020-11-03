@@ -30,6 +30,21 @@ body {
     background-color: var(--overlay-color);
 }
 
+.message_box {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
+
+.flash_messages {
+    display: flex;
+    align-items: center;
+    padding: 5px 5px;
+    border-radius: 5px;
+    background-color: red;
+    color: snow;
+    font-size: 2rem;
+}
 .container {
     position: relative;
     display: flex;
