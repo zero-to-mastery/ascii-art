@@ -7,16 +7,20 @@ from PIL import Image
 import os
 import sys
 
-ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
+# >>> There was a duplicated ASCII_CHARS here
 
 ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
-
 
 image_file_path = sys.argv[1]
 
 def save_ascii_art(image_ascii_art):
     """
-    saving the ascii art 
+    Saves the ascii art generated.
+
+        Parameters: 
+                    image_ascii_art (str):  Our image in ASCII characters
+        Exceptions: 
+                    ValueError: If the argument is not a valid ASCII image
     """
     try:
         image_output_folder = sys.argv[2]
@@ -29,11 +33,18 @@ def save_ascii_art(image_ascii_art):
         with open(f"{image_output_folder}/{file_name}.txt", mode='w') as my_file:
             my_file.write(image_ascii_art)
     except ValueError:
-        print('please check image is converted to image ascii art.')
+        print('Please check the image is converted to image ascii art.')
 
 
 def scale_image(image, new_width=100):
-    """Resizes an image preserving the aspect ratio.
+    """
+    Resizes an image preserving the aspect ratio.
+
+        Parameters:
+                    image (JpegImageFile): Image instantiated from the PIL.JpegImageFile class
+                    new_width (int): New width for the scaled image
+        Returns:
+                    new_image (JpegImageFile): Scaled image
     """
     (original_width, original_height) = image.size
     aspect_ratio = original_height/float(original_width)
@@ -45,14 +56,31 @@ def scale_image(image, new_width=100):
 
 
 def convert_to_grayscale(image):
+    '''
+    Converts an image to grayscale using the L method.
+
+        Parameters:
+                    image (JpegImageFile): Image instantiated from the PIL.JpegImageFile class
+
+        Returns:
+                    image (JpegImageFile): Grayscaled image
+    '''
     return image.convert('L')
 
 
 def map_pixels_to_ascii_chars(image, range_width=25):
-    """Maps each pixel to an ascii char based on the range
+    """
+    Maps each pixel to an ascii character based on the range
     in which it lies.
 
     0-255 is divided into 11 ranges of 25 pixels each.
+
+        Parameters:
+                    image (JpegImageFile): Image instantiated from the PIL.JpegImageFile class
+                    range_width (int): Integer with the width for each range between 0-255.
+                                       Since we have 11 ascii characters, each is 25 pixels by default.
+        Returns:
+                    String of ascii characters
     """
 
     pixels_in_image = list(image.getdata())
@@ -63,6 +91,16 @@ def map_pixels_to_ascii_chars(image, range_width=25):
 
 
 def convert_image_to_ascii(image, new_width=100):
+    '''
+    Returns and saves an image converted into ascii art.
+
+        Parameters:
+                    image (JpegImageFile): Image instantiated from the PIL.JpegImageFile class
+                    new_width (int): New width for the ascii image
+        Returns:
+                    image_ascii_art (str): String of ascii characters
+
+    '''
     image = scale_image(image)
     image = convert_to_grayscale(image)
 
@@ -80,6 +118,15 @@ def convert_image_to_ascii(image, new_width=100):
 
 
 def handle_image_conversion(image_filepath):
+    '''
+    Looks for the image to convert and calls the conversion method "convert
+    image_to_ascii" if successful. Otherwise an exception is raised.
+
+        Parameters:
+                    image_filepath (str): Filepath with the location of the image
+        Exceptions:
+                    Exception: If the image is not found or cannot be opened
+    '''
     image = None
     try:
         image = Image.open(image_filepath)
@@ -92,10 +139,7 @@ def handle_image_conversion(image_filepath):
     print(image_ascii)
 
 
-
 if __name__ == '__main__':
-    import sys
-
 
     print(image_file_path)
     handle_image_conversion(image_file_path)
