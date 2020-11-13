@@ -86,7 +86,7 @@ def convert_image_to_ascii(image, reverse=False, new_width=None, highres=False):
     return "\n".join(image_ascii)
 
 
-def colorText(text):
+def colortext(text):
     COLORS = {
         "black": "\u001b[30;1m",
         "red": "\u001b[31;1m",
@@ -265,7 +265,7 @@ def set_color(image_ascii, color):
     if not color or color == 'black':
         return image_ascii
     text = f"[[{color}]]{image_ascii}[[white]]"
-    return colorText(text)
+    return colortext(text)
 
 
 def process(input_file, reverse=False, save=False, output=None, width=None, color=None, highres=False):
