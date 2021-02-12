@@ -32,7 +32,7 @@ ASCII_CHARS_HR = ['-', '_', '+', '<', '>', 'i', '!', 'l', 'I', '?',
                   'L', 'C', 'J', 'U', 'Y', 'X', 'Z', 'O', '0', 'Q',
                   'o', 'a', 'h', 'k', 'b', 'd', 'p', 'q', 'w', 'm',
                   '*', 'W', 'M', 'B', '8', '&', '%', '$', '#', '@']
-COLOR_OPTIONS = ['black', 'blue', 'cyan', 'green', 'magenta', 'red', 'white', 'yellow']
+COLOR_OPTIONS = ['black', 'blue', 'cyan', 'green', 'magenta', 'red', 'white', 'yellow', 'purple']
 FONTS = ['alligator', 'slant', '3-d', '3x5', '5lineoblique', 'banner3-D']
 SUPPORTED_IMAGE_TYPES = ('.png', '.jpeg', '.jpg')
 
