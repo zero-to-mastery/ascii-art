@@ -61,4 +61,4 @@ We have left the original code which was written in Python 2 under the `example/
 **All discussions around this event can now be had in our #hacktoberfest-2020 channel on Discord!**
 
 ## Disclaimer🔴
-Zero To Mastery receive no commission or incentives for your participating in either this project or entering the Hacktoberfest event. 
+Zero To Mastery receives no commission or incentives for your participation in either this project or entering the Hacktoberfest event. 
