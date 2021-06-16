@@ -5,6 +5,9 @@
 from PIL import Image
 ASCII_CHARS = ['#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
+with Image.open("ztm-logo.png") as im:
+    im.rotate(45).show()
+
 
 def scale_image(image, new_width=100):
     """Resizes an image preserving the aspect ratio.
