@@ -10,7 +10,8 @@ with open('README.md') as readme_file:
 with open('HISTORY.md') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', ]
+requirements = ['Click>=7.0', 'asciimatics>=1.11.0', 'Pillow>=7.2.0', 'pyfiglet>=0.8.post1', 'pygame>=2.0.1',
+                'pyjokes>=0.6.0']
 
 setup_requirements = ['pytest-runner', ]
 
