@@ -40,12 +40,12 @@ The options are endless and there is no wrong answer. This is all for fun, so tr
 0. Run `pip install -e .` in your environment to install the ascii_art package. This way your changes to it will reflect without needing a reinstall.
 1. Examine the code in `ascii_art/`, figure out what improvements your fellow community members have made. 
     > Run `ascii_art --help` to see how the program works and play around with it.
-    > The interesting files in ascii_art/ are: `ascii_art.py`, `cli.py`
-    > `ascii_art.py` has the implementation of creating ascii art.
-    > 'cli.py` implements how the commandline interaction is handled. It uses `ascii_art.py` to do the actual work.
-2. Make an improvement, it doesnt have to be elaborate
-3. Test the program to ensure you haven't broken the existing functionality (this will help you catch a lot of mistakes before making your changes public)
-4. Commit your changes and push to your remote repository
+    The interesting files in ascii_art/ are: `ascii_art.py` & `cli.py`.
+    `ascii_art.py` has the implementation of creating ascii art.
+    `cli.py` implements how the commandline interaction gets handled. It uses `ascii_art.py` to do the actual work.
+2. Make an improvement, it doesn't have to be elaborate.
+3. Test the program to ensure you haven't broken the existing functionality (this will help you catch a lot of mistakes before making your changes public).
+4. Commit your changes and push to your remote repository.
 ```bash
 git push origin <branch>
 ```
