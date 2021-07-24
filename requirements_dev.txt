@@ -12,7 +12,7 @@ nox==2020.8.22
 Pillow==7.2.0
 pip==19.2.3
 pyfiglet==0.8.post1
-pygame==2.0.0.dev6
+pygame==2.0.1
 pyjokes==0.6.0
 pytest==4.6.5
 pytest-runner==5.1
