@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 # T-Crypt 
 
 `USAGE:` python3 script.py <image_file_path> [output_file_path] [brightness]
@@ -23,3 +24,7 @@ Added option CLI param `-s/--silhouette` to output image as an ASCII silhouette.
 
 Integrated the project with Django and created HOME view which renders
 home.html page.
+=======
+created class SimpleCmd which emulates command interpreter.
+	=> method ascii. takes all args passed to separated by space
+>>>>>>> 42de240 (added cmd class where images can be passed one or many)
