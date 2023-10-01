@@ -23,13 +23,6 @@ def convert_to_grayscale(image):
     return image.convert('L')
 
 
-def convert_to_silhoutte(image, range_width=25):
-    pixels = [x[3] for x in image.getdata()]
-    pixels = [ASCII_CHARS[int(pixel_value/range_width)] for pixel_value in
-              pixels]
-    return "".join(pixels)
-
-
 def map_pixels_to_ascii_chars(image, make_silhouette=False, range_width=25):
     """Maps each pixel to an ascii char based on the range
     in which it lies.
@@ -52,13 +45,6 @@ def convert_image_to_ascii(image, make_silhouette=False, new_width=100):
     pixels_to_chars = None
     if not make_silhouette:
         image = convert_to_grayscale(image)  # PIL image
-        # pixels_to_chars = map_pixels_to_ascii_chars(image, make_silhouette)
-        # pixels_to_chars is string
-    else:
-        pass
-        # pixels_to_chars = map_pixels_to_ascii_chars(image, make_silhouette)
-        # pixels_to_chars = convert_to_silhoutte(image)
-        # pixels_to_chars is list
     pixels_to_chars = map_pixels_to_ascii_chars(image, make_silhouette)
     len_pixels_to_chars = len(pixels_to_chars)
 
