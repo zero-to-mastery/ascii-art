@@ -1,5 +1,3 @@
-## Community Version
-
 from PIL import Image
 from tkinter import Tk, filedialog
 
@@ -66,20 +64,9 @@ def handle_image_conversion(image_filepath):
     image_ascii = convert_image_to_ascii(image)
     print(image_ascii)
 
-
-def get_image_path():
-    """Open a file dialog to select an image and return its path."""
-    root = Tk()
-    root.withdraw()  # Hide the root window
-
-    file_path = filedialog.askopenfilename()
-    root.destroy()  # Destroy the root window after selection
-
-    return file_path
-
 if __name__ == "__main__":
     import sys
 
-    # image_file_path = sys.argv[1]
-    image_file_path = get_image_path()
+    image_file_path = sys.argv[1]
+    # image_file_path = get_image_path()
     handle_image_conversion(image_file_path)
