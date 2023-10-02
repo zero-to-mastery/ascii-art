@@ -20,58 +20,61 @@ def scale_image(image, new_width=100):
     return new_image
 
 def convert_to_grayscale(image):
+    """Converts an image to grayscale."""
     return image.convert('L')
 
-def map_pixels_to_ascii_chars(image, make_silhouette=False, range_width=25):
-    """Maps each pixel to an ascii char based on the range
-    in which it lies.
-
-    0-255 is divided into 11 ranges of 25 pixels each.
-    """
-
+def map_pixels_to_ascii_chars(image, make_silhouette=False, range_width=25, brightness=1.0):
+    """Maps pixel values to ASCII characters based on a specified range and brightness."""
     pixels_in_image = list(image.getdata())
 
     if make_silhouette:
-        pixels_in_image = [x[3] for x in image.getdata()]
+        pixels_in_image = [r for r,g,b,a in pixels_in_image]
 
-    pixels_to_chars = [ASCII_CHARS[int(pixel_value/range_width)] for pixel_value in
-                       pixels_in_image]
+    adjusted_pixels = [int(pixel * brightness) for pixel in pixels_in_image]
 
+    pixels_to_chars = [ASCII_CHARS[int(pixel_value / range_width)] for pixel_value in adjusted_pixels]
     return "".join(pixels_to_chars)
 
-
-def convert_image_to_ascii(image, make_silhouette=False, new_width=100):
+def convert_image_to_ascii(image, make_silhouette=False, new_width=100, brightness=1.0):
+    """Converts an image to ASCII art with adjustable brightness."""
     image = scale_image(image)
-    image = convert_to_grayscale(image)
 
-	if not make_silhouette:
-		image = convert_to_grayscale(image)  # PIL image
-    pixels_to_chars = map_pixels_to_ascii_chars(image, make_silhouette)
+    if not make_silhouette:
+        image = convert_to_grayscale(image)
+
+    pixels_to_chars = map_pixels_to_ascii_chars(image, make_silhouette=make_silhouette, brightness=brightness)
     len_pixels_to_chars = len(pixels_to_chars)
-
-    image_ascii = [
-        pixels_to_chars[index : index + new_width]
-        for index in range(0, len_pixels_to_chars, new_width)
-    ]
-
+    image_ascii = [pixels_to_chars[index: index + new_width] for index in range(0, len_pixels_to_chars, new_width)]
     return "\n".join(image_ascii)
 
-def handle_image_conversion(image_filepath, make_silhouette):
-    image = None
+def handle_image_conversion(image_filepath, make_silhouette = False, output_file_path='output.txt', brightness=1.0):
+    """Handles the conversion of an image to ASCII art with adjustable brightness.
+    Saves the output to a file if output_file_path is provided.
+    """
     try:
         image = Image.open(image_filepath)
+    except FileNotFoundError:
+        print(f"Error: File not found - {image_filepath}")
+        return
+    except PermissionError:
+        print(f"Error: Permission denied - {image_filepath}")
+        return
     except Exception as e:
-
-        print(
-            "Unable to open image file {image_filepath}.".format(
-                image_filepath=image_filepath
-            )
-        )
+        print(f"Error: Unable to open image file {image_filepath}.")
         print(e)
         return
 
-    image_ascii = convert_image_to_ascii(image)
+    image_ascii = convert_image_to_ascii(image, make_silhouette=make_silhouette, brightness=brightness)
     print(image_ascii)
+
+    if output_file_path:
+        save_ascii_art_to_file(image_ascii, output_file_path)
+        print(f"ASCII art saved to {output_file_path}")
+
+def save_ascii_art_to_file(image_ascii, output_file_path):
+    """Saves the ASCII art to a file."""
+    with open(output_file_path, 'w') as f:
+        f.write(image_ascii)
 
 def get_image_path():
     """Open a file dialog to select an image and return its path."""
@@ -89,21 +92,27 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-p", "--path", help="path to image file", required=True)
-    parser.add_argument("-s", "--silhouette",
-                        help="Make ASCII silhouette", required=False)
+        "-p", "--path", help="path to image file", required=False)
+    parser.add_argument("-s", "--silhouette", help="Make ASCII silhouette", required=False)
+    parser.add_argument("-o", "--output", help="Output file and path", required=False)
+    parser.add_argument("-b", "--brightness", help="Alter brightness of image (e.g. -b 1.0)", required=False)
     args = parser.parse_args()
     make_silhouette = False
+    brightness = 1.0
     image_file_path = args.path
+    output_file_path = 'output.txt'
 
-	""" use file dialog if no arguments are passed """
-	if len(sys.argv < 2):
-		image_file_path = get_image_path()
+    """ use file dialog if no arguments are passed """
+    if len(sys.argv) < 2:
+        image_file_path = get_image_path()
 
     if len(sys.argv) > 2:
         if args.silhouette is not None:
-            make_silhouette = args.silhouette.lower() in [
-                'true', 'yes', 'y', 't']
-    
+            make_silhouette = args.silhouette.lower() in ['true', 'yes', 'y', 't']
+    if args.brightness is not None:
+        brightness = float(args.brightness)
+    if args.output is not None:
+        output_file_path = args.output
+
     print(image_file_path)
-    handle_image_conversion(image_file_path, make_silhouette)
+    handle_image_conversion(image_file_path, make_silhouette, output_file_path, brightness)
