@@ -13,3 +13,8 @@
 `Constants as Uppercase:` Convert ASCII_CHARS to uppercase to indicate that it's a constant.
 
 `Error Handling:` Improve error handling by catching specific exceptions. For instance, catch the FileNotFoundError and PermissionError to provide more informative error messages to the user.
+
+# SmokeRaven667
+
+Made `-p/--path` a required CLI param.
+Added option CLI param `-s/--silhouette` to output image as an ASCII silhouette. Defaults to False.
