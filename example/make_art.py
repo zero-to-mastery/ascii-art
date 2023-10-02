@@ -55,9 +55,11 @@ def handle_image_conversion(image_filepath):
     image_ascii = convert_image_to_ascii(image)
     print(image_ascii)
 
+
+
 if __name__=='__main__':
     import sys
 
-    image_file_path = sys.argv[1]
+    image_file_path = sys.argv[0]
     print(image_file_path)
     handle_image_conversion(image_file_path)
