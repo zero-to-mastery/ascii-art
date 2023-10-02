@@ -60,7 +60,9 @@ def handle_image_conversion(image_filepath, make_silhouette = False, output_file
         print(f"Error: Permission denied - {image_filepath}")
         return
     except Exception as e:
-        print(f"Error: Unable to open image file {image_filepath}.")
+        print(f"Unable to open image file {image_filepath}.")
+        print(f"Make sure the file you are trying to use resides on the given path {image_filepath}.")
+
         print(e)
         return
 
