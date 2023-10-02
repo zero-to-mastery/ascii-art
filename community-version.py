@@ -84,17 +84,12 @@ class SimpleCmd(cmd.Cmd):
                 create_many_instances(image)
 
 
-if __name__ == "__main__":
-    SimpleCmd().cmdloop()
-
-## Community Version
-
 # this project requires Pillow installation: https://pillow.readthedocs.io/en/stable/installation.html
 
 # code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
 # code modified to work with Python 3 by @aneagoie
 
-from PIL import Image
+
 from tkinter import Tk, filedialog
 
 ASCII_CHARS = ["#", "?", "%", ".", "S", "+", ".", "*", ":", ",", "@"]
@@ -133,8 +128,8 @@ def convert_image_to_ascii(image, make_silhouette=False, new_width=100):
     image = scale_image(image)
     image = convert_to_grayscale(image)
 
-	if not make_silhouette:
-		image = convert_to_grayscale(image)  # PIL image
+    if not make_silhouette:
+        image = convert_to_grayscale(image)  # PIL image
     pixels_to_chars = map_pixels_to_ascii_chars(image, make_silhouette)
     len_pixels_to_chars = len(pixels_to_chars)
 
@@ -169,6 +164,10 @@ def get_image_path():
 
     file_path = filedialog.askopenfilename()
     root.destroy()  # Destroy the root window after selection
+    
+    if not file_path: # if no file uploaded exit peacefully
+        print("No file selected. Exiting.")
+        sys.exit()
 
     return file_path
 
@@ -178,21 +177,29 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-p", "--path", help="path to image file", required=True)
-    parser.add_argument("-s", "--silhouette",
-                        help="Make ASCII silhouette", required=False)
-    args = parser.parse_args()
-    make_silhouette = False
-    image_file_path = args.path
-
-	""" use file dialog if no arguments are passed """
-	if len(sys.argv < 2):
-		image_file_path = get_image_path()
-
-    if len(sys.argv) > 2:
-        if args.silhouette is not None:
-            make_silhouette = args.silhouette.lower() in [
-                'true', 'yes', 'y', 't']
+            "-i", "--interactive", action="store_true", help="Run in interactive mode"
+            )
+    #parser.add_argument(
+    #    "-p", "--path", help="path to image file", required=True)
     
-    print(image_file_path)
-    handle_image_conversion(image_file_path, make_silhouette)
+    parser.add_argument("-f", "--file", help="Image file path")
+    
+    parser.add_argument("-s", "--silhouette",
+                        help="Make ASCII silhouette",
+                        action="store_true",
+                        default=False
+                        )
+    
+    args = parser.parse_args()
+   # make_silhouette = False
+   # image_file_path = args.path
+
+    """ use file dialog if no arguments are passed """
+    if args.interactive:
+        SimpleCmd().cmdloop()
+    else:
+        if args.file is None or (args.file == "-s"):
+                args.file = get_image_path()
+
+        print(args.file)
+        handle_image_conversion(args.file, args.silhouette)
