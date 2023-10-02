@@ -1,10 +1,14 @@
 ## Community Version
 
+# this project requires Pillow installation: https://pillow.readthedocs.io/en/stable/installation.html
+
+# code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
+# code modified to work with Python 3 by @aneagoie
+
 from PIL import Image
 from tkinter import Tk, filedialog
 
 ASCII_CHARS = ["#", "?", "%", ".", "S", "+", ".", "*", ":", ",", "@"]
-
 
 def scale_image(image, new_width=100):
     """Resizes an image preserving the aspect ratio."""
@@ -15,12 +19,10 @@ def scale_image(image, new_width=100):
     new_image = image.resize((new_width, new_height))
     return new_image
 
-
 def convert_to_grayscale(image):
-    return image.convert("L")
+    return image.convert('L')
 
-
-def map_pixels_to_ascii_chars(image, range_width=25):
+def map_pixels_to_ascii_chars(image, make_silhouette=False, range_width=25):
     """Maps each pixel to an ascii char based on the range
     in which it lies.
 
@@ -28,18 +30,23 @@ def map_pixels_to_ascii_chars(image, range_width=25):
     """
 
     pixels_in_image = list(image.getdata())
-    pixels_to_chars = [
-        ASCII_CHARS[int(pixel_value / range_width)] for pixel_value in pixels_in_image
-    ]
+
+    if make_silhouette:
+        pixels_in_image = [x[3] for x in image.getdata()]
+
+    pixels_to_chars = [ASCII_CHARS[int(pixel_value/range_width)] for pixel_value in
+                       pixels_in_image]
 
     return "".join(pixels_to_chars)
 
 
-def convert_image_to_ascii(image, new_width=100):
+def convert_image_to_ascii(image, make_silhouette=False, new_width=100):
     image = scale_image(image)
     image = convert_to_grayscale(image)
 
-    pixels_to_chars = map_pixels_to_ascii_chars(image)
+	if not make_silhouette:
+		image = convert_to_grayscale(image)  # PIL image
+    pixels_to_chars = map_pixels_to_ascii_chars(image, make_silhouette)
     len_pixels_to_chars = len(pixels_to_chars)
 
     image_ascii = [
@@ -49,12 +56,12 @@ def convert_image_to_ascii(image, new_width=100):
 
     return "\n".join(image_ascii)
 
-
-def handle_image_conversion(image_filepath):
+def handle_image_conversion(image_filepath, make_silhouette):
     image = None
     try:
         image = Image.open(image_filepath)
     except Exception as e:
+
         print(
             "Unable to open image file {image_filepath}.".format(
                 image_filepath=image_filepath
@@ -66,7 +73,6 @@ def handle_image_conversion(image_filepath):
     image_ascii = convert_image_to_ascii(image)
     print(image_ascii)
 
-
 def get_image_path():
     """Open a file dialog to select an image and return its path."""
     root = Tk()
@@ -77,9 +83,27 @@ def get_image_path():
 
     return file_path
 
-if __name__ == "__main__":
+if __name__ == '__main__':
+    import argparse
     import sys
 
-    # image_file_path = sys.argv[1]
-    image_file_path = get_image_path()
-    handle_image_conversion(image_file_path)
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-p", "--path", help="path to image file", required=True)
+    parser.add_argument("-s", "--silhouette",
+                        help="Make ASCII silhouette", required=False)
+    args = parser.parse_args()
+    make_silhouette = False
+    image_file_path = args.path
+
+	""" use file dialog if no arguments are passed """
+	if len(sys.argv < 2):
+		image_file_path = get_image_path()
+
+    if len(sys.argv) > 2:
+        if args.silhouette is not None:
+            make_silhouette = args.silhouette.lower() in [
+                'true', 'yes', 'y', 't']
+    
+    print(image_file_path)
+    handle_image_conversion(image_file_path, make_silhouette)
