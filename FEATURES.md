@@ -1,3 +1,4 @@
+
 # T-Crypt 
 
 `USAGE:` python3 script.py <image_file_path> [output_file_path] [brightness]
@@ -14,7 +15,11 @@
 
 `Error Handling:` Improve error handling by catching specific exceptions. For instance, catch the FileNotFoundError and PermissionError to provide more informative error messages to the user.
 
-# SmokeRaven667
+
 
 Made `-p/--path` a required CLI param.
 Added option CLI param `-s/--silhouette` to output image as an ASCII silhouette. Defaults to False.
+
+
+created class SimpleCmd which emulates command interpreter.
+	=> method ascii. takes all args passed to separated by space
