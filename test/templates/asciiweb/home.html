@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -18,6 +19,19 @@
 		  <div class="p-5 bg-info text-center">
     		<h1>Hacktoberfest 2023</h1>
 		  </div>
+	 </div>
+
+
+	 <div class="row">
+		 {% for image in all_images %}
+		 <div class="col-md-6 pr-2">
+			 <img src="{{image.image.url}}" alt="" class="img-fluid rounded" />
+		 </div>
+
+		 <div class="col-md-6 pl-2">
+		 </div>
+		 {% endfor %}
+
 	 </div>
 
 
