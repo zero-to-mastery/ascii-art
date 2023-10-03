@@ -112,11 +112,12 @@ def map_pixels_to_ascii_chars(image, make_silhouette=False, range_width=25, brig
     pixels_in_image = list(image.getdata())
 
     if make_silhouette:
-        pixels_in_image = [r for r,g,b,a in pixels_in_image]
+        pixels_in_image = [m[3] for m in image.getdata()]
 
     adjusted_pixels = [int(pixel * brightness) for pixel in pixels_in_image]
 
-    pixels_to_chars = [ASCII_CHARS[int(pixel_value / range_width)] for pixel_value in adjusted_pixels]
+    pixels_to_chars = [ASCII_CHARS[min(int(pixel_value / range_width),
+        len(ASCII_CHARS) - 1)] for pixel_value in adjusted_pixels]
     return "".join(pixels_to_chars)
 
 def convert_image_to_ascii(image, make_silhouette=False, new_width=100, brightness=1.0):
