@@ -1,3 +1,4 @@
+
 # T-Crypt 
 
 `USAGE:` python3 script.py <image_file_path> [output_file_path] [brightness]
@@ -18,3 +19,7 @@
 
 Made `-p/--path` a required CLI param.
 Added option CLI param `-s/--silhouette` to output image as an ASCII silhouette. Defaults to False.
+
+
+Integrated the project with Django and created HOME view which renders
+home.html page.
