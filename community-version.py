@@ -3,7 +3,7 @@
 """This is class SIMPLEcmd"""
 
 import os
-from PIL import Image
+from PIL import Image, ImageDraw
 import cmd
 from example.make_art import convert_image_to_ascii
 
@@ -133,7 +133,7 @@ def convert_image_to_ascii(image, make_silhouette=False, new_width=100, brightne
     image_ascii = [pixels_to_chars[index: index + new_width] for index in range(0, len_pixels_to_chars, new_width)]
     return "\n".join(image_ascii)
 
-def handle_image_conversion(image_filepath, make_silhouette = False, output_file_path='output.txt', brightness=1.0):
+def handle_image_conversion(image_filepath, make_silhouette = False, output_file_path='output.txt', brightness=1.0, output_image = False):
     """Handles the conversion of an image to ASCII art with adjustable brightness.
     Saves the output to a file if output_file_path is provided.
     """
@@ -158,11 +158,51 @@ def handle_image_conversion(image_filepath, make_silhouette = False, output_file
     if output_file_path:
         save_ascii_art_to_file(image_ascii, output_file_path)
         print(f"ASCII art saved to {output_file_path}")
+    
+    if output_image:
+        try:
+            save_ascii_art_to_jpg(image_ascii, image)
+        except Exception as exception:
+            print(str(exception))
+            return
 
 def save_ascii_art_to_file(image_ascii, output_file_path):
     """Saves the ASCII art to a file."""
     with open(output_file_path, 'w') as f:
         f.write(image_ascii)
+
+def save_ascii_art_to_jpg(image_ascii, image):
+    if not image:
+        raise Exception('Image object is invalid')
+    if len(image_ascii) <= 0:
+        raise Exception('ASCII art string is of invalid length')
+    
+    # Dimensions of the original image
+    original_image_width, original_image_height = image.size
+    characters_count_in_width = len(image_ascii.split()[0])
+    characters_count_in_height = len(image_ascii.split())
+
+    # Dimensions of the output image
+    output_image_width = 6*characters_count_in_width
+    output_image_height = 15*characters_count_in_height
+
+    BLACK = (0, 0, 0)
+    WHITE = (255, 255, 255)
+
+    try:
+        # Create a blank image of black background
+        image = Image.new("RGB", (output_image_width, output_image_height), BLACK)
+        draw = ImageDraw.Draw(image)
+
+        # Draw the text on the blank image from top left corner with font color of white
+        draw.text((0, 0), image_ascii, fill=WHITE)
+
+        # Resize the output image as per the original image's dimensions
+        resized_image = image.resize((original_image_width, original_image_height))
+        resized_image.save('output.jpg')
+        print('ASCII art image saved to output.jpg')
+    except Exception as exception:
+        raise exception
 
 def get_image_path():
     """Open a file dialog to select an image and return its path."""
@@ -192,6 +232,7 @@ if __name__ == '__main__':
     parser.add_argument("-s", "--silhouette", help="Make ASCII silhouette", action="store_true",default=False)
     parser.add_argument("-o", "--output", help="Output file and path")
     parser.add_argument("-b", "--brightness", help="Alter brightness of image (e.g. -b 1.0)", required=False)
+    parser.add_argument("-u", "--output-image", help="Creates an output.jpg file of the ASCII art", action="store_true", default=False)
     
     args = parser.parse_args()
    # make_silhouette = False
@@ -208,6 +249,7 @@ if __name__ == '__main__':
         print(args.file)
         handle_image_conversion(args.file, args.silhouette,
                 args.output if args.output else 'output.txt',
-                float(args.brightness) if args.brightness else 1.0
+                float(args.brightness) if args.brightness else 1.0,
+                args.output_image
                 )
 
