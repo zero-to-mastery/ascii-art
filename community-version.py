@@ -57,9 +57,8 @@ class SimpleCmd(cmd.Cmd):
             return
         all_images = args.split()
 
-        
         def create_many_instances(file):
-            
+
             if is_image_file(file):
                 try:
                     with Image.open(file) as image:
@@ -94,6 +93,7 @@ from tkinter import Tk, filedialog
 
 ASCII_CHARS = ["#", "?", "%", ".", "S", "+", ".", "*", ":", ",", "@"]
 
+
 def scale_image(image, new_width=100):
     """Resizes an image preserving the aspect ratio."""
     (original_width, original_height) = image.size
@@ -103,9 +103,11 @@ def scale_image(image, new_width=100):
     new_image = image.resize((new_width, new_height))
     return new_image
 
+
 def convert_to_grayscale(image):
     """Converts an image to grayscale."""
     return image.convert('L')
+
 
 def map_pixels_to_ascii_chars(image, make_silhouette=False, range_width=25, brightness=1.0):
     """Maps pixel values to ASCII characters based on a specified range and brightness."""
@@ -117,8 +119,9 @@ def map_pixels_to_ascii_chars(image, make_silhouette=False, range_width=25, brig
     adjusted_pixels = [int(pixel * brightness) for pixel in pixels_in_image]
 
     pixels_to_chars = [ASCII_CHARS[min(int(pixel_value / range_width),
-        len(ASCII_CHARS) - 1)] for pixel_value in adjusted_pixels]
+                                       len(ASCII_CHARS) - 1)] for pixel_value in adjusted_pixels]
     return "".join(pixels_to_chars)
+
 
 def convert_image_to_ascii(image, make_silhouette=False, new_width=100, brightness=1.0):
     """Converts an image to ASCII art with adjustable brightness."""
@@ -133,7 +136,8 @@ def convert_image_to_ascii(image, make_silhouette=False, new_width=100, brightne
     image_ascii = [pixels_to_chars[index: index + new_width] for index in range(0, len_pixels_to_chars, new_width)]
     return "\n".join(image_ascii)
 
-def handle_image_conversion(image_filepath, make_silhouette = False, output_file_path='output.txt', brightness=1.0):
+
+def handle_image_conversion(image_filepath, make_silhouette=False, output_file_path='output.txt', brightness=1.0):
     """Handles the conversion of an image to ASCII art with adjustable brightness.
     Saves the output to a file if output_file_path is provided.
     """
@@ -159,10 +163,12 @@ def handle_image_conversion(image_filepath, make_silhouette = False, output_file
         save_ascii_art_to_file(image_ascii, output_file_path)
         print(f"ASCII art saved to {output_file_path}")
 
+
 def save_ascii_art_to_file(image_ascii, output_file_path):
     """Saves the ASCII art to a file."""
     with open(output_file_path, 'w') as f:
         f.write(image_ascii)
+
 
 def get_image_path():
     """Open a file dialog to select an image and return its path."""
@@ -171,12 +177,13 @@ def get_image_path():
 
     file_path = filedialog.askopenfilename()
     root.destroy()  # Destroy the root window after selection
-    
-    if not file_path: # if no file uploaded exit peacefully
+
+    if not file_path:  # if no file uploaded exit peacefully
         print("No file selected. Exiting.")
         sys.exit()
 
     return file_path
+
 
 if __name__ == '__main__':
     import argparse
@@ -184,30 +191,34 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-            "-i", "--interactive", action="store_true", help="Run in interactive mode"
-            )
+        "-i", "--interactive", action="store_true", help="Run in interactive mode"
+    )
 
     parser.add_argument("-f", "--file", help="Image file path")
-    
-    parser.add_argument("-s", "--silhouette", help="Make ASCII silhouette", action="store_true",default=False)
+
+    parser.add_argument("-s", "--silhouette", help="Make ASCII silhouette", action="store_true", default=False)
     parser.add_argument("-o", "--output", help="Output file and path")
     parser.add_argument("-b", "--brightness", help="Alter brightness of image (e.g. -b 1.0)", required=False)
-    
+
+    parser.add_argument("-c", "--chars", help="DIY the chars list to draw your unique ascii art", required=False)
+
     args = parser.parse_args()
-   # make_silhouette = False
-   # image_file_path = args.path
-    
+    # make_silhouette = False
+    # image_file_path = args.path
 
     """ use file dialog if no arguments are passed """
     if args.interactive:
         SimpleCmd().cmdloop()
     else:
         if args.file is None or (args.file == "-s"):
-                args.file = get_image_path()
+            args.file = get_image_path()
+
+        if args.chars:
+            ASCII_CHARS = list(set(args.chars))
 
         print(args.file)
-        handle_image_conversion(args.file, args.silhouette,
-                args.output if args.output else 'output.txt',
-                float(args.brightness) if args.brightness else 1.0
-                )
-
+        handle_image_conversion(args.file,
+                                make_silhouette=args.silhouette,
+                                output_file_path=args.output if args.output else 'output.txt',
+                                brightness=float(args.brightness) if args.brightness else 1.0,
+                                )

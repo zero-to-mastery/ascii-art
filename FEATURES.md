@@ -15,6 +15,7 @@
 
 `Error Handling:` Improve error handling by catching specific exceptions. For instance, catch the FileNotFoundError and PermissionError to provide more informative error messages to the user.
 
+`DIY the ASCII_CHARS list`: Create your unique ascii art by DIY the ASCII_CHARS,
 
 
 Made `-p/--path` a required CLI param.
