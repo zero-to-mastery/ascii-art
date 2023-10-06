@@ -84,10 +84,9 @@ class SimpleCmd(cmd.Cmd):
     def do_ascii_text(self, args):
         """
         converts text to image and then to ascii art 
-        consider a word connected to each other with an underscore '_'.
         
         Usage: ascii_text <Text>
-        Example: ascii_text Hello_World
+        Example: ascii_text Hello World
         """
         if not args:
             print("** Text missing **")
