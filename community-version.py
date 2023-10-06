@@ -6,7 +6,6 @@ import os
 from PIL import Image, ImageDraw, ImageFont
 import cmd
 from example.make_art import convert_image_to_ascii
-from io import BytesIO
 
 def is_image_file(path_to_file):
     """
