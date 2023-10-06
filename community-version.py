@@ -6,6 +6,8 @@ import os
 from PIL import Image
 import cmd
 from example.make_art import convert_image_to_ascii
+import requests
+from io import BytesIO
 
 
 def is_image_file(path_to_file):
@@ -133,12 +135,30 @@ def convert_image_to_ascii(image, make_silhouette=False, new_width=100, brightne
     image_ascii = [pixels_to_chars[index: index + new_width] for index in range(0, len_pixels_to_chars, new_width)]
     return "\n".join(image_ascii)
 
-def handle_image_conversion(image_filepath, make_silhouette = False, output_file_path='output.txt', brightness=1.0):
+def fetch_image_from_url(url):
+    response = requests.get(url, stream=True)
+
+    if response.status_code == 200:
+        try:
+            image = Image.open(BytesIO(response.content))
+        except Exception as e:
+            print("There is a problem when fetching image from url")
+            return e
+    else:
+        print("Can't get request - Return status code", response.status_code)
+        raise Exception('Status code is not 200')
+    return image
+
+def handle_image_conversion(image_filepath, url, make_silhouette = False, output_file_path='output.txt', brightness=1.0):
     """Handles the conversion of an image to ASCII art with adjustable brightness.
     Saves the output to a file if output_file_path is provided.
     """
     try:
-        image = Image.open(image_filepath)
+        if not url:
+            # read image from file
+            image = Image.open(image_filepath)
+        else: 
+            image = fetch_image_from_url(url)
     except FileNotFoundError:
         print(f"Error: File not found - {image_filepath}")
         return
@@ -192,6 +212,7 @@ if __name__ == '__main__':
     parser.add_argument("-s", "--silhouette", help="Make ASCII silhouette", action="store_true",default=False)
     parser.add_argument("-o", "--output", help="Output file and path")
     parser.add_argument("-b", "--brightness", help="Alter brightness of image (e.g. -b 1.0)", required=False)
+    parser.add_argument("-l", "--url", help="Link to image's url on the internet")
     
     args = parser.parse_args()
    # make_silhouette = False
@@ -202,12 +223,21 @@ if __name__ == '__main__':
     if args.interactive:
         SimpleCmd().cmdloop()
     else:
-        if args.file is None or (args.file == "-s"):
+        source, file_name = 'Local file', ''
+        if (args.file is None or (args.file == "-s")) and args.url is None:
                 args.file = get_image_path()
+                file_name = args.file
+        elif args.url:
+            file_name = args.url
+            source = 'External URL'
+        else:
+            file_name = args.file
+        
+        print("Image from {}: {}".format(source, file_name))
 
-        print(args.file)
-        handle_image_conversion(args.file, args.silhouette,
+        handle_image_conversion(args.file, args.url, args.silhouette,
                 args.output if args.output else 'output.txt',
                 float(args.brightness) if args.brightness else 1.0
                 )
+        
 

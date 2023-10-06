@@ -15,6 +15,7 @@
 
 `Error Handling:` Improve error handling by catching specific exceptions. For instance, catch the FileNotFoundError and PermissionError to provide more informative error messages to the user.
 
+`Allow convert image from external url:` Users can paste image's url with -l flag to convert image from the internet without saving it to local machine
 
 
 Made `-p/--path` a required CLI param.
