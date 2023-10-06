@@ -3,9 +3,29 @@
 """This is class SIMPLEcmd"""
 
 import os
-from PIL import Image
+from PIL import Image, ImageDraw
 import cmd
 from example.make_art import convert_image_to_ascii
+
+# changing ascii-art to image
+text_file = "./custom_text.txt"
+def art_to_image(text_file):
+    with open(text_file, 'r') as f:
+        ascii_text = f.read()
+    
+    # Create a new Image
+    # make sure the dimensions (W and H) are big enough for the ascii art
+    W, H = (3000,3000)
+    im = Image.new("RGBA",(W,H),"white")
+
+    # Draw text to image
+    draw = ImageDraw.Draw(im)
+    # (w, h) = draw.multiline_textbbox((6, 8), ascii_text)
+    # draws the text in the center of the image
+    draw.text((0, 0), ascii_text, fill="black")
+
+    # Save Image
+    im.save("final.png", "PNG")
 
 
 def is_image_file(path_to_file):
@@ -179,35 +199,46 @@ def get_image_path():
     return file_path
 
 if __name__ == '__main__':
-    import argparse
-    import sys
+    print("To change Image to ASCII Art type '1' \nTo change ASCII Art to Image type '2'")
+    print("Note! If you type '2', Make sure you have 'custom_text.txt' file already in home directory with ASCII-Art in it.")
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-            "-i", "--interactive", action="store_true", help="Run in interactive mode"
-            )
+    answer = input("Please type either '1' or '2': ")
 
-    parser.add_argument("-f", "--file", help="Image file path")
-    
-    parser.add_argument("-s", "--silhouette", help="Make ASCII silhouette", action="store_true",default=False)
-    parser.add_argument("-o", "--output", help="Output file and path")
-    parser.add_argument("-b", "--brightness", help="Alter brightness of image (e.g. -b 1.0)", required=False)
-    
-    args = parser.parse_args()
-   # make_silhouette = False
-   # image_file_path = args.path
-    
+    if (answer == '1'): 
+        import argparse
+        import sys
 
-    """ use file dialog if no arguments are passed """
-    if args.interactive:
-        SimpleCmd().cmdloop()
-    else:
-        if args.file is None or (args.file == "-s"):
-                args.file = get_image_path()
-
-        print(args.file)
-        handle_image_conversion(args.file, args.silhouette,
-                args.output if args.output else 'output.txt',
-                float(args.brightness) if args.brightness else 1.0
+        parser = argparse.ArgumentParser()
+        parser.add_argument(
+                "-i", "--interactive", action="store_true", help="Run in interactive mode"
                 )
+
+        parser.add_argument("-f", "--file", help="Image file path")
+        
+        parser.add_argument("-s", "--silhouette", help="Make ASCII silhouette", action="store_true",default=False)
+        parser.add_argument("-o", "--output", help="Output file and path")
+        parser.add_argument("-b", "--brightness", help="Alter brightness of image (e.g. -b 1.0)", required=False)
+        
+        args = parser.parse_args()
+        # make_silhouette = False
+        # image_file_path = args.path
+        
+
+        """ use file dialog if no arguments are passed """
+        if args.interactive:
+            SimpleCmd().cmdloop()
+        else:
+            if args.file is None or (args.file == "-s"):
+                    args.file = get_image_path()
+
+            print(args.file)
+            handle_image_conversion(args.file, args.silhouette,
+                    args.output if args.output else 'output.txt',
+                    float(args.brightness) if args.brightness else 1.0
+                    )
+    else:
+        if os.path.isfile(f'./{text_file}'):
+            art_to_image(text_file)
+        else:
+            print("You did not create 'custom_text.txt' file in home directory. Program ends here.")
 
