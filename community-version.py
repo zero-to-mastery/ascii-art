@@ -11,6 +11,9 @@ from example.make_art import convert_image_to_ascii
 def is_image_file(path_to_file):
     """
     This function checks if the the file is valid image
+    @param path_to_file :path to the file to be checked
+
+    @return Boolean Flag indicating if tje path is valid or not
     """
     if not os.path.isabs(path_to_file):
         path_to_file = os.path.abspath(path_to_file)
@@ -95,7 +98,13 @@ from tkinter import Tk, filedialog
 ASCII_CHARS = ["#", "?", "%", ".", "S", "+", ".", "*", ":", ",", "@"]
 
 def scale_image(image, new_width=100):
-    """Resizes an image preserving the aspect ratio."""
+    """
+    This Function Resizes an image preserving the aspect ratio.
+    @param image:input image to be resized
+    @param new_width(optional):The new width required by default it is 100
+
+    @return the newly resized image
+    """
     (original_width, original_height) = image.size
     aspect_ratio = original_height / float(original_width)
     new_height = int(aspect_ratio * new_width)
@@ -104,11 +113,24 @@ def scale_image(image, new_width=100):
     return new_image
 
 def convert_to_grayscale(image):
-    """Converts an image to grayscale."""
+    """
+    This Function Converts an image to grayscale.
+    @param image:The image to be converted to grey
+
+    @return the grey scale image
+    """
     return image.convert('L')
 
 def map_pixels_to_ascii_chars(image, make_silhouette=False, range_width=25, brightness=1.0):
-    """Maps pixel values to ASCII characters based on a specified range and brightness."""
+    """
+    Maps pixel values to ASCII characters based on a specified range and brightness.
+    @param image:The image to be converted to ASCII
+    @param make_silhouette:Flag to indicate if the image required to be silhouette
+    @param range_width:The range of the result width
+    @param brightness:The brightness of the image [0-1]
+
+    @return the new ASCII image
+    """
     pixels_in_image = list(image.getdata())
 
     if make_silhouette:
@@ -160,7 +182,13 @@ def handle_image_conversion(image_filepath, make_silhouette = False, output_file
         print(f"ASCII art saved to {output_file_path}")
 
 def save_ascii_art_to_file(image_ascii, output_file_path):
-    """Saves the ASCII art to a file."""
+    """
+    Saves the ASCII art to a file.
+    @param image_ascii:The ASCII image to be saved
+    @param output_file_path:The path of the output image
+
+    @return None
+    """
     with open(output_file_path, 'w') as f:
         f.write(image_ascii)
 
