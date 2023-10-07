@@ -15,13 +15,14 @@
 
 `Error Handling:` Improve error handling by catching specific exceptions. For instance, catch the FileNotFoundError and PermissionError to provide more informative error messages to the user.
 
+`Allow convert image from external url:` Users can paste image's url with -l flag to convert image from the internet without saving it to local machine
+
 `DIY the ASCII_CHARS list`: Create your unique ascii art by DIY the ASCII_CHARS,
 
 `Output to Image:` Saves the generated ASCII art to a jpg file in the same directory as output.jpg. Use option `-u/--output-image`.
 
 Made `-p/--path` a required CLI param.
 Added option CLI param `-s/--silhouette` to output image as an ASCII silhouette. Defaults to False.
-
 
 created class SimpleCmd which emulates command interpreter.
 	=> method ascii. takes all args passed to separated by space
