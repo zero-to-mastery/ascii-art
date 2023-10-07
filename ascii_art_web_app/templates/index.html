@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to ASCII Art Converter</title>
+</head>
+<body>
+    <h1>Image to ASCII Art Converter</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept=".jpg, .jpeg, .png, .gif">
+        <input type="submit" value="Convert">
+    </form>
+    {% if ascii_art %}
+    <h2>ASCII Art</h2>
+    <pre>{{ ascii_art }}</pre>
+    {% endif %}
+</body>
+</html>
