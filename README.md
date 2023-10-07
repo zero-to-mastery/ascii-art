@@ -63,7 +63,7 @@ The options are endless and there is no wrong answer. This is all for fun, so tr
 3. Create a pull request
 4. [Tweet about making your first Hacktoberfest pull request](https://ctt.ac/UR9dA)
 
-> Congratulations! You are now one pull request closer to getting that free t-shirt. Repeat these steps until you have made at least 4 qualifying pull requests. You can check how many qualifying pull requests you have made at <https://hacktoberfest.digitalocean.com/profile> Have Fun and Happy Coding!
+> Congratulations! Now you're one order closer to getting that tree planted in your name and the digital reward. Repeat these steps until you have made at least 4 qualifying pull requests. You can check how many qualifying pull requests you have made at <https://hacktoberfest.digitalocean.com/profile> Have Fun and Happy Coding!
 
 ### Bonus Task
 
