@@ -3,9 +3,10 @@
 """This is class SIMPLEcmd"""
 
 import os
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 import cmd
 from example.make_art import convert_image_to_ascii
+
 
 # changing ascii-art to image
 text_file = "./custom_text.txt"
@@ -102,7 +103,53 @@ class SimpleCmd(cmd.Cmd):
             for image in all_images:
                 create_many_instances(image)
 
+    def do_ascii_text(self, args):
+        """
+        converts text to image and then to ascii art 
+        
+        Usage: ascii_text <Text>
+        Example: ascii_text Hello World
+        """
+        if not args:
+            print("** Text missing **")
+            return
+        
+        else:
+        
+            # print(args)
+            
+            # Width and height of the image in pixels
+            # color in RGB
+            width = 500  
+            height = 300  
+            # background_color = (211, 211, 211)  
+            background_color = (255, 255, 255)
 
+            img = Image.new("RGB", (width, height), background_color)
+
+            # Define the font size and load a font
+            font_size = 85
+            # font = ImageFont.truetype("comicbd.ttf", font_size)
+            font = ImageFont.truetype("arial.ttf", font_size)
+
+            # draw on image
+            if len(args) > 6 :
+                toptext=str(args)[:6]
+                bottomtext=str(args)[6:]
+
+                img_draw = ImageDraw.Draw(img)
+                img_draw.text((50, 50), toptext, fill=(0,0,0), font=font)   
+                img_draw.text((50, 150), bottomtext, fill=(0,0,0), font=font)
+
+            else:
+                img_draw = ImageDraw.Draw(img)
+                img_draw.text((50, 50), args, fill=(0,0,0), font=font)
+
+            """not using bytesio"""
+            ascii_img = convert_image_to_ascii(img, new_width=100)
+            print(ascii_img)
+
+        return True
 # this project requires Pillow installation: https://pillow.readthedocs.io/en/stable/installation.html
 
 # code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
