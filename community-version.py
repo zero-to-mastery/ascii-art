@@ -3,10 +3,14 @@
 """This is class SIMPLEcmd"""
 
 import os
-from PIL import Image
+from PIL import Image, ImageEnhance
+from PIL import ImageDraw
+from PIL import ImageFont
+from time import sleep
 import cmd
 from example.make_art import convert_image_to_ascii
 
+ASCII_CHARS = "@%#*+=-:. "
 
 def is_image_file(path_to_file):
     """
@@ -82,6 +86,44 @@ class SimpleCmd(cmd.Cmd):
         elif len(all_images) > 1:
             for image in all_images:
                 create_many_instances(image)
+
+
+    def do_animate(self, args):
+
+        """
+        Usage: animate <image1> <image2>
+        """
+
+        image_list = ["/home/dennis/Downloads/images/course-1.jpg",
+                "/home/dennis/Downloads/images/course-details.jpg"]
+        output_gif = "output.gif"
+        frame_delay = 1000
+        brightness = 1.0
+
+        if not args or len(args) < 2:
+            print()
+            print("** Animating default images **")
+            print()
+
+        if len(args) >= 2:
+            image_path = args.split()
+                
+            image_list.clear()
+            for image in image_path:
+                image_list.append(image)
+        
+        frames = []
+        for image_path in image_list:
+            frame = Image.open(image_path)
+            frames.append(frame)
+
+            frames[0].save(
+                    output_gif, save_all = True,
+                    append_images = frames[1:],
+                    loop = 0, duration = frame_delay
+                    )
+
+        print("** Animation done **")
 
 
 # this project requires Pillow installation: https://pillow.readthedocs.io/en/stable/installation.html
