@@ -3,8 +3,7 @@
 
 import os
 import sys
-
-import self
+import tkinter
 from PIL import Image
 import cmd
 from tkinter import Tk, filedialog
@@ -13,6 +12,7 @@ import argparse
 from example.convertartpython3 import handle_image_conversion
 
 ASCII_CHARS = ["#", "?", "%", ".", "S", "+", ".", "*", ":", ",", "@"]
+BASE_PATH = ""  # Set your base path here if running locally. // Done using codespaces hence basepath blank.
 
 
 class ImageToAsciiConverter:
@@ -21,12 +21,12 @@ class ImageToAsciiConverter:
         self.brightness = brightness
 
     @staticmethod
-    def scale_image(image):
+    def scale_image(image, new_width):
         """Resize an image preserving the aspect ratio."""
         (original_width, original_height) = image.size
         aspect_ratio = original_height / float(original_width)
-        new_height = int(aspect_ratio * self.new_width)
-        new_image = image.resize((self.new_width, new_height))
+        new_height = int(aspect_ratio * new_width)
+        new_image = image.resize((new_width, new_height))
         return new_image
 
     @staticmethod
@@ -35,22 +35,22 @@ class ImageToAsciiConverter:
         return image.convert('L')
 
     @staticmethod
-    def map_pixels_to_ascii_chars(image, make_silhouette=False, range_width=25):
+    def map_pixels_to_ascii_chars(image, brightness, make_silhouette=False, range_width=25):
         """Map pixel values to ASCII characters based on a specified range and brightness."""
         pixels_in_image = list(image.getdata())
         if make_silhouette:
             pixels_in_image = [m[3] for m in image.getdata()]
-        adjusted_pixels = [int(pixel * self.brightness) for pixel in pixels_in_image]
+        adjusted_pixels = [int(pixel * brightness) for pixel in pixels_in_image]
         pixels_to_chars = [ASCII_CHARS[min(int(pixel_value / range_width), len(ASCII_CHARS) - 1)] for pixel_value in
                            adjusted_pixels]
         return "".join(pixels_to_chars)
 
     def convert_image_to_ascii(self, image, make_silhouette=False):
         """Convert an image to ASCII art with adjustable brightness."""
-        image = self.scale_image(image)
+        image = self.scale_image(image, self.new_width)
         if not make_silhouette:
             image = self.convert_to_grayscale(image)
-        pixels_to_chars = self.map_pixels_to_ascii_chars(image, make_silhouette=make_silhouette)
+        pixels_to_chars = self.map_pixels_to_ascii_chars(image, self.brightness, make_silhouette=make_silhouette)
         len_pixels_to_chars = len(pixels_to_chars)
         image_ascii = [pixels_to_chars[index: index + self.new_width] for index in
                        range(0, len_pixels_to_chars, self.new_width)]
@@ -60,7 +60,7 @@ class ImageToAsciiConverter:
 def is_image_file(path_to_file):
     """Check if the file is a valid image."""
     if not os.path.isabs(path_to_file):
-        path_to_file = os.path.abspath(path_to_file)
+        path_to_file = os.path.abspath(os.path.join(BASE_PATH, path_to_file))
 
     try:
         with Image.open(path_to_file) as img:
@@ -107,7 +107,7 @@ class SimpleCmd(cmd.Cmd):
     def process_image(self, image_path):
         if is_image_file(image_path):
             try:
-                with Image.open(image_path) as image:
+                with Image.open(os.path.join(BASE_PATH, image_path)) as image:
                     ascii_img = self.converter.convert_image_to_ascii(image)
                 print()
                 print(ascii_img)
@@ -119,20 +119,39 @@ class SimpleCmd(cmd.Cmd):
             print()
             print(f"{image_path} is not a valid image file")
 
+    def emptyline(self):
+        """Override emptyline behavior (do nothing instead of repeating the last command)."""
+        pass
+
 
 def get_image_path():
     """Open a file dialog to select an image and return its path."""
-    root = Tk()
-    root.withdraw()  # Hide the root window
+    try:
+        root = Tk()
+    except tkinter.TclError as e:
+        print("Error:", e)
+        root = None
 
-    file_path = filedialog.askopenfilename()
-    root.destroy()  # Destroy the root window after selection
+    if root:
+        root.withdraw()  # Hide the root window
 
-    if not file_path:
-        print("No file selected. Exiting.")
-        sys.exit()
+        try:
+            file_path = filedialog.askopenfilename()
+        except tkinter.TclError as e:
+            print("Error:", e)
+            file_path = None
 
-    return file_path
+        if root:
+            root.destroy()  # Destroy the root window after selection
+
+        if not file_path:
+            print("No file selected. Using BASE_PATH.")
+            return os.path.join(BASE_PATH, "example/ztm-logo.png")  # Fallback to a default image or specify your fallback logic here
+
+        return file_path
+    else:
+        print("No display available. Using BASE_PATH.")
+        return os.path.join(BASE_PATH, "example/ztm-logo.png")  # Fallback to a default image or specify your fallback logic here
 
 
 def main():
