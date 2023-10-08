@@ -4,13 +4,13 @@
 
 import os
 from PIL import Image, ImageEnhance
-from PIL import ImageDraw
-from PIL import ImageFont
+#from PIL import ImageDraw
+#from PIL import ImageFont
 from time import sleep
 import cmd
 from example.make_art import convert_image_to_ascii
 
-ASCII_CHARS = "@%#*+=-:. "
+#ASCII_CHARS = "@%#*+=-:. "
 
 def is_image_file(path_to_file):
     """
@@ -94,11 +94,14 @@ class SimpleCmd(cmd.Cmd):
         Usage: animate <image1> <image2>
         """
 
-        image_list = ["/home/dennis/Downloads/images/course-1.jpg",
-                "/home/dennis/Downloads/images/course-details.jpg"]
+        image_list = ["example/ztm-logo.png",
+                "example/newlog.png", "example/orm.jpg"]
         output_gif = "output.gif"
         frame_delay = 1000
         brightness = 1.0
+
+        width = 600
+        height = 400
 
         if not args or len(args) < 2:
             print()
@@ -110,11 +113,19 @@ class SimpleCmd(cmd.Cmd):
                 
             image_list.clear()
             for image in image_path:
+                image = Image.open(image)
+                image = image.resize((width, height))
+
                 image_list.append(image)
         
         frames = []
         for image_path in image_list:
-            frame = Image.open(image_path)
+            if not args or len(args) < 2:
+                frame = Image.open(image_path)
+                frame = frame.resize((width, height))
+            else:
+                frame = image_path
+
             frames.append(frame)
 
             frames[0].save(
