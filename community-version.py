@@ -9,6 +9,7 @@ import cmd
 from example.make_art import convert_image_to_ascii
 import requests
 from io import BytesIO
+import argparse
 
 
 # changing ascii-art to image
@@ -137,7 +138,8 @@ class SimpleCmd(cmd.Cmd):
             # Define the font size and load a font
             font_size = 85
             # font = ImageFont.truetype("comicbd.ttf", font_size)
-            font = ImageFont.truetype("arial.ttf", font_size)
+            #font = ImageFont.truetype("arial.ttf", font_size)
+            font = ImageFont.load_default()
 
             # draw on image
             if len(args) > 6 :
@@ -155,8 +157,9 @@ class SimpleCmd(cmd.Cmd):
             """not using bytesio"""
             ascii_img = convert_image_to_ascii(img, new_width=100)
             print(ascii_img)
+            print()
 
-        return True
+        #return True
 
     def do_animate(self, args):
 
