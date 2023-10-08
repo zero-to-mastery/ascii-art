@@ -3,7 +3,11 @@
 #code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
 #code modified to work with Python 3 by @aneagoie
 from PIL import Image
-ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
+import string
+
+all_printable_characters = string.printable
+ASCII_CHARS = list(all_printable_characters)
+
 
 def scale_image(image, new_width=100):
     """Resizes an image preserving the aspect ratio.
