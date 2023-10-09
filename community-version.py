@@ -397,5 +397,5 @@ if __name__ == '__main__':
                                 make_silhouette=args.silhouette,
                                 output_file_path=args.output if args.output else 'output.txt',
                                 brightness=float(args.brightness) if args.brightness else 1.0,
-                                output_image=args.output_imagek
+                                output_image=args.output_image
                                 )
