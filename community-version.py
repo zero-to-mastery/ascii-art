@@ -8,6 +8,8 @@ import cmd
 from example.make_art import convert_image_to_ascii
 import requests
 from io import BytesIO
+import sys
+import argparse
 
 
 # changing ascii-art to image
