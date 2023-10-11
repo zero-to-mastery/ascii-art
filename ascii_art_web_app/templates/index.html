@@ -4,28 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image to ASCII Art Converter</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        h1, p {
-            text-align: center;
-        }
-
-        h1 {
-            margin-bottom: 10px; /* Adjust this value to control the spacing */
-        }
-    </style>
 </head>
 <body>
     <h1>Image to ASCII Art Converter</h1>
-    <p>(Accepts .jpg, .jpeg, .png, .gif formats)</p>
     <form method="POST" enctype="multipart/form-data">
         <input type="file" name="image" accept=".jpg, .jpeg, .png, .gif">
         <input type="submit" value="Convert">
