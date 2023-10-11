@@ -4,16 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image to ASCII Art Converter</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1, p {
+            text-align: center;
+            margin: 0;
+        }
+
+        .description {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>Image to ASCII Art Converter</h1>
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="image" accept=".jpg, .jpeg, .png, .gif">
-        <input type="submit" value="Convert">
-    </form>
-    {% if ascii_art %}
-    <h2>ASCII Art</h2>
-    <pre>{{ ascii_art }}</pre>
-    {% endif %}
-</body>
-</html>
+    <div class="description">(Accepts .jpg, .jpeg, .png, .gif formats)</div>
+    <form method="
