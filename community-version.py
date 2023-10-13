@@ -397,3 +397,35 @@ if __name__ == '__main__':
                                 brightness=float(args.brightness) if args.brightness else 1.0,
                                 output_image=args.output_imagek
                                 )
+
+
+def convert_image_to_ascii(image, new_width=100):
+    """
+    Returns ascii art in coloured form in combination with `to_color()` function down below
+    """
+    image = scale_image(image)
+    image = convert_to_grayscale(image)
+
+    pixels_to_chars = map_pixels_to_ascii_chars(image)
+    len_pixels_to_chars = len(pixels_to_chars)
+
+    image_ascii = [pixels_to_chars[index: index + new_width] for index in
+                   range(0, len_pixels_to_chars, new_width)]
+
+    # return "\n".join(image_ascii)
+    # Output is given to `to_color()` function which makes the text coloured
+    return to_color("\n".join(image_ascii), 'blue')
+
+def to_color(string, color):
+    """
+    Returns the image in coloured form out of blue, yellow, green, red.
+    :param string: ascii_image which is a string
+    :param color:  Colour of your choice
+    :return: concatination of string in colour of your choice
+    """
+    color_code = {'blue': '\033[34m',
+                  'yellow': '\033[33m',
+                  'green': '\033[32m',
+                  'red': '\033[31m'
+                  }
+    return color_code[color] + str(string) + '\033[0m'
