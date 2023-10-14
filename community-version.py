@@ -3,33 +3,56 @@
 """This is class SIMPLEcmd"""
 
 import os
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 import cmd
 from example.make_art import convert_image_to_ascii
 import requests
 from io import BytesIO
-
+import argparse
 
 # changing ascii-art to image
-text_file = "./custom_text.txt"
-def art_to_image(text_file):
+text_file = "./test/ztm-logo.txt"
+def save_ascii_art_to_png(text_file):
+    """
+     Render ASCII art from a text file and save it as a PNG image.
+
+     Parameters:
+         text_file (str): The path to the text file containing ASCII art.
+
+     Returns:
+         None: The function saves the output image and does not return anything.
+     """
+
+    # Extract file name from the path
+    file_name = os.path.basename(text_file).split('.')[0]
+
+    # Initialize font settings
+    font_size = 25
+    font = ImageFont.truetype("./fonts/FreeMono.ttf", font_size)
+    ascent, descent = font.getmetrics()
+
+    # Read ASCII art from text file
     with open(text_file, 'r') as f:
-        ascii_text = f.read()
-    
-    # Create a new Image
-    # make sure the dimensions (W and H) are big enough for the ascii art
-    W, H = (3000,3000)
-    im = Image.new("RGBA",(W,H),"white")
+        ascii_text = f.read()  # Read entire file
+        f.seek(0)  # Reset the file pointer to the beginning
+        text = f.readline()  # Read only the first line
 
-    # Draw text to image
-    draw = ImageDraw.Draw(im)
-    # (w, h) = draw.multiline_textbbox((6, 8), ascii_text)
-    # draws the text in the center of the image
-    draw.text((0, 0), ascii_text, fill="black")
+    # Calculate text dimensions
+    text_width = font.getmask(text).getbbox()[2]
+    text_height = font.getmask(text).getbbox()[3] + descent
+    image_width = text_width
+    image_height = text_height * len(text)
 
-    # Save Image
-    im.save("final.png", "PNG")
+    # Create a new image with calculated dimensions
+    image = Image.new("RGB", (image_width, image_height), "white")
+    draw = ImageDraw.Draw(image)
+    draw.text((0, 0), ascii_text, font=font, fill="black")
 
+    # Enhance image contrast
+    enhancer = ImageEnhance.Contrast(image)
+    image_enhanced = enhancer.enhance(1.5)
+    image_enhanced.save(f"./test/output_{file_name}.png", 'png')
+    print(f"ASCII art successfully saved as a PNG file at ./test/output_{file_name}.png")
 
 def is_image_file(path_to_file):
     """
@@ -343,7 +366,7 @@ if __name__ == '__main__':
   
     if (answer == '2'):
         if os.path.isfile(f'./{text_file}'):
-            art_to_image(text_file)
+            save_ascii_art_to_png(text_file)
         else:
             print("You did not create 'custom_text.txt' file in home directory. Program ends here.")
         exit()
