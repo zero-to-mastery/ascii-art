@@ -6,16 +6,12 @@ This is class SIMPLEcmd
 
 import sys
 import argparse
-
-
 import os
 from PIL import Image, ImageDraw, ImageFont
 import cmd
 from example.make_art import convert_image_to_ascii
 import requests
 from io import BytesIO
-import argparse
-import sys
 
 
 # changing ascii-art to image
