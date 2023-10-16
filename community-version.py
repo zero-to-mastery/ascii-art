@@ -1,7 +1,11 @@
 #!/usr/bin/python3
 ## Community Version
-"""This is class SIMPLEcmd"""
+"""
+This is class SIMPLEcmd
+"""
 
+import sys
+import argparse
 import os
 from PIL import Image, ImageDraw, ImageFont
 import cmd
@@ -16,15 +20,14 @@ def art_to_image(text_file):
     with open(text_file, 'r') as f:
         ascii_text = f.read()
     
-    # Create a new Image
-    # make sure the dimensions (W and H) are big enough for the ascii art
-    W, H = (3000,3000)
-    im = Image.new("RGBA",(W,H),"white")
-
-    # Draw text to image
+    # Get dimensions
+    im = Image.new("RGBA", (0, 0))
     draw = ImageDraw.Draw(im)
-    # (w, h) = draw.multiline_textbbox((6, 8), ascii_text)
-    # draws the text in the center of the image
+    (_, _, right, bottom) = draw.multiline_textbbox((0, 0), ascii_text) # get width and height in px
+
+    # draw the image based on the dimensions
+    im = Image.new("RGBA", (right, bottom), "white")
+    draw = ImageDraw.Draw(im)
     draw.text((0, 0), ascii_text, fill="black")
 
     # Save Image
@@ -35,7 +38,6 @@ def is_image_file(path_to_file):
     """
     This function checks if the the file is valid image
     @param path_to_file :path to the file to be checked
-
     @return Boolean Flag indicating if tje path is valid or not
     """
     if not os.path.isabs(path_to_file):
@@ -49,20 +51,28 @@ def is_image_file(path_to_file):
 
 
 class SimpleCmd(cmd.Cmd):
-    """this is command interpreter class"""
+    """
+    this is command interpreter class
+    """
     prompt = "(hackfest) "
 
     def do_quit(self, arg):
-        """This method exit the program"""
+        """
+        This method exit the program
+        """
         return True
 
     def do_EOF(self, arg):
-        """Exits the program without crashing"""
+        """
+        Exits the program without crashing
+        """
         print()
         return True
 
     def helf_quit(self):
-        """This is quit method help message"""
+        """
+        This is quit method help message
+        """
         print("Quit command to exit the program\n")
 
     def do_ascii(self, args):
@@ -150,7 +160,9 @@ class SimpleCmd(cmd.Cmd):
                 img_draw = ImageDraw.Draw(img)
                 img_draw.text((50, 50), args, fill=(0,0,0), font=font)
 
-            """not using bytesio"""
+            """
+            not using bytesio
+            """
             ascii_img = convert_image_to_ascii(img, new_width=100)
             print(ascii_img)
 
@@ -163,8 +175,10 @@ class SimpleCmd(cmd.Cmd):
 
 from tkinter import Tk, filedialog
 
-ASCII_CHARS = ["#", "?", "%", ".", "S", "+", ".", "*", ":", ",", "@"]
+import string
 
+ascii_printable = string.printable
+ASCII_CHARS = list(ascii_printable)
 
 def scale_image(image, new_width=100):
     """
@@ -212,7 +226,9 @@ def map_pixels_to_ascii_chars(image, make_silhouette=False, range_width=25, brig
     return "".join(pixels_to_chars)
 
 def convert_image_to_ascii(image, make_silhouette=False, new_width=100, brightness=1.0):
-    """Converts an image to ASCII art with adjustable brightness."""
+    """
+    Converts an image to ASCII art with adjustable brightness.
+    """
     image = scale_image(image)
 
     if not make_silhouette:
@@ -238,7 +254,8 @@ def fetch_image_from_url(url):
         raise Exception('Status code is not 200')
     return image
 
-def handle_image_conversion(image_filepath, make_silhouette=False, output_file_path='output.txt', brightness=1.0, output_image=False):
+
+def handle_image_conversion(image_filepath, url, make_silhouette=False, output_file_path='output.txt', brightness=1.0, output_image=False):
     """Handles the conversion of an image to ASCII art with adjustable brightness.
     Saves the output to a file if output_file_path is provided.
     """
@@ -321,7 +338,9 @@ def save_ascii_art_to_jpg(image_ascii, image):
         raise exception
 
 def get_image_path():
-    """Open a file dialog to select an image and return its path."""
+    """
+    Open a file dialog to select an image and return its path.
+    """
     root = Tk()
     root.withdraw()  # Hide the root window
 
@@ -336,12 +355,13 @@ def get_image_path():
 
 
 if __name__ == '__main__':
-    print("To change Image to ASCII Art type '1' \nTo change ASCII Art to Image type '2'")
-    print("Note! If you type '2', Make sure you have 'custom_text.txt' file already in home directory with ASCII-Art in it.")
+    print("To change Image to ASCII Art type '1'")
+    print("To change ASCII Art to Image type '2'")
+    print("Note! If you type '2', make sure you have 'custom_text.txt' file already in root directory with ASCII-Art in it.")
 
     answer = input("Please type either '1' or '2': ")
   
-    if (answer == '2'):
+    if answer == '2':
         if os.path.isfile(f'./{text_file}'):
             art_to_image(text_file)
         else:
@@ -366,14 +386,16 @@ if __name__ == '__main__':
     # make_silhouette = False
     # image_file_path = args.path
 
-    """ use file dialog if no arguments are passed """
+    """ 
+    use file dialog if no arguments are passed 
+    """
     if args.interactive:
         SimpleCmd().cmdloop()
     else:
         source, file_name = 'Local file', ''
         if (args.file is None or (args.file == "-s")) and args.url is None:
-                args.file = get_image_path()
-                file_name = args.file
+            args.file = get_image_path()
+            file_name = args.file
         elif args.url:
             file_name = args.url
             source = 'External URL'
@@ -385,15 +407,11 @@ if __name__ == '__main__':
         
         print("Image from {}: {}".format(source, file_name))
 
-        handle_image_conversion(args.file, args.url, args.silhouette,
-                args.output if args.output else 'output.txt',
-                float(args.brightness) if args.brightness else 1.0
-                )
-
-        print(args.file)
-        handle_image_conversion(args.file,
+        handle_image_conversion(file_name, args.url,
                                 make_silhouette=args.silhouette,
                                 output_file_path=args.output if args.output else 'output.txt',
                                 brightness=float(args.brightness) if args.brightness else 1.0,
-                                output_image=args.output_imagek
+                                output_image=args.output_image
                                 )
+
+
