@@ -4,14 +4,16 @@
 This is class SIMPLEcmd
 """
 
-import sys
 import argparse
-import os
-from PIL import Image, ImageDraw, ImageFont
 import cmd
-from example.make_art import convert_image_to_ascii
+import os
 import requests
+import sys
+from example.make_art import convert_image_to_ascii
 from io import BytesIO
+from PIL import Image, ImageDraw, ImageFont
+
+
 
 
 # changing ascii-art to image
@@ -129,22 +131,17 @@ class SimpleCmd(cmd.Cmd):
             print("** Text missing **")
             return
         
-        else:
-        
-            # print(args)
-            
+        else:            
             # Width and height of the image in pixels
             # color in RGB
             width = 500  
-            height = 300  
-            # background_color = (211, 211, 211)  
+            height = 300
             background_color = (255, 255, 255)
 
             img = Image.new("RGB", (width, height), background_color)
 
             # Define the font size and load a font
             font_size = 85
-            # font = ImageFont.truetype("comicbd.ttf", font_size)
             font = ImageFont.truetype("arial.ttf", font_size)
 
             # draw on image
@@ -383,8 +380,6 @@ if __name__ == '__main__':
     parser.add_argument("-u", "--output-image", help="Creates an output.jpg file of the ASCII art", action="store_true", default=False)
 
     args = parser.parse_args()
-    # make_silhouette = False
-    # image_file_path = args.path
 
     """ 
     use file dialog if no arguments are passed 
