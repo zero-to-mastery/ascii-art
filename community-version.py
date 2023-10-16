@@ -1,6 +1,12 @@
 #!/usr/bin/python3
 ## Community Version
-"""This is class SIMPLEcmd"""
+"""
+This is class SIMPLEcmd
+"""
+
+import sys
+import argparse
+
 
 import os
 from PIL import Image, ImageDraw, ImageFont
@@ -36,7 +42,6 @@ def is_image_file(path_to_file):
     """
     This function checks if the the file is valid image
     @param path_to_file :path to the file to be checked
-
     @return Boolean Flag indicating if tje path is valid or not
     """
     if not os.path.isabs(path_to_file):
@@ -50,20 +55,28 @@ def is_image_file(path_to_file):
 
 
 class SimpleCmd(cmd.Cmd):
-    """this is command interpreter class"""
+    """
+    this is command interpreter class
+    """
     prompt = "(hackfest) "
 
     def do_quit(self, arg):
-        """This method exit the program"""
+        """
+        This method exit the program
+        """
         return True
 
     def do_EOF(self, arg):
-        """Exits the program without crashing"""
+        """
+        Exits the program without crashing
+        """
         print()
         return True
 
     def helf_quit(self):
-        """This is quit method help message"""
+        """
+        This is quit method help message
+        """
         print("Quit command to exit the program\n")
 
     def do_ascii(self, args):
@@ -151,7 +164,9 @@ class SimpleCmd(cmd.Cmd):
                 img_draw = ImageDraw.Draw(img)
                 img_draw.text((50, 50), args, fill=(0,0,0), font=font)
 
-            """not using bytesio"""
+            """
+            not using bytesio
+            """
             ascii_img = convert_image_to_ascii(img, new_width=100)
             print(ascii_img)
 
@@ -164,8 +179,10 @@ class SimpleCmd(cmd.Cmd):
 
 from tkinter import Tk, filedialog
 
-ASCII_CHARS = ["#", "?", "%", ".", "S", "+", ".", "*", ":", ",", "@"]
+import string
 
+ascii_printable = string.printable
+ASCII_CHARS = list(ascii_printable)
 
 def scale_image(image, new_width=100):
     """
@@ -213,7 +230,9 @@ def map_pixels_to_ascii_chars(image, make_silhouette=False, range_width=25, brig
     return "".join(pixels_to_chars)
 
 def convert_image_to_ascii(image, make_silhouette=False, new_width=100, brightness=1.0):
-    """Converts an image to ASCII art with adjustable brightness."""
+    """
+    Converts an image to ASCII art with adjustable brightness.
+    """
     image = scale_image(image)
 
     if not make_silhouette:
@@ -238,6 +257,7 @@ def fetch_image_from_url(url):
         print("Can't get request - Return status code", response.status_code)
         raise Exception('Status code is not 200')
     return image
+
 
 def handle_image_conversion(image_filepath, url, make_silhouette=False, output_file_path='output.txt', brightness=1.0, output_image=False):
     """Handles the conversion of an image to ASCII art with adjustable brightness.
@@ -322,7 +342,9 @@ def save_ascii_art_to_jpg(image_ascii, image):
         raise exception
 
 def get_image_path():
-    """Open a file dialog to select an image and return its path."""
+    """
+    Open a file dialog to select an image and return its path.
+    """
     root = Tk()
     root.withdraw()  # Hide the root window
 
@@ -368,7 +390,9 @@ if __name__ == '__main__':
     # make_silhouette = False
     # image_file_path = args.path
 
-    """ use file dialog if no arguments are passed """
+    """ 
+    use file dialog if no arguments are passed 
+    """
     if args.interactive:
         SimpleCmd().cmdloop()
     else:
@@ -393,3 +417,5 @@ if __name__ == '__main__':
                                 brightness=float(args.brightness) if args.brightness else 1.0,
                                 output_image=args.output_image
                                 )
+
+
