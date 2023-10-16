@@ -14,6 +14,8 @@ import cmd
 from example.make_art import convert_image_to_ascii
 import requests
 from io import BytesIO
+import argparse
+import sys
 
 
 # changing ascii-art to image
@@ -22,15 +24,14 @@ def art_to_image(text_file):
     with open(text_file, 'r') as f:
         ascii_text = f.read()
     
-    # Create a new Image
-    # make sure the dimensions (W and H) are big enough for the ascii art
-    W, H = (3000,3000)
-    im = Image.new("RGBA",(W,H),"white")
-
-    # Draw text to image
+    # Get dimensions
+    im = Image.new("RGBA", (0, 0))
     draw = ImageDraw.Draw(im)
-    # (w, h) = draw.multiline_textbbox((6, 8), ascii_text)
-    # draws the text in the center of the image
+    (_, _, right, bottom) = draw.multiline_textbbox((0, 0), ascii_text) # get width and height in px
+
+    # draw the image based on the dimensions
+    im = Image.new("RGBA", (right, bottom), "white")
+    draw = ImageDraw.Draw(im)
     draw.text((0, 0), ascii_text, fill="black")
 
     # Save Image
@@ -257,9 +258,9 @@ def fetch_image_from_url(url):
         raise Exception('Status code is not 200')
     return image
 
-def handle_image_conversion(image_filepath, make_silhouette=False, output_file_path='output.txt', brightness=1.0, output_image=False):
-    """
-    Handles the conversion of an image to ASCII art with adjustable brightness.
+
+def handle_image_conversion(image_filepath, url, make_silhouette=False, output_file_path='output.txt', brightness=1.0, output_image=False):
+    """Handles the conversion of an image to ASCII art with adjustable brightness.
     Saves the output to a file if output_file_path is provided.
     """
     try:
@@ -358,12 +359,13 @@ def get_image_path():
 
 
 if __name__ == '__main__':
-    print("To change Image to ASCII Art type '1' \nTo change ASCII Art to Image type '2'")
-    print("Note! If you type '2', Make sure you have 'custom_text.txt' file already in home directory with ASCII-Art in it.")
+    print("To change Image to ASCII Art type '1'")
+    print("To change ASCII Art to Image type '2'")
+    print("Note! If you type '2', make sure you have 'custom_text.txt' file already in root directory with ASCII-Art in it.")
 
     answer = input("Please type either '1' or '2': ")
   
-    if (answer == '2'):
+    if answer == '2':
         if os.path.isfile(f'./{text_file}'):
             art_to_image(text_file)
         else:
@@ -396,8 +398,8 @@ if __name__ == '__main__':
     else:
         source, file_name = 'Local file', ''
         if (args.file is None or (args.file == "-s")) and args.url is None:
-                args.file = get_image_path()
-                file_name = args.file
+            args.file = get_image_path()
+            file_name = args.file
         elif args.url:
             file_name = args.url
             source = 'External URL'
@@ -409,13 +411,7 @@ if __name__ == '__main__':
         
         print("Image from {}: {}".format(source, file_name))
 
-        handle_image_conversion(args.file, args.url, args.silhouette,
-                args.output if args.output else 'output.txt',
-                float(args.brightness) if args.brightness else 1.0
-                )
-
-        print(args.file)
-        handle_image_conversion(args.file,
+        handle_image_conversion(file_name, args.url,
                                 make_silhouette=args.silhouette,
                                 output_file_path=args.output if args.output else 'output.txt',
                                 brightness=float(args.brightness) if args.brightness else 1.0,
