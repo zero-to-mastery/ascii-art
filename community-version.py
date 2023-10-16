@@ -18,15 +18,14 @@ def art_to_image(text_file):
     with open(text_file, 'r') as f:
         ascii_text = f.read()
     
-    # Create a new Image
-    # make sure the dimensions (W and H) are big enough for the ascii art
-    W, H = (3000,3000)
-    im = Image.new("RGBA",(W,H),"white")
-
-    # Draw text to image
+    # Get dimensions
+    im = Image.new("RGBA", (0, 0))
     draw = ImageDraw.Draw(im)
-    # (w, h) = draw.multiline_textbbox((6, 8), ascii_text)
-    # draws the text in the center of the image
+    (_, _, right, bottom) = draw.multiline_textbbox((0, 0), ascii_text) # get width and height in px
+
+    # draw the image based on the dimensions
+    im = Image.new("RGBA", (right, bottom), "white")
+    draw = ImageDraw.Draw(im)
     draw.text((0, 0), ascii_text, fill="black")
 
     # Save Image
@@ -338,12 +337,13 @@ def get_image_path():
 
 
 if __name__ == '__main__':
-    print("To change Image to ASCII Art type '1' \nTo change ASCII Art to Image type '2'")
-    print("Note! If you type '2', Make sure you have 'custom_text.txt' file already in home directory with ASCII-Art in it.")
+    print("To change Image to ASCII Art type '1'")
+    print("To change ASCII Art to Image type '2'")
+    print("Note! If you type '2', make sure you have 'custom_text.txt' file already in root directory with ASCII-Art in it.")
 
     answer = input("Please type either '1' or '2': ")
   
-    if (answer == '2'):
+    if answer == '2':
         if os.path.isfile(f'./{text_file}'):
             art_to_image(text_file)
         else:
