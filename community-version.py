@@ -59,6 +59,12 @@ class SimpleCmd(cmd.Cmd):
 
         
         def create_many_instances(file):
+        """
+            Converts a single image to ASCII art and prints it.
+
+            Args:
+                file (str): Path to the image file
+        """
             
             if is_image_file(file):
                 try:
