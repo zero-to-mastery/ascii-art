@@ -94,6 +94,14 @@ class SimpleCmd(cmd.Cmd):
         all_images = args.split()
 
         def create_many_instances(file):
+        """Creates multiple instances of a model at once.
+
+  Args:
+    data: An array of objects, each of which represents a single instance of the model.
+    options: An object of options that can be used to customize the behavior of the function.
+
+  Returns:
+    An array of objects, each of which represents an instance of the model that was created. """
 
             if is_image_file(file):
                 try:
