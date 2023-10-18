@@ -17,6 +17,10 @@ from io import BytesIO
 # changing ascii-art to image
 text_file = "./custom_text.txt"
 def art_to_image(text_file):
+    """
+    Converts ASCII art from a text file to an image.
+    @param text_file: Path to the text file containing ASCII art.
+    """
     with open(text_file, 'r') as f:
         ascii_text = f.read()
     
@@ -178,7 +182,10 @@ from tkinter import Tk, filedialog
 import string
 
 ascii_printable = string.printable
-ASCII_CHARS = list(ascii_printable)
+
+# Convert ASCII_CHARS to uppercase 
+
+ASCII_CHARS = list(map(str.upper, ascii_printable))
 
 def scale_image(image, new_width=100):
     """
