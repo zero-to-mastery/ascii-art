@@ -4,19 +4,31 @@
 This is class SIMPLEcmd
 """
 
-import sys
-import argparse
-import os
-from PIL import Image, ImageDraw, ImageFont
-import cmd
-from example.make_art import convert_image_to_ascii
-import requests
+import sys,argparse,os,string,cmd,requests
 from io import BytesIO
 
+from example.make_art import convert_image_to_ascii
+
+# third party imports
+from PIL import Image, ImageDraw, ImageFont
+from tkinter import Tk, filedialog
+
+# this project requires Pillow installation: https://pillow.readthedocs.io/en/stable/installation.html
+
+# code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
+# code modified to work with Python 3 by @aneagoie
+
+
+ascii_printable = string.printable
+ASCII_CHARS = list(ascii_printable)
 
 # changing ascii-art to image
 text_file = "./custom_text.txt"
 def art_to_image(text_file):
+    """
+    This function converts ascii art to image
+    @param text_file: path to the text file
+    """
     with open(text_file, 'r') as f:
         ascii_text = f.read()
     
@@ -167,18 +179,7 @@ class SimpleCmd(cmd.Cmd):
             print(ascii_img)
 
         return True
-# this project requires Pillow installation: https://pillow.readthedocs.io/en/stable/installation.html
 
-# code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
-# code modified to work with Python 3 by @aneagoie
-
-
-from tkinter import Tk, filedialog
-
-import string
-
-ascii_printable = string.printable
-ASCII_CHARS = list(ascii_printable)
 
 def scale_image(image, new_width=100):
     """
