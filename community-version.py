@@ -27,7 +27,6 @@ def save_ascii_art_to_png(text_file):
      """
 
     # Extract file name from the path
-    
     file_name = os.path.basename(text_file).split('.')[0]
 
     # Initialize font settings
