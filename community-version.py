@@ -14,50 +14,35 @@ import requests
 from io import BytesIO
 
 # changing ascii-art to image
-text_file = "./test/ztm-logo.txt"
+text_file = "./custom_text.txt"
 def save_ascii_art_to_png(text_file):
     """
      Render ASCII art from a text file and save it as a PNG image.
 
      Parameters:
-         text_file (str): The path to the text file containing ASCII art.
+         text_file (str): The text file containing ASCII art.
 
      Returns:
          None: The function saves the output image and does not return anything.
      """
 
-    # Extract file name from the path
-    file_name = os.path.basename(text_file).split('.')[0]
-
-    # Initialize font settings
-    font_size = 25
-    font = ImageFont.truetype("./fonts/FreeMono.ttf", font_size)
-    ascent, descent = font.getmetrics()
-
     # Read ASCII art from text file
     with open(text_file, 'r') as f:
         ascii_text = f.read()  # Read entire file
-        f.seek(0)  # Reset the file pointer to the beginning
-        text = f.readline()  # Read only the first line
-
     
     # Get dimensions
     image = Image.new("RGBA", (0, 0))
     draw = ImageDraw.Draw(image)
     (_, _, right, bottom) = draw.multiline_textbbox((0, 0), ascii_text) # get width and height in px
 
-
     # Create a new image with calculated dimensions
     image = Image.new("RGB", (right, bottom), "white")
     draw = ImageDraw.Draw(image)
-    draw.text((0, 0), ascii_text, font=font, fill="black")
-
-    # Enhance image contrast
-    enhancer = ImageEnhance.Contrast(image)
-    image_enhanced = enhancer.enhance(1.5)
-    image_enhanced.save(f"./test/output_{file_name}.png", 'png')
-    print(f"ASCII art successfully saved as a PNG file at ./test/output_{file_name}.png")
-
+    draw.text((0, 0), ascii_text, fill="black")
+    image.save("final.png", 'png')
+    print(f"ASCII art successfully saved as a PNG")
+    
+    
 def is_image_file(path_to_file):
     """
     This function checks if the the file is valid image
@@ -199,10 +184,13 @@ class SimpleCmd(cmd.Cmd):
 
 from tkinter import Tk, filedialog
 
-import string
 
-ascii_printable = string.printable
-ASCII_CHARS = list(ascii_printable)
+ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
+
+def enhance_image(image):
+    enhancer = ImageEnhance.Contrast(image)
+    image_enhanced = enhancer.enhance(1.5)
+    return image_enhanced
 
 def scale_image(image, new_width=100):
     """
@@ -245,8 +233,7 @@ def map_pixels_to_ascii_chars(image, make_silhouette=False, range_width=25, brig
 
     adjusted_pixels = [int(pixel * brightness) for pixel in pixels_in_image]
 
-    pixels_to_chars = [ASCII_CHARS[min(int(pixel_value / range_width),
-                                       len(ASCII_CHARS) - 1)] for pixel_value in adjusted_pixels]
+    pixels_to_chars = [ASCII_CHARS[pixel_value // range_width]*2 for pixel_value in adjusted_pixels]
     return "".join(pixels_to_chars)
 
 def convert_image_to_ascii(image, make_silhouette=False, new_width=100, brightness=1.0):
@@ -261,7 +248,7 @@ def convert_image_to_ascii(image, make_silhouette=False, new_width=100, brightne
     pixels_to_chars = map_pixels_to_ascii_chars(image, make_silhouette=make_silhouette, brightness=brightness)
 
     len_pixels_to_chars = len(pixels_to_chars)
-    image_ascii = [pixels_to_chars[index: index + new_width] for index in range(0, len_pixels_to_chars, new_width)]
+    image_ascii = [pixels_to_chars[index: index + new_width*2] for index in range(0, len_pixels_to_chars, new_width*2)]
     return "\n".join(image_ascii)
 
 def fetch_image_from_url(url):
@@ -301,8 +288,8 @@ def handle_image_conversion(image_filepath, url, make_silhouette=False, output_f
 
         print(e)
         return
-
-    image_ascii = convert_image_to_ascii(image, make_silhouette=make_silhouette, brightness=brightness)
+    enhanced_image = enhance_image(image)
+    image_ascii = convert_image_to_ascii(enhanced_image, make_silhouette=make_silhouette, brightness=brightness)
     print(image_ascii)
 
     if output_file_path:
