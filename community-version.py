@@ -7,11 +7,13 @@ This is class SIMPLEcmd
 import sys
 import argparse
 import os
+from time import sleep
 from PIL import Image, ImageDraw, ImageFont
 import cmd
 from example.make_art import convert_image_to_ascii
 import requests
 from io import BytesIO
+import argparse
 
 
 # changing ascii-art to image
@@ -33,6 +35,7 @@ def art_to_image(text_file):
     # Save Image
     im.save("final.png", "PNG")
 
+#ASCII_CHARS = "@%#*+=-:. "
 
 def is_image_file(path_to_file):
     """
@@ -145,7 +148,8 @@ class SimpleCmd(cmd.Cmd):
             # Define the font size and load a font
             font_size = 85
             # font = ImageFont.truetype("comicbd.ttf", font_size)
-            font = ImageFont.truetype("arial.ttf", font_size)
+            #font = ImageFont.truetype("arial.ttf", font_size)
+            font = ImageFont.load_default()
 
             # draw on image
             if len(args) > 6 :
@@ -165,8 +169,59 @@ class SimpleCmd(cmd.Cmd):
             """
             ascii_img = convert_image_to_ascii(img, new_width=100)
             print(ascii_img)
+            print()
 
-        return True
+        #return True
+
+    def do_animate(self, args):
+
+        """
+        Usage: animate <image1> <image2>
+        """
+
+        image_list = ["example/ztm-logo.png",
+                "example/newlog.png", "example/orm.jpg"]
+        output_gif = "output.gif"
+        frame_delay = 1000
+        brightness = 1.0
+
+        width = 600
+        height = 400
+
+        if not args or len(args) < 2:
+            print()
+            print("** Animating default images **")
+            print()
+
+        if len(args) >= 2:
+            image_path = args.split()
+
+            image_list.clear()
+            for image in image_path:
+                image = Image.open(image)
+                image = image.resize((width, height))
+
+                image_list.append(image)
+
+        frames = []
+        for image_path in image_list:
+            if not args or len(args) < 2:
+                frame = Image.open(image_path)
+                frame = frame.resize((width, height))
+            else:
+                frame = image_path
+
+            frames.append(frame)
+
+            frames[0].save(
+                    output_gif, save_all = True,
+                    append_images = frames[1:],
+                    loop = 0, duration = frame_delay
+                    )
+
+        print("** Animation done **")
+
+
 # this project requires Pillow installation: https://pillow.readthedocs.io/en/stable/installation.html
 
 # code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
