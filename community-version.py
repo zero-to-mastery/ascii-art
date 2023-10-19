@@ -35,19 +35,17 @@ def art_to_image(text_file):
 
 
 def is_image_file(path_to_file):
-    """
-    This function checks if the the file is valid image
-    @param path_to_file :path to the file to be checked
-    @return Boolean Flag indicating if tje path is valid or not
-    """
+    if not os.path.exists(path_to_file):
+        print(f"The file {path_to_file} does not exist!")
+        return False
     if not os.path.isabs(path_to_file):
         path_to_file = os.path.abspath(path_to_file)
-
     try:
         with Image.open(path_to_file) as img:
             return True
     except Exception as not_image:
         return False
+
 
 
 class SimpleCmd(cmd.Cmd):
@@ -256,9 +254,7 @@ def fetch_image_from_url(url):
 
 
 def handle_image_conversion(image_filepath, url, make_silhouette=False, output_file_path='output.txt', brightness=1.0, output_image=False):
-    """Handles the conversion of an image to ASCII art with adjustable brightness.
-    Saves the output to a file if output_file_path is provided.
-    """
+
     try:
         if not url:
             # read image from file
@@ -274,9 +270,9 @@ def handle_image_conversion(image_filepath, url, make_silhouette=False, output_f
     except Exception as e:
         print(f"Unable to open image file {image_filepath}.")
         print(f"Make sure the file you are trying to use resides on the given path {image_filepath}.")
-
         print(e)
         return
+
 
     image_ascii = convert_image_to_ascii(image, make_silhouette=make_silhouette, brightness=brightness)
     print(image_ascii)
@@ -353,6 +349,12 @@ def get_image_path():
 
     return file_path
 
+def is_valid_file(parser, arg):
+    if not os.path.exists(arg):
+        parser.error(f"The file {arg} does not exist!")
+    else:
+        return arg
+
 
 if __name__ == '__main__':
     print("To change Image to ASCII Art type '1'")
@@ -373,7 +375,7 @@ if __name__ == '__main__':
         "-i", "--interactive", action="store_true", help="Run in interactive mode"
     )
 
-    parser.add_argument("-f", "--file", help="Image file path")
+    parser.add_argument("-f", "--file", help="Image file path", type=lambda x: is_valid_file(parser, x))
 
     parser.add_argument("-s", "--silhouette", help="Make ASCII silhouette", action="store_true", default=False)
     parser.add_argument("-o", "--output", help="Output file and path")
