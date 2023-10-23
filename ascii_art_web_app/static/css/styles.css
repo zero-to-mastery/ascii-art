@@ -13,3 +13,15 @@
 .home-page-form {
     text-align: center;
 }
+
+.resizable-image {
+    max-width: 200px;
+    max-height: 200px;
+    overflow: auto;
+}
+
+.resizable-ascii {
+    max-width: 1200px;
+    max-height: 1200px;
+    overflow: auto;
+}
