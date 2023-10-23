@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image and ASCII Art</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="image-container">
+            <h2>Image</h2>
+            <img class="resizable-image" src="data:image/png;base64,{{ image_str }}">
+        </div>
+        <div class="ascii-container">
+            <h2>ASCII Art</h2>
+            {% if ascii_art %}
+                <pre class="resizable-ascii">{{ ascii_art }}</pre>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
