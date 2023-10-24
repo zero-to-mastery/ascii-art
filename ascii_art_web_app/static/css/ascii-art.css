@@ -1,0 +1,53 @@
+.ascii-art-heading {
+    text-align: center;
+    font-size: 2rem;
+}
+
+.ascii-art {
+        text-align: center;
+        font-size: 0.4rem;
+        margin: 5px;
+}
+
+@media only screen and (min-width: 768px) {
+    .ascii-art {
+        font-size: 0.5rem;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .ascii-art {
+        font-size: 0.75rem;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .ascii-art {
+        font-size: 1rem;
+    }
+}
+
+.back-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #165fbe;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    margin-left: 43vw;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+    padding-bottom: 20px;
+    color: gray;
+    font-family: 'Poppins', sans-serif;
+}

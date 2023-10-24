@@ -1,15 +1,68 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
+html {
+    height: 100%;
+    background: repeating-linear-gradient(45deg,#FFFFFF,#FFFFFF 10px,#56d5d5 10px,#56d5d5 30px);
+}
 .home-div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 80vh;
     margin: 0;
-    font-family: 'Poppins', sans-serif;;
+    font-family: 'Poppins', sans-serif;
+}
+
+.home-page-heading {
+    text-align: center;
+    font-size: 2rem;
 }
 
 .home-page-form {
     text-align: center;
+}
+
+.subheading {
+    font-size: 1.5rem;
+    margin-top: 5px;
+}
+
+.supported-formats {
+    font-size: 1rem;
+    margin-top: 0;
+    color: gray;
+}
+
+@media only screen and (max-width: 768px) {
+    .home-div {
+        padding: 20px;
+    }
+    
+    .home-page-heading {
+        font-size: 1.5rem;
+    }
+
+    .home-page-form {
+        font-size: 0.75rem;
+    }
+    
+    .subheading {
+        font-size: 1rem;
+    }
+    
+    .supported-formats {
+        font-size: 0.8rem;
+    }
+}
+
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+    padding-bottom: 20px;
+    color: gray;
+    font-family: 'Poppins', sans-serif;
 }

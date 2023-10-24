@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your ASCII Art</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ascii-art.css') }}">
+</head>
+<body>
+    <div class="ascii-art">
+        {% if ascii_art %}
+        <h2 class="ascii-art-heading">✨ Your ASCII Art ✨</h2>
+        <pre class="ascii-art">{{ ascii_art }}</pre>
+        {% endif %}
+    </div>
+    <a class="back-button" href="{{url_for('index')}}">Try another image</a>
+    <footer>
+        Image to ASCII Art Converter - Made with ❤️ by the ZTM community.
+    </footer>
+</body>
+</html>
