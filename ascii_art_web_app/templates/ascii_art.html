@@ -14,6 +14,10 @@
         </div>
         <div class="ascii-container">
             <h2>ASCII Art</h2>
+            <form action="download_ascii" method="post">
+            <input type="hidden" name="ascii_art" value="{{ ascii_art }}">
+            <button type="submit">Save ASCII Art</button>
+            </form>
             {% if ascii_art %}
                 <pre class="resizable-ascii">{{ ascii_art }}</pre>
             {% endif %}
