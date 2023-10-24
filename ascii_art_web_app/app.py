@@ -37,13 +37,20 @@ def image_render():
             return render_template("ascii_art.html",ascii_art=ascii_art,image_str=img_str)
     return render_template("ascii_art.html",ascii_art=None,image_str=None)
 
+
 @app.route("/download_ascii",methods=["GET","POST"])
 def save_ascii_art():
     if request.method == "POST":
+        action = request.form.get("action")
         ascii_art = request.form.get('ascii_art', '')
         with open("ascii_art.txt", "w") as f:
             f.write(ascii_art)
-        return send_file("ascii_art.txt", as_attachment=True, download_name="ascii_art.txt")
+        if action == "save_ascii":
+            return send_file("ascii_art.txt", as_attachment=True, download_name="ascii_art.txt")
+        elif action == "save_png":
+            core.save_ascii_art_to_png("ascii_art.txt")
+            return send_file('./final.png', mimetype='image/png', as_attachment=True, download_name="ascii_art.png")
+
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=8080)
