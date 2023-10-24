@@ -13,6 +13,28 @@ from example.make_art import convert_image_to_ascii
 import requests
 from io import BytesIO
 
+!{sys.executable} -m pip install pyfiglet
+import pyfiglet as pyfiglet
+
+def convert_to_color(text, color):
+    """
+    This function turns text into ASCII of a selected colour.
+    @param text: The text to be converted to coloured ASCII.
+    @param color: The selected color.
+
+    @return coloured ASCII image
+    """
+    color_code = {'blue': '\033[34m',
+                    'yellow': '\033[33m',
+                    'green': '\033[32m',
+                    'red': '\033[31m',
+                  'purple': '\033[35m',
+                  'cyan': '\033[36m'
+                 }
+    text = pyfiglet.figlet_format(text)      
+    return color_code[color] + str(text) + '\033[0m'
+# Example: print(convert_to_color('ZeroToMastery','cyan'))
+
 
 # changing ascii-art to image
 text_file = "./custom_text.txt"
