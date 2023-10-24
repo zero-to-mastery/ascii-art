@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from PIL import Image
 from inspect import getsourcefile
 import io
@@ -25,9 +25,10 @@ def index():
         if image:
             image = Image.open(io.BytesIO(image.read()))
             ascii_art = core.convert_image_to_ascii(image)
-            return render_template("index.html", ascii_art=ascii_art)
+            return render_template("ascii-art.html", ascii_art=ascii_art)
 
-    return render_template("index.html", ascii_art=None)
+    return render_template("index.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=8080)
