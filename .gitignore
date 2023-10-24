@@ -4,5 +4,6 @@ env
 ../zero
 *.pyc
 test
-
-
+.DS_Store
+Thumbs.db
+.idea/
