@@ -15,7 +15,6 @@ sys.path.pop(0)
 #from community-version import convert_image_to_ascii
 # from convert_image import convert_image_to_ascii
 
-
 app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
@@ -31,4 +30,4 @@ def index():
     return render_template("index.html", ascii_art=None)
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0', port=8080)
