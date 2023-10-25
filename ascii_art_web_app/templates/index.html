@@ -17,6 +17,23 @@
         <h2>ASCII Art</h2>
         <pre>{{ ascii_art }}</pre>
         {% endif %}
+
+        <button id="dark-mode-toggle">Toggle Dark Mode</button>
+
+        <script>
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            darkModeToggle.addEventListener('click', () => {
+                const isDarkMode = localStorage.getItem('darkMode') === 'true';
+                localStorage.setItem('darkMode', !isDarkMode);
+                document.body.classList.toggle('dark-mode');
+            });
+
+            // Apply dark mode based on user preference
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+            }
+        </script>
     </div>
 </body>
 </html>

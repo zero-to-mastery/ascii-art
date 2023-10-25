@@ -1,6 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
+:root {
+    --background-color: #fff;
+    --text-color: #222;
+}
+
+.dark-mode {
+    --background-color: #222;
+    --text-color: #fff;
+}
+
 .home-div {
+    background-color: var(--background-color);
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,4 +24,15 @@
 
 .home-page-form {
     text-align: center;
+}
+
+.dark-mode .home-page-heading {
+    color: var(--text-color);
+}
+
+/* Position dark mode toggle button */
+#dark-mode-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
 }
