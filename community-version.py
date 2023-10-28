@@ -353,6 +353,13 @@ def get_image_path():
 
     return file_path
 
+import base64
+
+def decode_base64_image(base64_str):
+    decoded_data = base64.b64decode(base64_str)
+    image = Image.open(BytesIO(decoded_data))
+    return image
+
 
 if __name__ == '__main__':
     print("To change Image to ASCII Art type '1'")
@@ -381,6 +388,7 @@ if __name__ == '__main__':
     parser.add_argument("-l", "--url", help="Link to image's url on the internet")
     parser.add_argument("-c", "--chars", help="DIY the chars list to draw your unique ascii art", required=False)
     parser.add_argument("-u", "--output-image", help="Creates an output.jpg file of the ASCII art", action="store_true", default=False)
+    parser.add_argument("-b64", "--base64", help="Image in base64 format")
 
     args = parser.parse_args()
     # make_silhouette = False
@@ -404,6 +412,14 @@ if __name__ == '__main__':
         
         if args.chars:
             ASCII_CHARS = list(set(args.chars))
+
+        if args.base64:
+                image = decode_base64_image(args.base64)
+                
+        if args.base64:
+            image = decode_base64_image(args.base64)
+            ascii_img = convert_image_to_ascii(image)
+            print(ascii_img)
         
         print("Image from {}: {}".format(source, file_name))
 
