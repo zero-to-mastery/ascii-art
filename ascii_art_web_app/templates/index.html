@@ -8,7 +8,11 @@
 </head>
 <body>
     <div class="home-div">
+        {% if season_emoji %}
+        <h1 class="home-page-heading">{{ season_emoji }} Image to ASCII Art Converter {{ season_emoji }}</h1>
+        {% else %}
         <h1 class="home-page-heading">Image to ASCII Art Converter</h1>
+        {% endif %}
         <form class="home-page-form" method="POST" enctype="multipart/form-data">
             <input type="file" name="image" accept=".jpg, .jpeg, .png, .gif">
             <input type="submit" value="Convert">
