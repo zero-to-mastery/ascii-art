@@ -49,6 +49,21 @@ def is_image_file(path_to_file):
     except Exception as not_image:
         return False
 
+def save_ascii_to_image(ascii_str, image_path="ascii_image.png"):
+    """
+    Saves ASCII art to an image file
+    """
+    # Create an image object
+    img = Image.new('RGB', (len(ascii_str.split()[0])*10, len(ascii_str.split('\n'))*18), color = (73, 109, 137))
+
+    d = ImageDraw.Draw(img)
+    fnt = ImageFont.load_default()
+
+    # Draw text
+    d.text((10,10), ascii_str, font=fnt, fill=(255, 255, 0))
+
+    # Save image
+    img.save(image_path)
 
 class SimpleCmd(cmd.Cmd):
     """
@@ -167,6 +182,26 @@ class SimpleCmd(cmd.Cmd):
             print(ascii_img)
 
         return True
+    
+    def do_save_ascii_image(self, args):
+        """
+        Saves ASCII art to an image
+        Usage: save_ascii_image <ascii_file_path> <image_file_path>
+        Example: save_ascii_image ascii.txt ascii_image.png
+        """
+        if not args:
+            print("** Missing arguments **")
+            return
+
+        ascii_file_path, image_file_path = args.split()
+
+        try:
+            with open(ascii_file_path, 'r') as f:
+                ascii_str = f.read()
+            save_ascii_to_image(ascii_str, image_file_path)
+            print(f"ASCII art saved to {image_file_path}")
+        except Exception as e:
+            print(f"An error occurred: {e}")
 # this project requires Pillow installation: https://pillow.readthedocs.io/en/stable/installation.html
 
 # code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
@@ -234,7 +269,7 @@ def convert_image_to_ascii(image, make_silhouette=False, new_width=100, brightne
     if not make_silhouette:
         image = convert_to_grayscale(image)
 
-    pixels_to_chars = map_pixels_to_ascii_chars(image, make_silhouette=make_silhouette, brightness=brightness)
+    pixels_to_chars = map_pixels_to_ascii_chars(image, custom_ascii_chars=custom_ascii_chars, make_silhouette=make_silhouette, brightness=brightness)
 
     len_pixels_to_chars = len(pixels_to_chars)
     image_ascii = [pixels_to_chars[index: index + new_width] for index in range(0, len_pixels_to_chars, new_width)]
