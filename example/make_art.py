@@ -56,8 +56,22 @@ def handle_image_conversion(image_filepath):
     print(image_ascii)
 
 if __name__=='__main__':
-    import sys
+    import sys, os
 
     image_file_path = sys.argv[1]
-    print(image_file_path)
-    handle_image_conversion(image_file_path)
+    #The next two lines are moved into the check_if_file_or_directory function
+    #print(image_file_path)
+    #handle_image_conversion(image_file_path)
+
+#This function checks if the input is a file or a directory
+    def check_if_file_or_directory(file_path):
+        if os.path.isfile(file_path):
+            print(file_path)
+            handle_image_conversion(image_file_path)
+        elif os.path.isdir(file_path):
+            for file in os.listdir(file_path):
+                print(f'{file_path}{file}')
+                handle_image_conversion(f'{file_path}{file}')
+                print('\n')
+
+check_if_file_or_directory(image_file_path)
