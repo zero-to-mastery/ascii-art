@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c25027c9-3cfb-4688-a9fd-7431acc64a10" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/working_code/Image_to_ASCII_Art_Converter.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working_code/Imagemanual/Imagemanual.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working_code/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working_code/convertartpython3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working_code/makeArtPython3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working_code/make_art.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working_code/make_art_python2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working_code/ztm-logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/make_art.py" beforeDir="false" afterPath="$PROJECT_DIR$/example/make_art.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/venv/Lib/site-packages/PIL/Image.py" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Y6K3dE2ISKTDhNblUJwalcVFBu" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "image-scalability-issue",
+    "last_opened_file_path": "C:/Users/alexk/OneDrive/Desktop/ascciiArt/working_code",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\alexk\OneDrive\Desktop\ascciiArt\working_code" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c25027c9-3cfb-4688-a9fd-7431acc64a10" name="Changes" comment="" />
+      <created>1699840390987</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1699840390987</updated>
+    </task>
+    <servers />
+  </component>
+</project>
