@@ -1,7 +1,7 @@
 # this project requires Pillow installation: https://pillow.readthedocs.io/en/stable/installation.html
 
 #code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
-#Extra Task: Make this code work with Python3... you will notice you will have a few errors to fix! If you get stuck, see the answer @ make_art_popup.py
+#Extra Task: Make this code work with Python3... you will notice you will have a few errors to fix! If you get stuck, see the answer @ make_art.py
 from PIL import Image
 ASCII_CHARS = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
