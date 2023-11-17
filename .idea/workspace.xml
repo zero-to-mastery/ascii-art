@@ -5,20 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c25027c9-3cfb-4688-a9fd-7431acc64a10" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/working_code/Image_to_ASCII_Art_Converter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/working_code/Imagemanual/Imagemanual.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/working_code/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/working_code/convertartpython3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/working_code/makeArtPython3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/working_code/make_art.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/working_code/make_art_python2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/working_code/ztm-logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/make_art.py" beforeDir="false" afterPath="$PROJECT_DIR$/example/make_art.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ascii_popup/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ascii_popup/make_art_popup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ascii_popup/tests/test_make_art_popup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ascciiArt.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ascciiArt.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ascii-art/example/make_art_python2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ascii-art/example/make_art_python2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/make_art_python2.py" beforeDir="false" afterPath="$PROJECT_DIR$/example/make_art_python2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/working_code/Image_to_ASCII_Art_Converter.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/working_code/Imagemanual/Imagemanual.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/working_code/NORAH.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/working_code/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/working_code/convertartpython3.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/working_code/makeArtPython3.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/working_code/make_art.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/working_code/make_art_python2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/working_code/mountain.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/working_code/raaghav.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/working_code/raaghavHigh.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/working_code/raaghavLow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/working_code/vegan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/working_code/ztm-logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/ascii_popup/ztm-logo.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Unit Test" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -34,19 +54,100 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "image-scalability-issue",
-    "last_opened_file_path": "C:/Users/alexk/OneDrive/Desktop/ascciiArt/working_code",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;image-scalability-issue&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/alexk/OneDrive/Desktop/Python class/testing-and-documentation-techniques-alexkmckie&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\alexk\OneDrive\Desktop\ascciiArt\working_code" />
     </key>
+  </component>
+  <component name="RunManager" selected="Python tests.Python tests for test_make_art_popup.TestMakeArtPopup.test_scale_image_scales_height_to_suit_new_width">
+    <configuration name="Python tests for test_make_art_popup.TestMakeArtPopup.test_scale_image" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="ascciiArt" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ascii_popup/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_make_art_popup.TestMakeArtPopup.test_scale_image&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_make_art_popup.TestMakeArtPopup.test_scale_image_scales_height_to_suit_new_width" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="ascciiArt" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ascii_popup/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_make_art_popup.TestMakeArtPopup.test_scale_image_scales_height_to_suit_new_width&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_make_art_popup.TestMakeArtPopup.test_validate_font_input_is_out_of_range_and_false" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="ascciiArt" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ascii_popup/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_make_art_popup.TestMakeArtPopup.test_validate_font_input_is_out_of_range_and_false&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_make_art_popup.TestMakeArtPopup.test_validate_width_input_is_invalid_and_false" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="ascciiArt" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ascii_popup/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_make_art_popup.TestMakeArtPopup.test_validate_width_input_is_invalid_and_false&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_make_art_popup.TestMakeArtPopup.test_validate_width_input_is_valid_and_true" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="ascciiArt" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ascii_popup/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_make_art_popup.TestMakeArtPopup.test_validate_width_input_is_valid_and_true&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.Python tests for test_make_art_popup.TestMakeArtPopup.test_scale_image_scales_height_to_suit_new_width" />
+        <item itemvalue="Python tests.Python tests for test_make_art_popup.TestMakeArtPopup.test_scale_image" />
+        <item itemvalue="Python tests.Python tests for test_make_art_popup.TestMakeArtPopup.test_validate_width_input_is_invalid_and_false" />
+        <item itemvalue="Python tests.Python tests for test_make_art_popup.TestMakeArtPopup.test_validate_width_input_is_valid_and_true" />
+        <item itemvalue="Python tests.Python tests for test_make_art_popup.TestMakeArtPopup.test_validate_font_input_is_out_of_range_and_false" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -57,6 +158,18 @@
       <option name="presentableId" value="Default" />
       <updated>1699840390987</updated>
     </task>
+    <task id="LOCAL-00001" summary="issue #1 fixed and ready for review">
+      <created>1699957898761</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1699957898761</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="issue #1 fixed and ready for review" />
+    <option name="LAST_COMMIT_MESSAGE" value="issue #1 fixed and ready for review" />
   </component>
 </project>
