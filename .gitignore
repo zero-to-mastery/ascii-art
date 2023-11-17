@@ -6,4 +6,5 @@ env
 test
 
 
-/example/
+example/make_art.py
+example/make_art_python2.py

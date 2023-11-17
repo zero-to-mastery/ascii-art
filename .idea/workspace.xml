@@ -5,28 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c25027c9-3cfb-4688-a9fd-7431acc64a10" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ascii_popup/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ascii_popup/make_art_popup.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ascii_popup/tests/test_make_art_popup.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ascciiArt.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ascciiArt.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ascii-art" beforeDir="false" afterPath="$PROJECT_DIR$/ascii-art" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ascii-art/example/make_art_python2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ascii-art/example/make_art_python2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/make_art_python2.py" beforeDir="false" afterPath="$PROJECT_DIR$/example/make_art_python2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/working_code/Image_to_ASCII_Art_Converter.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/working_code/Imagemanual/Imagemanual.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/working_code/NORAH.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/working_code/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/working_code/convertartpython3.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/working_code/makeArtPython3.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/working_code/make_art.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/working_code/make_art_python2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/working_code/mountain.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/working_code/raaghav.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/working_code/raaghavHigh.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/working_code/raaghavLow.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/working_code/vegan.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/working_code/ztm-logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/ascii_popup/ztm-logo.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
