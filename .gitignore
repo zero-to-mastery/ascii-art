@@ -1,8 +1,11 @@
 
 env
+venv/
 
 ../zero
 *.pyc
-test
+test/
+__pycache__/
 
-
+.idea/
+*.iml
