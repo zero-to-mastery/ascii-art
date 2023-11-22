@@ -14,24 +14,42 @@ import requests
 from io import BytesIO
 
 
-# changing ascii-art to image
-text_file = "./custom_text.txt"
-def art_to_image(text_file):
-    with open(text_file, 'r') as f:
-        ascii_text = f.read()
-    
+# changing ascii-art to image focusing on adjustable text and background colors
+def art_to_image(text_file, output_file="final.png",text_color="black", bg_color="white"):
+    try:
+        with open(text_file, 'r') as f:
+            ascii_text = f.read()
+    except FileNotFoundError:
+        print(f"Error: file {text_file} not found")
+        return
+    except Exception as e:
+        print(f"Can't read file {text_file}: {e}")
+        return
+
     # Get dimensions
-    im = Image.new("RGBA", (0, 0))
+    im = Image.new("RGB", (1, 1))
     draw = ImageDraw.Draw(im)
-    (_, _, right, bottom) = draw.multiline_textbbox((0, 0), ascii_text) # get width and height in px
+    text_width, text_height = draw.textsize(ascii_text)
 
     # draw the image based on the dimensions
-    im = Image.new("RGBA", (right, bottom), "white")
+    im = Image.new("RGB", (text_width, text_height), bg_color)
     draw = ImageDraw.Draw(im)
-    draw.text((0, 0), ascii_text, fill="black")
+    draw.text((0, 0), ascii_text, fill=text_color)
+
+    if output_file.lower().endswith('.png'):
+        image_format = 'PNG'
+    elif output_file.lower().endswith('.jpg') or output_file.lower().endswith('.jpeg'):
+        image_format = 'JPEG'
+    else:
+        print("Unsupported file format. Saving as png")
+        image_format = '.PNG'
 
     # Save Image
-    im.save("final.png", "PNG")
+    try:
+        im.save(output_file, image_format)
+        print(f"Image saved as {output_file}")
+    except Exception as e:
+        print(f"Error while saving image: {e}")
 
 
 def is_image_file(path_to_file):
