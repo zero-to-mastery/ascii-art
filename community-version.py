@@ -24,8 +24,15 @@ def art_to_image(text_file: str) -> None:
     Args:
         text_file: A string representing the path to the text file containing ASCII art.
     """
-    with open(text_file, 'r') as f:
-        ascii_text = f.read()
+    try:
+        with open(text_file, 'r') as f:
+            ascii_text = f.read()
+    except FileNotFoundError:
+        print(f"File not found: {text_file}")
+        return
+    except Exception as e:
+        print(f"Error reading file {text_file}: {e}")
+        return
     
     # Get dimensions
     im = Image.new("RGBA", (0, 0))
@@ -251,22 +258,23 @@ def convert_image_to_ascii(image: Image.Image, make_silhouette: bool = False, ne
     image_ascii = [pixels_to_chars[index: index + new_width] for index in range(0, len_pixels_to_chars, new_width)]
     return "\n".join(image_ascii)
 
+
 def fetch_image_from_url(url: str) -> Union[Image.Image, Exception]:
     """
     Fetches image from url.
     """
-    response = requests.get(url, stream=True)
+    try:
+        response = requests.get(url, stream=True)
+        response.raise_for_status()  # Raises HTTPError for bad requests
+        return Image.open(BytesIO(response.content))
+    except requests.exceptions.HTTPError as e:
+        print(f"HTTP error occurred: {e}")
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching image from URL: {e}")
+    except Exception as e:
+        print(f"Unknown error occurred: {e}")
 
-    if response.status_code == 200:
-        try:
-            image = Image.open(BytesIO(response.content))
-        except Exception as e:
-            print("There is a problem when fetching image from url")
-            return e
-    else:
-        print("Can't get request - Return status code", response.status_code)
-        raise Exception('Status code is not 200')
-    return image
+    return None
 
 
 def handle_image_conversion(image_filepath: str, 
@@ -280,37 +288,27 @@ def handle_image_conversion(image_filepath: str,
     Saves the output to a file if output_file_path is provided.
     """
     try:
-        if not url:
-            # read image from file
-            image = Image.open(image_filepath)
-        else: 
-            image = fetch_image_from_url(url)
+        image = fetch_image_from_url(url) if url else Image.open(image_filepath)
+        if image is None:
+            raise ValueError("Failed to load image.")
+
+        image_ascii = convert_image_to_ascii(image, make_silhouette=make_silhouette, brightness=brightness)
+        print(image_ascii)
+
+        if output_file_path:
+            save_ascii_art_to_file(image_ascii, output_file_path)
+            print(f"ASCII art saved to {output_file_path}")
+        
+        if output_image:
+            save_ascii_art_to_jpg(image_ascii, image)
     except FileNotFoundError:
         print(f"Error: File not found - {image_filepath}")
-        return
     except PermissionError:
         print(f"Error: Permission denied - {image_filepath}")
-        return
-    except Exception as e:
-        print(f"Unable to open image file {image_filepath}.")
-        print(f"Make sure the file you are trying to use resides on the given path {image_filepath}.")
-
+    except ValueError as e:
         print(e)
-        return
-
-    image_ascii = convert_image_to_ascii(image, make_silhouette=make_silhouette, brightness=brightness)
-    print(image_ascii)
-
-    if output_file_path:
-        save_ascii_art_to_file(image_ascii, output_file_path)
-        print(f"ASCII art saved to {output_file_path}")
-    
-    if output_image:
-        try:
-            save_ascii_art_to_jpg(image_ascii, image)
-        except Exception as exception:
-            print(str(exception))
-            return
+    except Exception as e:
+        print(f"Unexpected error: {e}")
 
 
 def save_ascii_art_to_file(image_ascii: str, output_file_path: str) -> None:
