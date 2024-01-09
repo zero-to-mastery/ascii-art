@@ -12,13 +12,27 @@ import cmd
 from example.make_art import convert_image_to_ascii
 import requests
 from io import BytesIO
+from typing import Optional, List, Union
 
 
 # changing ascii-art to image
 text_file = "./custom_text.txt"
-def art_to_image(text_file):
-    with open(text_file, 'r') as f:
-        ascii_text = f.read()
+
+def art_to_image(text_file: str) -> None:
+    """
+    Converts ASCII art from a text file to an image file.
+    Args:
+        text_file: A string representing the path to the text file containing ASCII art.
+    """
+    try:
+        with open(text_file, 'r') as f:
+            ascii_text = f.read()
+    except FileNotFoundError:
+        print(f"File not found: {text_file}")
+        return
+    except Exception as e:
+        print(f"Error reading file {text_file}: {e}")
+        return
     
     # Get dimensions
     im = Image.new("RGBA", (0, 0))
@@ -34,7 +48,7 @@ def art_to_image(text_file):
     im.save("final.png", "PNG")
 
 
-def is_image_file(path_to_file):
+def is_image_file(path_to_file: str) -> bool:
     """
     This function checks if the the file is valid image
     @param path_to_file :path to the file to be checked
@@ -75,7 +89,7 @@ class SimpleCmd(cmd.Cmd):
         """
         print("Quit command to exit the program\n")
 
-    def do_ascii(self, args):
+    def do_ascii(self, args: str) -> Optional[bool]:
         """
         converts images to 
         
@@ -94,7 +108,11 @@ class SimpleCmd(cmd.Cmd):
         all_images = args.split()
 
         def create_many_instances(file):
-
+            """
+            Processes an individual image file to create ASCII art.
+            Args:
+                file: A string representing the path to the image file.
+            """
             if is_image_file(file):
                 try:
                     with Image.open(file) as image:
@@ -118,7 +136,7 @@ class SimpleCmd(cmd.Cmd):
             for image in all_images:
                 create_many_instances(image)
 
-    def do_ascii_text(self, args):
+    def do_ascii_text(self, args: str) -> Optional[bool]:
         """
         converts text to image and then to ascii art 
         
@@ -180,7 +198,7 @@ import string
 ascii_printable = string.printable
 ASCII_CHARS = list(ascii_printable)
 
-def scale_image(image, new_width=100):
+def scale_image(image: Image.Image, new_width: int = 100) -> Image.Image:
     """
     This Function Resizes an image preserving the aspect ratio.
     @param image:input image to be resized
@@ -195,7 +213,7 @@ def scale_image(image, new_width=100):
     new_image = image.resize((new_width, new_height))
     return new_image
 
-def convert_to_grayscale(image):
+def convert_to_grayscale(image: Image.Image) -> Image.Image:
     """
     This Function Converts an image to grayscale.
     @param image:The image to be converted to grey
@@ -204,7 +222,7 @@ def convert_to_grayscale(image):
     """
     return image.convert('L')
 
-def map_pixels_to_ascii_chars(image, make_silhouette=False, range_width=25, brightness=1.0):
+def map_pixels_to_ascii_chars(image: Image.Image, make_silhouette: bool = False, range_width: int = 25, brightness: float = 1.0) -> str:
     """
     Maps pixel values to ASCII characters based on a specified range and brightness.
     @param image:The image to be converted to ASCII
@@ -225,7 +243,7 @@ def map_pixels_to_ascii_chars(image, make_silhouette=False, range_width=25, brig
                                        len(ASCII_CHARS) - 1)] for pixel_value in adjusted_pixels]
     return "".join(pixels_to_chars)
 
-def convert_image_to_ascii(image, make_silhouette=False, new_width=100, brightness=1.0):
+def convert_image_to_ascii(image: Image.Image, make_silhouette: bool = False, new_width: int = 100, brightness: float = 1.0) -> str:
     """
     Converts an image to ASCII art with adjustable brightness.
     """
@@ -240,60 +258,60 @@ def convert_image_to_ascii(image, make_silhouette=False, new_width=100, brightne
     image_ascii = [pixels_to_chars[index: index + new_width] for index in range(0, len_pixels_to_chars, new_width)]
     return "\n".join(image_ascii)
 
-def fetch_image_from_url(url):
-    response = requests.get(url, stream=True)
 
-    if response.status_code == 200:
-        try:
-            image = Image.open(BytesIO(response.content))
-        except Exception as e:
-            print("There is a problem when fetching image from url")
-            return e
-    else:
-        print("Can't get request - Return status code", response.status_code)
-        raise Exception('Status code is not 200')
-    return image
+def fetch_image_from_url(url: str) -> Union[Image.Image, Exception]:
+    """
+    Fetches image from url.
+    """
+    try:
+        response = requests.get(url, stream=True)
+        response.raise_for_status()  # Raises HTTPError for bad requests
+        return Image.open(BytesIO(response.content))
+    except requests.exceptions.HTTPError as e:
+        print(f"HTTP error occurred: {e}")
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching image from URL: {e}")
+    except Exception as e:
+        print(f"Unknown error occurred: {e}")
+
+    return None
 
 
-def handle_image_conversion(image_filepath, url, make_silhouette=False, output_file_path='output.txt', brightness=1.0, output_image=False):
-    """Handles the conversion of an image to ASCII art with adjustable brightness.
+def handle_image_conversion(image_filepath: str, 
+                            url: Optional[str], 
+                            make_silhouette: bool = False, 
+                            output_file_path: Optional[str] = 'output.txt', 
+                            brightness: float = 1.0, 
+                            output_image: bool = False) -> None:
+    """
+    Handles the conversion of an image to ASCII art with adjustable brightness.
     Saves the output to a file if output_file_path is provided.
     """
     try:
-        if not url:
-            # read image from file
-            image = Image.open(image_filepath)
-        else: 
-            image = fetch_image_from_url(url)
+        image = fetch_image_from_url(url) if url else Image.open(image_filepath)
+        if image is None:
+            raise ValueError("Failed to load image.")
+
+        image_ascii = convert_image_to_ascii(image, make_silhouette=make_silhouette, brightness=brightness)
+        print(image_ascii)
+
+        if output_file_path:
+            save_ascii_art_to_file(image_ascii, output_file_path)
+            print(f"ASCII art saved to {output_file_path}")
+        
+        if output_image:
+            save_ascii_art_to_jpg(image_ascii, image)
     except FileNotFoundError:
         print(f"Error: File not found - {image_filepath}")
-        return
     except PermissionError:
         print(f"Error: Permission denied - {image_filepath}")
-        return
-    except Exception as e:
-        print(f"Unable to open image file {image_filepath}.")
-        print(f"Make sure the file you are trying to use resides on the given path {image_filepath}.")
-
+    except ValueError as e:
         print(e)
-        return
-
-    image_ascii = convert_image_to_ascii(image, make_silhouette=make_silhouette, brightness=brightness)
-    print(image_ascii)
-
-    if output_file_path:
-        save_ascii_art_to_file(image_ascii, output_file_path)
-        print(f"ASCII art saved to {output_file_path}")
-    
-    if output_image:
-        try:
-            save_ascii_art_to_jpg(image_ascii, image)
-        except Exception as exception:
-            print(str(exception))
-            return
+    except Exception as e:
+        print(f"Unexpected error: {e}")
 
 
-def save_ascii_art_to_file(image_ascii, output_file_path):
+def save_ascii_art_to_file(image_ascii: str, output_file_path: str) -> None:
     """
     Saves the ASCII art to a file.
     @param image_ascii:The ASCII image to be saved
@@ -304,7 +322,8 @@ def save_ascii_art_to_file(image_ascii, output_file_path):
     with open(output_file_path, 'w') as f:
         f.write(image_ascii)
 
-def save_ascii_art_to_jpg(image_ascii, image):
+def save_ascii_art_to_jpg(image_ascii: str, image: Image.Image) -> None:
+    """Saves ascii art to jpg file."""
     if not image:
         raise Exception('Image object is invalid')
     if len(image_ascii) <= 0:
@@ -337,7 +356,7 @@ def save_ascii_art_to_jpg(image_ascii, image):
     except Exception as exception:
         raise exception
 
-def get_image_path():
+def get_image_path() -> str:
     """
     Open a file dialog to select an image and return its path.
     """
@@ -413,5 +432,3 @@ if __name__ == '__main__':
                                 brightness=float(args.brightness) if args.brightness else 1.0,
                                 output_image=args.output_image
                                 )
-
-
