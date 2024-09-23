@@ -28,7 +28,7 @@ These two resources have everything you need to learn about open-source, with a 
 
 ## ❇️ How to get started:
 
-In order to get started on this project, it is recommended that you watch the section on **Scripting** in the [Python course](https://zerotomastery.io/courses/learn-python/?utm_source=github&utm_campaign=ascii-art-hf23). We talk about `sys.argv` and `Pillow` library (Image processing) in that section which would help you!
+In order to get started on this project, it is recommended that you watch the section on **Scripting** in the [Python course](https://zerotomastery.io/courses/learn-python/?utm_source=github&utm_campaign=ascii-art-hf24). We talk about `sys.argv` and `Pillow` library (Image processing) in that section which would help you!
 
 1. First up you need to fork (make a copy) of this repo to your Github account.
 2. Clone (download) your fork to your computer
@@ -61,9 +61,9 @@ The options are endless and there is no wrong answer. This is all for fun, so tr
 1. Examine the code in `community-version.py`, figure out what improvements your fellow community members have made (check out `FEATURES.md` for a list of existing features you can add to or improve).
 2. Make an improvement, it doesnt have to be elaborate
 3. Create a pull request
-4. [Tweet about making your first Hacktoberfest pull request](https://ctt.ac/5v9SV)
+4. [Tweet about making your first Hacktoberfest pull request](https://ctt.ac/36L1C)
 
-> Congratulations! Now you're one order closer to getting that tree planted in your name and the digital reward. Repeat these steps until you have made at least 4 qualifying pull requests. You can check how many qualifying pull requests you have made at <https://hacktoberfest.digitalocean.com/profile> Have Fun and Happy Coding!
+> Congratulations! You are now one pull request closer. Repeat these steps until you have made at least 4 qualifying pull requests. You can check how many qualifying pull requests you have made at <https://hacktoberfest.digitalocean.com/profile> Have Fun and Happy Coding!
 
 ### Bonus Task
 
