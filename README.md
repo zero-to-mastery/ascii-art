@@ -6,7 +6,7 @@ Welcome to this years Python challenge for Hacktoberfest, a project with beginne
 
 ## ❇️ Getting Started with Hacktoberfest
 
-Hacktoberfest is a month-long celebration of open source, organised by Digital Ocean. ([More details here](https://github.com/zero-to-mastery/Hacktoberfest-2023/blob/master/README.md#what-is-hacktoberfest))
+Hacktoberfest is a month-long celebration of open source, organised by Digital Ocean. ([More details here](https://github.com/zero-to-mastery/Hacktoberfest-2024/blob/master/README.md))
 
 If you've never made a pull request before, or participated in an open-source project, we recommend taking a look at:
 
@@ -43,12 +43,6 @@ In order to get started on this project, it is recommended that you watch the se
 6. Run the example code with the command: `python3 example/make_art.py example/ztm-logo.png`
 7. Stare with amazement 😮
 8. Start chatting with other ZTM students in the #hacktoberfest-2023 channel on our Discord to get help, work together, and share your contributions!
-
-### ❇️ Run with Docker
-
-1. Install [Docker](https://docs.docker.com/get-docker/)
-2. Run `docker build -t ascii-art .`
-3. Run `docker run -i ascii-art < path/to/image`
 
 ## ❇️ How to contribute?
 
