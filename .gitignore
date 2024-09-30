@@ -1,0 +1,16 @@
+# Ignore the virtual environment folder
+venv/
+
+# Byte-compiled / compiled Python files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Cache files
+.cache/
+
+# OS-specific files
+.DS_Store
+
+# Log files
+*.log
