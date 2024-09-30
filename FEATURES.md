@@ -39,40 +39,48 @@ This project converts images into ASCII art using Python. It uses the `Pillow` l
 ### 2. Create a Virtual Environment
 Create a virtual environment to manage the project's dependencies in an isolated space.
 
-    ```bash
-    python -m venv venv
-    ```
+   ```bash
+   python -m venv venv
+   ```
+
 ### 3. Activate the Virtual Environment
 #### On Windows:
-    ```bash
-    venv\Scripts\activate
-    ```
+
+   ```bash
+   venv\Scripts\activate
+   ```
+
 #### On macOS/Linux:
-    ```bash
-    source venv/bin/activate
-    ```
+
+   ```bash
+   source venv/bin/activate
+   ```
+
 You should see (venv) in your terminal, indicating that the environment is active.
 
 ### 4. Install Dependencies
 Install the required dependencies (such as Pillow) using the requirements.txt file:
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+   ```bash
+   pip install -r requirements.txt
+   ```
+
 ### 5. Run the Project
 After installing the dependencies, you can run the script to convert an image into ASCII art. Pass the path to the image file as a command-line argument:
 
-    ```bash
-    python ascii_art.py /path/to/your/image.jpg
-    ```
+   ```bash
+   python community-version.py /example/ztm-logo.png
+   ```
+
 The output will be printed directly to the console in the form of ASCII art.
 
 ### 6. Deactivate the Virtual Environment (Optional)
 Once you're done working in the project, you can deactivate the virtual environment by running:
 
-    ```bash
-    deactivate
-    ```
+   ```bash
+   deactivate
+   ```
+
 ## Modifications Made to the Original Code
 ### Comments Added:
 
@@ -82,13 +90,14 @@ Created requirements.txt:
 
 The project dependencies were captured in the requirements.txt file using the following command:
 
-    ```bash
-    pip freeze > requirements.txt
-    ```
+   ```bash
+   pip freeze > requirements.txt
+   ```
+
 This ensures that anyone running the project can install the exact same versions of the required packages.
 Added .gitignore File:
 
 The .gitignore file prevents committing unnecessary files to version control, such as:
-    -  Virtual environment files
-    -  Byte-compiled Python files
-    -  OS-specific files (e.g., .DS_Store)
+- Virtual environment files
+-  Byte-compiled Python files
+-  OS-specific files (e.g., .DS_Store)
