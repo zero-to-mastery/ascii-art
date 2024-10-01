@@ -69,6 +69,10 @@ def handle_image_conversion(image_filepath: str) -> None:
 if __name__ == "__main__":
     import sys
 
+    if len(sys.argv) < 2:
+        print("Usage: python script.py <image_file_path>")
+        sys.exit(1)
+
     image_file_path = sys.argv[1]
     print(image_file_path)
     handle_image_conversion(image_file_path)
