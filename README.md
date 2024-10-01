@@ -42,7 +42,7 @@ In order to get started on this project, it is recommended that you watch the se
 5. Install necessary dependencies by running `pip3 install -r requirements.txt`.
 6. Run the example code with the command: `python3 example/make_art.py example/ztm-logo.png`
 7. Stare with amazement 😮
-8. Start chatting with other ZTM students in the #hacktoberfest-2023 channel on our Discord to get help, work together, and share your contributions!
+8. Start chatting with other ZTM students in the #hacktoberfest-2024 channel on our Discord to get help, work together, and share your contributions!
 
 ## ❇️ How to contribute?
 
