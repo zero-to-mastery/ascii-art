@@ -31,6 +31,12 @@ def map_pixels_to_ascii_chars(image, range_width=25):
 
     return "".join(pixels_to_chars)
 
+def saving_image_to_txt(image_ascii, image_path):
+    with open(image_path, "w") as f:
+        f.write(image_ascii)
+        return
+    
+
 def convert_image_to_ascii(image, new_width=100):
     image = scale_image(image)
     image = convert_to_grayscale(image)
@@ -53,11 +59,18 @@ def handle_image_conversion(image_filepath):
         return
 
     image_ascii = convert_image_to_ascii(image)
-    print(image_ascii)
+    return image_ascii
 
 if __name__=='__main__':
     import sys
 
     image_file_path = sys.argv[1]
     print(image_file_path)
-    handle_image_conversion(image_file_path)
+    
+    if len(sys.argv) == 2:
+        _ = handle_image_conversion(image_file_path)
+    elif len(sys.argv) == 3:
+        txt_file_path = sys.argv[2]
+        ascii_image = handle_image_conversion(image_file_path)
+        saving_image_to_txt(ascii_image, txt_file_path)
+        
