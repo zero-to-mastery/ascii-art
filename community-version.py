@@ -4,6 +4,7 @@
 #code modified to work with Python 3 by @aneagoie
 from PIL import Image
 from typing import List
+import os
 
 ASCII_CHARS: List[str] = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
 
@@ -34,6 +35,13 @@ def map_pixels_to_ascii_chars(image: Image.Image, range_width: int = 25) -> str:
 
 
 def saving_image_to_txt(image_ascii, image_path):
+    image_directory = os.path.dirname(image_path)
+
+    # Check if the directory exists
+    if not os.path.exists(image_directory):
+        print(f" Directory '{image_directory}' does not exist, cannot save file. Please choose an existing directory")
+        return
+
     with open(image_path, "w") as f:
         f.write(image_ascii)
         return
@@ -61,6 +69,7 @@ def handle_image_conversion(image_filepath) -> None:
         return
     image_ascii: str = convert_image_to_ascii(image)
     print(image_ascii)
+    return image_ascii
 
 
 if __name__=='__main__':
