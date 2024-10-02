@@ -90,5 +90,12 @@ if __name__=='__main__':
     import sys
     image_file_path: str = sys.argv[1]
     print(image_file_path)
+
+    if len(sys.argv) == 2:
+        _ = handle_image_conversion(image_file_path)
+    elif len(sys.argv) == 3:
+        txt_file_path = sys.argv[2]
+        ascii_image = handle_image_conversion(image_file_path)
+        saving_image_to_txt(ascii_image, txt_file_path)
     
-    print(invert_image_colors(image_file_path))
+    print("Prints image file path:", invert_image_colors(image_file_path))
