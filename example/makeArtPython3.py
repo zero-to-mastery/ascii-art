@@ -9,7 +9,7 @@ def scale_image(image, new_width=100):
     """Resizes an image preserving the aspect ratio.
     """
     (original_width, original_height) = image.size
-    aspect_ratio = original_height/float(original_width)
+    aspect_ratio = original_height//float(original_width)
     new_height = int(aspect_ratio * new_width)
 
     new_image = image.resize((new_width, new_height))
@@ -26,7 +26,7 @@ def map_pixels_to_ascii_chars(image, range_width=25):
     """
 
     pixels_in_image = list(image.getdata())
-    pixels_to_chars = [ASCII_CHARS[pixel_value/range_width] for pixel_value in
+    pixels_to_chars = [ASCII_CHARS[pixel_value//range_width] for pixel_value in
             pixels_in_image]
 
     return "".join(pixels_to_chars)
