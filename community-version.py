@@ -65,7 +65,7 @@ def convert_image_to_ascii(image: Image.Image, new_width: int = 100) -> str:
 
     return "\n".join(image_ascii)
 
-def handle_image_conversion(image_filepath) -> None:
+def handle_image_conversion(image_filepath) -> str:
     image: Image.Image = None
     try:
         image = Image.open(image_filepath)
