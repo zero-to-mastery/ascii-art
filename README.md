@@ -30,20 +30,64 @@ These two resources have everything you need to learn about open-source, with a 
 
 In order to get started on this project, it is recommended that you watch the section on **Scripting** in the [Python course](https://zerotomastery.io/courses/learn-python/?utm_source=github&utm_campaign=ascii-art-hf24). We talk about `sys.argv` and `Pillow` library (Image processing) in that section which would help you!
 
+### Step 1: Setup the project environment
+
 1. First up you need to fork (make a copy) of this repo to your Github account.
-2. Clone (download) your fork to your computer
-3. Set your streams so you can sync your clone with the original repo (get the latest updates)
+
+2. Clone (download) your fork to your computer.
+```bash
+git clone https://github.com/{your-username}/ascii-art.git
+```
+
+3. Navigate to your project directory.
+```bash
+cd ascii-art
+```
+
+4. Set your streams so you can sync your clone with the original repo (get the latest updates)
 
    - `git remote add upstream https://github.com/zero-to-mastery/ascii-art.git`
    - `git pull upstream master`
    - The above 2 commands will synchronize your forked version of the project with the actual repository.
 
-4. Make sure you have Python 3 installed on your machine
-5. Run the command cd example
-6. Run the example code with the command: `python3 community-version.py example/ztm-logo.png`
-7. Stare with amazement 😮
-8. Start chatting with other ZTM students in the #hacktoberfest-2024 channel on our Discord to get help, work together, and share your contributions!
-9. **IMPORTANT: DO NOT MODIFY THE make_art.py FILE. ONLY THE community_version.py FILE SHOULD BE MODIFIED.**
+5. Create a virtual environment.
+```bash
+python3 -m venv venv
+```
+6. Activate the virtual environment:
+   - On Windows:
+   ```bash
+   venv\Scripts\activate
+   ```
+   - On Mac/Linux:
+   ```bash
+   source venv/bin/activate
+   ```
+
+7. Install the required packages using the `requirements.txt` file.
+```bash
+pip install -r requirements.txt
+```
+
+### Step 2: Running the example code
+
+1. Navigate to the `example` directory.
+```bash
+cd example
+```
+
+2. Run the example code with the command.
+```bash
+python3 community-version.py example/ztm-logo.py
+```
+
+3. Stare with amazement 😮
+
+### Step 3: Contribute and Collaborate
+
+Start chatting with other ZTM students in the #hacktoberfest-2024 channel on our Discord to get help, work together, and share your contributions!
+
+**IMPORTANT: DO NOT MODIFY THE make_art.py FILE. ONLY THE community_version.py FILE SHOULD BE MODIFIED.**
 
 ## ❇️ How to contribute?
 
