@@ -54,6 +54,13 @@ def saving_image_to_txt(image_ascii, image_path):
     
 
 def convert_image_to_ascii(image: Image.Image, new_width: int = 100) -> str:
+    """
+
+    :param 1 image: the input image
+    :param 2 new_width: controls the final converted image width, which is set to 100 chars
+    :return: returns the ASCII art as multi-line string based on pixel brightness
+    """
+
     image = scale_image(image)
     image = convert_to_grayscale(image)
 
