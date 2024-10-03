@@ -1,4 +1,3 @@
-import streamlit as st
 import sys
 from streamlit_app import main as streamlit_main
 from cli import handle_image_conversion
