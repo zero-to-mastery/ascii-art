@@ -2,11 +2,11 @@
 
 #code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
 #code modified to work with Python 3 by @aneagoie
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 from typing import List
 import os
 
-ASCII_CHARS: List[str] = [ '#', '?', '%', '.', 'S', '+', '.', '*', ':', ',', '@']
+ASCII_CHARS: List[str] = [ '$', '@', '#', '%', '*', '+', '=', '-', ':', '.']
 
 def scale_image(image: Image.Image, new_width: int = 100) -> Image.Image:
     # Resizes an image preserving the aspect ratio
@@ -20,7 +20,7 @@ def scale_image(image: Image.Image, new_width: int = 100) -> Image.Image:
 def convert_to_grayscale(image: Image.Image) -> Image.Image:
     return image.convert('L')
 
-def map_pixels_to_ascii_chars(image: Image.Image, range_width: int = 25) -> str:
+def map_pixels_to_ascii_chars(image: Image.Image, range_width: int = 26) -> str:
     """Maps each pixel to an ascii char based on the range
     in which it lies.
 
@@ -85,9 +85,32 @@ def invert_image_colors(image_path):
     
     return Image.eval(image, lambda x: 255 - x)
 
+def text_to_ascii(text: str):
+    """Converts Text to Ascii"""
+    image=Image.new('RGB',(400* len(text),1000),color='white')
+    draw = ImageDraw.Draw(image)
+    font = ImageFont.truetype("arial.ttf", 400)
+    draw.text((10, 25), text, fill='black', font=font)
+    return convert_image_to_ascii(image)
+
 
 if __name__=='__main__':
     import sys
+
+    if len(sys.argv)<2:
+        print(
+            "Format:\npython file_name image_path [output_file]\n"
+            "python file_name -t text"
+            )
+        exit(0)
+        
+    if '-t' in sys.argv:
+        text=" ".join(sys.argv[2:])
+        output=text_to_ascii(text)
+        print(output)
+        exit(0)
+
+
     image_file_path: str = sys.argv[1]
     print(image_file_path)
 
