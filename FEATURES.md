@@ -1,57 +1,131 @@
-# ASCII Art Generator - FEATURES
+# ASCII Art Generator - Usage Guide
 
-## Overview
-The ASCII Art Generator is a versatile tool that converts images into ASCII art, offering both grayscale and colored outputs. Users can customize various parameters, apply filters, and download their generated art in different formats.
+Welcome to the **ASCII Art Generator**! This tool allows you to convert images into beautiful ASCII art. You can use the provided web interface powered by **Streamlit** or generate ASCII art directly from the command line with a variety of customization options.
 
-## Key Features
+---
 
-### 1. **Image Upload**
-- Users can upload images in JPEG and PNG formats through a simple interface.
-- Supports various image dimensions and aspect ratios.
+## Web Interface (Streamlit)
 
-### 2. **Grayscale ASCII Art Generation**
-- Converts images into detailed grayscale ASCII art.
-- Users can set the desired width for the ASCII output, maintaining the aspect ratio.
+You can interact with the ASCII Art Generator using an easy-to-use web interface. This is ideal for those who want to quickly generate ASCII art without using the command line.
 
-### 3. **Colored ASCII Art Generation**
-- Generates ASCII art using HTML for colored output.
-- Each pixel's RGB values are translated into color-coded ASCII characters.
+### Running the Web Interface
 
-### 4. **Customizable Width**
-- Users can adjust the width of the ASCII art from 50 to 150 characters.
-- Automatically scales the height to maintain the aspect ratio.
+To start the web interface, run the following command:
 
-### 5. **Image Processing Filters**
-- **Invert Colors**: Inverts the colors of the uploaded image for a different artistic effect.
-- **Blur Filter**: Applies a blur effect to the image before conversion to ASCII art.
-- **Edge Detection**: Highlights the edges in the image for a more defined ASCII representation.
+```bash
+streamlit run community-version.py
+```
 
-### 6. **Download Options**
-- Users can download the generated ASCII art as:
-  - A plain text file for grayscale output.
-  - An HTML file for colored ASCII art, viewable in web browsers.
+Once executed, this will open the ASCII Art Generator web app in your browser, where you can upload an image and customize the output.
 
-### 7. **Responsive Design**
-- The web interface is responsive and user-friendly, providing a smooth experience on both desktop and mobile devices.
+### Features Available in the Web Interface:
 
-### 8. **Command-Line Interface (CLI)**
-- Fully functional command-line interface for users who prefer terminal usage.
-- Supports various command-line arguments for customization:
-  - `--width`: Set the width of the ASCII art.
-  - `--color`: Enable colored ASCII art output.
-  - `--invert`: Invert the colors of the image.
-  - `--blur`: Apply a blur effect to the image.
-  - `--edge`: Apply edge detection to the image.
+- **Choose ASCII Pattern**: Select from `basic`, `complex`, or `emoji` patterns.
+- **Image Filters**: Adjust the image's brightness, contrast, blur, or sharpen before converting.
+- **Color Themes**: Choose color themes like `neon`, `pastel`, or `grayscale` for colorized ASCII art.
+- **Download Options**: Download the generated ASCII art as a text file or an HTML file for colorized output.
 
-### 9. **Error Handling**
-- Robust error handling to manage unsupported file types and processing errors.
-- User-friendly error messages for easier troubleshooting.
+## Command Line Interface (CLI)
 
-### 10. **Instructions and Documentation**
-- Comprehensive user instructions embedded in the web interface.
-- Detailed documentation available for both the web and command-line versions.
+For more flexibility and automation, you can use the command line interface (CLI) to generate ASCII art.
 
-## Future Enhancements
-- Addition of more ASCII character sets for varied artistic styles.
-- Support for additional image formats (e.g., BMP, GIF).
-- Integration of machine learning models for better image processing.
+### Running the CLI
+
+To run the tool from the command line, use the following syntax:
+
+```bash
+python community-version.py <input_image> --output <output_file> [OPTIONS]
+```
+
+### Required Arguments:
+
+1. **`<input_image>`**: The path to the input image file (JPEG or PNG).
+2. **`--output <output_file>`**: The name of the output file (either `.txt` for grayscale ASCII or `.html` for colorized ASCII).
+
+---
+
+## Options and Arguments
+
+Here is a list of all available options and their descriptions:
+
+| Option                | Description                                                                                  | Default            |
+|-----------------------|----------------------------------------------------------------------------------------------|--------------------|
+| `--output`            | Specifies the output file path. (Required)                                                   | N/A                |
+| `--pattern {basic, complex, emoji}` | Selects the ASCII pattern to use.                                                | `basic`            |
+| `--width <int>`       | Sets the width of the ASCII art in characters.                                                | `100`              |
+| `--brightness <float>`| Adjusts the brightness of the image (range: 0.5 - 2.0).                                       | `1.0`              |
+| `--contrast <float>`  | Adjusts the contrast of the image (range: 0.5 - 2.0).                                         | `1.0`              |
+| `--blur`              | Applies a blur filter to the image.                                                           | Disabled           |
+| `--sharpen`           | Applies a sharpen filter to the image.                                                        | Disabled           |
+| `--colorize`          | Enables colorized ASCII art output.                                                           | Disabled (grayscale)|
+| `--theme {neon, pastel, grayscale}` | Specifies the color theme for colorized ASCII art. This requires `--colorize`.    | `grayscale`        |
+
+---
+
+## Examples
+
+Here are some examples of how to use the tool:
+
+### Example 1: Generate Grayscale ASCII Art
+
+```bash
+python community-version.py example/ztm-logo.png --output ascii_art.txt
+```
+
+This will create a grayscale ASCII art version of the image and save it as `ascii_art.txt`.
+
+### Example 2: Generate Colorized ASCII Art with Neon Theme
+
+```bash
+python community-version.py example/ztm-logo.png --output ascii_art.html --colorize --theme neon
+```
+
+This will generate a colorized ASCII art using the "neon" theme and save it as `ascii_art.html`.
+
+### Example 3: Use Emoji Pattern with Custom Brightness and Contrast
+
+```bash
+python community-version.py example/ztm-logo.png --output ascii_art.html --pattern emoji --brightness 1.5 --contrast 1.8 --colorize --theme pastel
+```
+
+This command uses the emoji pattern, adjusts brightness and contrast, and outputs a pastel color-themed ASCII art in HTML format.
+
+---
+
+## Requirements
+
+Ensure you have the following requirements installed:
+
+- Python 3.x
+- Pillow (`pip install pillow`)
+- Numpy (`pip install numpy`)
+- Streamlit (`pip install streamlit`)
+
+You can install all dependencies using the `requirements.txt` file (if provided):
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Installation
+
+1. Clone this repository:
+   ```bash
+   git clone <repository-url>
+   cd ascii-art
+   ```
+
+2. Create a virtual environment (optional but recommended):
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # For Linux/macOS
+   venv\Scripts\activate     # For Windows
+   ```
+
+3. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
