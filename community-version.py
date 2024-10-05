@@ -59,7 +59,14 @@ def convert_to_colored_ascii_html(image: Image.Image, new_width: int) -> str:
 
 
 # Command-line interface for running the project via terminal
-def handle_image_conversion(image_filepath, new_width=100, color=False, invert=False, blur=False, edge=False):
+def handle_image_conversion(
+    image_filepath: str,
+    new_width: int = 100,
+    color: bool = False,
+    invert: bool = False,
+    blur: bool = False,
+    edge: bool = False,
+):
     try:
         image = Image.open(image_filepath)
 
