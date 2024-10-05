@@ -91,7 +91,7 @@ Start chatting with other ZTM students in the #hacktoberfest-2024 channel on our
 =======
 4. Make sure you have Python 3 installed on your machine
 5. Run the command cd example
-6. Run the example code with the command: `python3 community-version.py`
+6. Run the example code with the command: `python3 community-version.py example/ztm-logo.png`
 7. Stare with amazement 😮
 8. Start chatting with other ZTM students in the #hacktoberfest-2024 channel on our Discord to get help, work together, and share your contributions!
 9. **IMPORTANT: DO NOT MODIFY THE make_art.py FILE. ONLY THE community_version.py FILE SHOULD BE MODIFIED.**
