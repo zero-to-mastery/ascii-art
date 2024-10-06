@@ -128,3 +128,21 @@ Looking for a challenge?
 We have left the original code which was written in Python 2 under the `example/make_art_python2.py` file. See what happens when you run it with Python 3. See all of the errors? Can you fix it so it works with python 3? The answer is with the `example/make_art.py` file which is written in Python 3.
 
 **All discussions around this event can now be had in our dedicated Hacktoberfest channel on Discord!**
+
+## My Contribution
+
+### Simple Python Script
+
+```python
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("Hacktoberfest"))
+### New ASCII Art Example
+
+_______
+
+/
+/ O O
+| ^ | | ‘-’ | _________/
+```
