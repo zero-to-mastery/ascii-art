@@ -5,7 +5,7 @@ import argparse
 import os
 
 # ASCII character
-ASCII_CHARS = ['@', '#', 'S', '%', '?', '*', '+', ';', ':', ',', '.']
+ASCII_CHARS = ['@', '#', 'S', '%', '?', '*', '+','-','/', ';', ':', ',', '.']
 
 # Convert image to grayscale
 def convert_to_grayscale(image: Image.Image) -> Image.Image:
