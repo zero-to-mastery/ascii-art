@@ -35,11 +35,13 @@ In order to get started on this project, it is recommended that you watch the se
 1. First up you need to fork (make a copy) of this repo to your Github account.
 
 2. Clone (download) your fork to your computer.
+
 ```bash
 git clone https://github.com/{your-username}/ascii-art.git
 ```
 
 3. Navigate to your project directory.
+
 ```bash
 cd ascii-art
 ```
@@ -51,20 +53,27 @@ cd ascii-art
    - The above 2 commands will synchronize your forked version of the project with the actual repository.
 
 5. Create a virtual environment.
+
 ```bash
 python3 -m venv venv
 ```
+
 6. Activate the virtual environment:
+
    - On Windows:
+
    ```bash
    venv\Scripts\activate
    ```
+
    - On Mac/Linux:
+
    ```bash
    source venv/bin/activate
    ```
 
 7. Install the required packages using the `requirements.txt` file.
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -72,13 +81,15 @@ pip install -r requirements.txt
 ### Step 2: Running the example code
 
 1. Navigate to the `example` directory.
+
 ```bash
 cd example
 ```
 
 2. Run the example code with the command.
+
 ```bash
-python3 community-version.py example/ztm-logo.py
+python3 community-version.py example/ztm-logo.png
 ```
 
 3. Stare with amazement 😮
@@ -87,8 +98,8 @@ python3 community-version.py example/ztm-logo.py
 
 Start chatting with other ZTM students in the #hacktoberfest-2024 channel on our Discord to get help, work together, and share your contributions!
 
-**IMPORTANT: DO NOT MODIFY THE make_art.py FILE. ONLY THE community_version.py FILE SHOULD BE MODIFIED.**
-=======
+# **IMPORTANT: DO NOT MODIFY THE make_art.py FILE. ONLY THE community_version.py FILE SHOULD BE MODIFIED.**
+
 4. Make sure you have Python 3 installed on your machine
 5. Run the command cd example
 6. Run the example code with the command: `python3 community-version.py example/ztm-logo.png`
