@@ -103,7 +103,7 @@ def text_to_ascii(text: str):
     draw = ImageDraw.Draw(image)
     font = ImageFont.truetype("arial.ttf", 400)
     draw.text((10, 25), text, fill='black', font=font)
-    return convert_image_to_ascii(image)
+    return image
 
 # Streamlit interface
 def run_streamlit_app():
@@ -119,6 +119,8 @@ def run_streamlit_app():
 
     # File upload for images
     uploaded_file = st.file_uploader("Upload an image (JPEG/PNG)", type=["jpg", "jpeg", "png"])
+
+    input_text = st.text_input("Text to convert")
 
     # Display the original image and show ASCII art preview
     if uploaded_file:
@@ -162,7 +164,20 @@ def run_streamlit_app():
                 file_name="ascii_art.txt",
                 mime="text/plain"
             )
+    elif input_text:
+        image=text_to_ascii(input_text)
 
+        st.image(image, caption="Uploaded Text", use_column_width=True)
+
+        if color_mode:
+            st.subheader("Colored ASCII Art Preview:")
+            ascii_art_html = convert_to_colored_ascii_html(image.convert('RGB'), width)
+            st.markdown(ascii_art_html, unsafe_allow_html=True)
+        else:
+            st.subheader("Grayscale ASCII Art Preview:")
+            ascii_art = convert_image_to_ascii(image, width)
+            st.text(ascii_art)
+        
     # Instructions
     st.markdown("""
         - 🎨 Adjust the settings in the sidebar to create unique ASCII art.
