@@ -163,9 +163,17 @@ def run_streamlit_app():
         - 💾 Save your ASCII art for later by downloading the text file or HTML file.
     """)
 
+# Check if the file path is valid
+def is_valid_image_path(file_path: str) -> bool:
+    if not os.path.exists(file_path):
+        return False
+    if not os.path.isfile(file_path):
+        return False
+    return True
 
 # Command-line argument parser for CLI usage
 def main():
+
     parser = argparse.ArgumentParser(description="Generate ASCII art from an image.")
     parser.add_argument("image_filepath", help="Path to the image file")
     parser.add_argument("--width", type=int, default=100, help="Width of the ASCII art (default: 100)")
@@ -174,6 +182,11 @@ def main():
     parser.add_argument("--blur", action="store_true", help="Apply blur filter")
     parser.add_argument("--edge", action="store_true", help="Apply edge detection filter")
     args = parser.parse_args()
+
+    # Check if the image file path is valid
+    if not is_valid_image_path(args.image_filepath):
+        print(f"Error: Invalid image file path: '{args.image_filepath}'")
+        return
 
     handle_image_conversion(args.image_filepath, new_width=args.width, color=args.color,
                             invert=args.invert, blur=args.blur, edge=args.edge)
