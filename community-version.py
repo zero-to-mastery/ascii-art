@@ -1,7 +1,7 @@
-# this project requires Pillow installation: https://pillow.readthedocs.io/en/stable/installation.html
+# This project requires Pillow installation: https://pillow.readthedocs.io/en/stable/installation.html
 
-#code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
-#code modified to work with Python 3 by @aneagoie
+# Code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
+# Code modified to work with Python 3 by @aneagoie
 from PIL import Image, ImageEnhance
 from typing import List
 import os
