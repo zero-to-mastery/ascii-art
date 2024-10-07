@@ -147,6 +147,13 @@ def run_streamlit_app():
         - 💾 Download your creation as a **text file** or **HTML** for colorized output.
     """)
 
+# Check if the file path is valid
+def is_valid_image_path(file_path: str) -> bool:
+    if not os.path.exists(file_path):
+        return False
+    if not os.path.isfile(file_path):
+        return False
+    return True
 
 # Command Line Interface (CLI) Function
 def run_cli(input_image: str, output: str, pattern_type: str, width: int, brightness: float, contrast: float,
@@ -194,6 +201,14 @@ def main():
     # Run the CLI mode if executed from command line
     run_cli(args.input_image, args.output, args.pattern, args.width, args.brightness, args.contrast,
             args.blur, args.sharpen, args.colorize, args.theme)
+
+# Check if the file path is valid
+def is_valid_image_path(file_path: str) -> bool:
+    if not os.path.exists(file_path):
+        return False
+    if not os.path.isfile(file_path):
+        return False
+    return True
 
 
 if __name__ == "__main__":
