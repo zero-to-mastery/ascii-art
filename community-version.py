@@ -1,5 +1,5 @@
 import streamlit as st
-from PIL import Image, ImageOps, ImageEnhance, ImageFilter
+from PIL import Image, ImageOps, ImageEnhance, ImageFilter, ImageDraw, ImageFont
 import numpy as np
 import random
 import argparse
@@ -17,7 +17,6 @@ COLOR_THEMES = {
     'pastel': [(255, 179, 186), (255, 223, 186), (186, 255, 201), (186, 225, 255)],
     'grayscale': [(i, i, i) for i in range(0, 255, 25)],
 }
-
 
 # Function to apply filters to the image
 def apply_image_filters(image: Image.Image, brightness: float, contrast: float, blur: bool,
