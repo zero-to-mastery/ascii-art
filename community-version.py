@@ -109,6 +109,7 @@ def run_streamlit_app():
     invert_colors = st.sidebar.checkbox("Invert Colors")
     apply_blur = st.sidebar.checkbox("Apply Blur Filter")
     apply_edge = st.sidebar.checkbox("Apply Edge Detection Filter")
+    apply_grayscale = st.sidebar.checkbox("Convert Image to GrayScale")
 
     # File upload for images
     uploaded_file = st.file_uploader("Upload an image (JPEG/PNG)", type=["jpg", "jpeg", "png"])
@@ -124,6 +125,8 @@ def run_streamlit_app():
             image = image.filter(ImageFilter.BLUR)
         if apply_edge:
             image = image.filter(ImageFilter.FIND_EDGES)
+        if apply_grayscale:
+            image = ImageOps.invert(image.convert("L"))
 
         # Display original image
         st.image(image, caption="Uploaded Image", use_column_width=True)
