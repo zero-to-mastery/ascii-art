@@ -15,7 +15,7 @@ jsonschema-specifications==2023.12.1
 markdown-it-py==3.0.0
 MarkupSafe==2.1.5
 mdurl==0.1.2
-narwhals==1.9.0
+narwhals==1.9.1
 numpy==2.1.1
 packaging==24.1
 pandas==2.2.3
@@ -28,7 +28,7 @@ python-dateutil==2.9.0.post0
 pytz==2024.2
 referencing==0.35.1
 requests==2.32.3
-rich==13.9.1
+rich==13.9.2
 rpds-py==0.20.0
 six==1.16.0
 smmap==5.0.1
