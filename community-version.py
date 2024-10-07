@@ -2,8 +2,12 @@
 
 # Code credit goes to: https://www.hackerearth.com/practice/notes/beautiful-python-a-simple-ascii-art-generator-from-images/
 # Code modified to work with Python 3 by @aneagoie
-from PIL import Image, ImageEnhance
+import streamlit as st
+from PIL import Image, ImageOps, ImageEnhance, ImageFilter, ImageDraw, ImageFont
 from typing import List
+import numpy as np
+import random
+import argparse
 import os
 import sys
 
