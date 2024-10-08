@@ -1,9 +1,11 @@
 import streamlit as st
+from streamlit_webrtc import webrtc_streamer, WebRtcMode
 from PIL import Image, ImageOps, ImageEnhance, ImageFilter, ImageDraw, ImageFont
 import numpy as np
 import random
 import argparse
 import sys
+import os
 
 # ASCII patterns and color themes
 ASCII_PATTERNS = {
@@ -19,6 +21,8 @@ COLOR_THEMES = {
 }
 
 # Function to apply filters to the image
+
+
 def apply_image_filters(image: Image.Image, brightness: float, contrast: float, blur: bool,
                         sharpen: bool) -> Image.Image:
     if brightness != 1.0:
@@ -38,10 +42,14 @@ def apply_image_filters(image: Image.Image, brightness: float, contrast: float, 
     return image
 
 # Function to create contours
+
+
 def create_contours(image: Image.Image) -> Image.Image:
     return image.filter(ImageFilter.FIND_EDGES)
 
 # Function to flip image
+
+
 def flip_image(image: Image.Image, flip_horizontal: bool, flip_vertical: bool) -> Image.Image:
     if flip_horizontal:
         image = ImageOps.mirror(image)  # Flip horizontally
@@ -50,6 +58,8 @@ def flip_image(image: Image.Image, flip_horizontal: bool, flip_vertical: bool) -
     return image
 
 # Function to dynamically adjust aspect ratio based on ASCII pattern
+
+
 def get_aspect_ratio(pattern: str) -> float:
     if pattern == 'basic':
         return 0.55
@@ -60,20 +70,27 @@ def get_aspect_ratio(pattern: str) -> float:
     return 0.55
 
 # Function to resize the image dynamically based on the aspect ratio of the selected pattern
+
+
 def resize_image(image: Image.Image, width: int, pattern: str) -> Image.Image:
     aspect_ratio = get_aspect_ratio(pattern)
     new_height = int(aspect_ratio * image.height / image.width * width)
     return image.resize((width, new_height))
 
 # Function to map pixels to ASCII characters
+
+
 def map_pixels_to_ascii(image: Image.Image, pattern: list) -> str:
     grayscale_image = image.convert('L')
     pixels = np.array(grayscale_image)
-    ascii_chars = np.vectorize(lambda pixel: pattern[min(pixel // (256 // len(pattern)), len(pattern) - 1)])(pixels)
+    ascii_chars = np.vectorize(lambda pixel: pattern[min(
+        pixel // (256 // len(pattern)), len(pattern) - 1)])(pixels)
     ascii_image = "\n".join(["".join(row) for row in ascii_chars])
     return ascii_image
 
 # Function to create colorized ASCII art in HTML format
+
+
 def create_colorized_ascii_html(image: Image.Image, pattern: list, theme: str) -> str:
     image = resize_image(image, 80, 'basic')
     pixels = np.array(image)
@@ -86,7 +103,8 @@ def create_colorized_ascii_html(image: Image.Image, pattern: list, theme: str) -
 
     for row in pixels:
         for pixel in row:
-            ascii_char = pattern[int(np.mean(pixel) / 255 * (len(pattern) - 1))]
+            ascii_char = pattern[int(
+                np.mean(pixel) / 255 * (len(pattern) - 1))]
             color = random.choice(color_palette)
             ascii_image_html += f"<span style='color:rgb({color[0]},{color[1]},{color[2]})'>{ascii_char}</span>"
         ascii_image_html += "<br>"
@@ -94,75 +112,128 @@ def create_colorized_ascii_html(image: Image.Image, pattern: list, theme: str) -
     ascii_image_html += "</div>"
     return ascii_image_html
 
+
+def text_to_image(text, canvas_width, canvas_height):
+    image = Image.new('RGB', (canvas_width, canvas_height), color='white')
+    draw = ImageDraw.Draw(image)
+    font = ImageFont.load_default()
+
+    text_width, text_height = draw.textsize(text, font=font)
+    position = ((canvas_width - text_width) / 2,
+                (canvas_height - text_height) / 2)
+
+    draw.text(position, text, fill='black', font=font)
+    return image
+
+
 # Streamlit app for the ASCII art generator
 def run_streamlit_app():
     st.title("🌟 Customizable ASCII Art Generator")
 
-    # Sidebar for options and settings
-    st.sidebar.title("Settings")
-    pattern_type = st.sidebar.selectbox("Choose ASCII Pattern", options=['basic', 'complex', 'emoji'])
-    colorize = st.sidebar.checkbox("Enable Colorized ASCII Art")
-    color_theme = st.sidebar.selectbox("Choose Color Theme", options=list(COLOR_THEMES.keys()))
-    width = st.sidebar.slider("Set ASCII Art Width", 50, 150, 100)
+    page = st.sidebar.selectbox('ASCII Art', ['Image', 'Live'])
 
-    # New Flip Image Feature
-    flip_horizontal = st.sidebar.checkbox("Flip Image Horizontally")
-    flip_vertical = st.sidebar.checkbox("Flip Image Vertically")
+    if page == "Image":
+        # Sidebar for options and settings
+        st.sidebar.title("Settings")
+        pattern_type = st.sidebar.selectbox("Choose ASCII Pattern", options=[
+                                            'basic', 'complex', 'emoji'])
+        colorize = st.sidebar.checkbox("Enable Colorized ASCII Art")
+        color_theme = st.sidebar.selectbox(
+            "Choose Color Theme", options=list(COLOR_THEMES.keys()))
+        width = st.sidebar.slider("Set ASCII Art Width", 50, 150, 100)
 
-    # Image filters
-    brightness = st.sidebar.slider("Brightness", 0.5, 2.0, 1.0)
-    contrast = st.sidebar.slider("Contrast", 0.5, 2.0, 1.0)
-    apply_blur = st.sidebar.checkbox("Apply Blur")
-    apply_sharpen = st.sidebar.checkbox("Apply Sharpen")
-    
-    # New Contour Feature
-    apply_contours = st.sidebar.checkbox("Apply Contours")
+        # New Flip Image Feature
+        flip_horizontal = st.sidebar.checkbox("Flip Image Horizontally")
+        flip_vertical = st.sidebar.checkbox("Flip Image Vertically")
 
-    # Upload image
-    uploaded_file = st.file_uploader("Upload an image (JPEG/PNG)", type=["jpg", "jpeg", "png"])
+        # Image filters
+        brightness = st.sidebar.slider("Brightness", 0.5, 2.0, 1.0)
+        contrast = st.sidebar.slider("Contrast", 0.5, 2.0, 1.0)
+        apply_blur = st.sidebar.checkbox("Apply Blur")
+        apply_sharpen = st.sidebar.checkbox("Apply Sharpen")
 
-    if uploaded_file:
-        image = Image.open(uploaded_file)
+        # New Contour Feature
+        apply_contours = st.sidebar.checkbox("Apply Contours")
 
-        # Apply filters to the image
-        image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen)
+        # Upload image
+        uploaded_file = st.file_uploader(
+            "Upload an image (JPEG/PNG)", type=["jpg", "jpeg", "png"])
 
-        # Apply contour effect if selected
-        if apply_contours:
-            image = create_contours(image)
+        if uploaded_file:
+            image = Image.open(uploaded_file)
 
-        # Flip the image if requested
-        image = flip_image(image, flip_horizontal, flip_vertical)
+            # Apply filters to the image
+            image = apply_image_filters(
+                image, brightness, contrast, apply_blur, apply_sharpen)
 
-        # Display the original processed image
-        st.image(image, caption="Processed Image", use_column_width=True)
+            # Apply contour effect if selected
+            if apply_contours:
+                image = create_contours(image)
 
-        # Resize the image based on the pattern type's aspect ratio
-        image_resized = resize_image(image, width, pattern_type)
+            # Flip the image if requested
+            image = flip_image(image, flip_horizontal, flip_vertical)
 
-        # Generate ASCII art
-        ascii_pattern = ASCII_PATTERNS[pattern_type]
-        if colorize:
-            st.subheader("Colorized ASCII Art Preview:")
-            ascii_html = create_colorized_ascii_html(image_resized, ascii_pattern, color_theme)
-            st.markdown(ascii_html, unsafe_allow_html=True)
-        else:
-            st.subheader("Grayscale ASCII Art Preview:")
-            ascii_art = map_pixels_to_ascii(image_resized, ascii_pattern)
-            st.text(ascii_art)
+            # Display the original processed image
+            st.image(image, caption="Processed Image", use_column_width=True)
 
-        # Download options
-        if colorize:
-            st.download_button("Download ASCII Art as HTML", ascii_html, file_name="ascii_art.html", mime="text/html")
-        else:
-            st.download_button("Download ASCII Art as Text", ascii_art, file_name="ascii_art.txt", mime="text/plain")
+            # Resize the image based on the pattern type's aspect ratio
+            image_resized = resize_image(image, width, pattern_type)
 
-    # Instructions for the user
-    st.markdown("""
-        - 🎨 Use the **Settings** panel to customize your ASCII art with patterns, colors, and image filters.
-        - 📤 Upload an image in JPEG or PNG format to start generating your ASCII art.
-        - 💾 Download your creation as a **text file** or **HTML** for colorized output.
-    """)
+            # Generate ASCII art
+            ascii_pattern = ASCII_PATTERNS[pattern_type]
+            if colorize:
+                st.subheader("Colorized ASCII Art Preview:")
+                ascii_html = create_colorized_ascii_html(
+                    image_resized, ascii_pattern, color_theme)
+                st.markdown(ascii_html, unsafe_allow_html=True)
+            else:
+                st.subheader("Grayscale ASCII Art Preview:")
+                ascii_art = map_pixels_to_ascii(image_resized, ascii_pattern)
+                st.text(ascii_art)
+
+            # Download options
+            if colorize:
+                st.download_button("Download ASCII Art as HTML", ascii_html,
+                                   file_name="ascii_art.html", mime="text/html")
+            else:
+                st.download_button("Download ASCII Art as Text", ascii_art,
+                                   file_name="ascii_art.txt", mime="text/plain")
+
+        # Instructions for the user
+        st.markdown("""
+            - 🎨 Use the **Settings** panel to customize your ASCII art with patterns, colors, and image filters.
+            - 📤 Upload an image in JPEG or PNG format to start generating your ASCII art.
+            - 💾 Download your creation as a **text file** or **HTML** for colorized output.
+        """)
+    elif page == "Live":
+        st.markdown("""
+            **Note**: 
+                Click the **`START`** button and allow the camera permissions.
+        """)
+        webrtc_ctx = webrtc_streamer(
+            key="video-sendonly",
+            mode=WebRtcMode.SENDONLY,
+            media_stream_constraints={"video": True},
+        )
+
+        image_place = st.empty()
+
+        while True:
+            if webrtc_ctx.video_receiver:
+                try:
+                    video_frame = webrtc_ctx.video_receiver.get_frame(
+                        timeout=1)
+                except Exception as e:
+                    print(e)
+                    break
+
+                img_rgb = video_frame.to_ndarray(format="rgb24")
+                image = Image.fromarray(img_rgb)
+                image_resized = resize_image(image, 100, "basic")
+                ascii_art = map_pixels_to_ascii(
+                    image_resized, ASCII_PATTERNS["basic"])
+                image_place.text(ascii_art)
+
 
 # Check if the file path is valid
 def is_valid_image_path(file_path: str) -> bool:
@@ -191,7 +262,8 @@ def run_cli(input_image: str, output: str, pattern_type: str, width: int, bright
     # Generate ASCII art
     ascii_pattern = ASCII_PATTERNS[pattern_type]
     if colorize:
-        ascii_html = create_colorized_ascii_html(image_resized, ascii_pattern, theme)
+        ascii_html = create_colorized_ascii_html(
+            image_resized, ascii_pattern, theme)
         with open(output, 'w', encoding='utf-8') as file:  # Use UTF-8 encoding
             file.write(ascii_html)
     else:
@@ -201,24 +273,37 @@ def run_cli(input_image: str, output: str, pattern_type: str, width: int, bright
 
     print(f"ASCII art saved to {output}")
 
+
 # Main function for CLI execution
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        parser = argparse.ArgumentParser(description="Generate ASCII art from an image.")
-        parser.add_argument("input_image", help="Path to the input image file.")
-        parser.add_argument("-o", "--output", default="output.txt", help="Output file name.")
-        parser.add_argument("-p", "--pattern", choices=ASCII_PATTERNS.keys(), default="basic", help="ASCII pattern.")
-        parser.add_argument("-w", "--width", type=int, default=100, help="Width of ASCII art.")
-        parser.add_argument("-b", "--brightness", type=float, default=1.0, help="Brightness factor.")
-        parser.add_argument("-c", "--contrast", type=float, default=1.0, help="Contrast factor.")
-        parser.add_argument("--blur", action="store_true", help="Apply blur effect.")
-        parser.add_argument("--sharpen", action="store_true", help="Apply sharpen effect.")
-        parser.add_argument("--colorize", action="store_true", help="Enable colorized ASCII art.")
-        parser.add_argument("-t", "--theme", choices=COLOR_THEMES.keys(), default="grayscale", help="Color theme.")
-        parser.add_argument("--contours", action="store_true", help="Apply contour effect to the image.")
+        parser = argparse.ArgumentParser(
+            description="Generate ASCII art from an image.")
+        parser.add_argument(
+            "input_image", help="Path to the input image file.")
+        parser.add_argument(
+            "-o", "--output", default="output.txt", help="Output file name.")
+        parser.add_argument("-p", "--pattern", choices=ASCII_PATTERNS.keys(),
+                            default="basic", help="ASCII pattern.")
+        parser.add_argument("-w", "--width", type=int,
+                            default=100, help="Width of ASCII art.")
+        parser.add_argument("-b", "--brightness", type=float,
+                            default=1.0, help="Brightness factor.")
+        parser.add_argument("-c", "--contrast", type=float,
+                            default=1.0, help="Contrast factor.")
+        parser.add_argument("--blur", action="store_true",
+                            help="Apply blur effect.")
+        parser.add_argument("--sharpen", action="store_true",
+                            help="Apply sharpen effect.")
+        parser.add_argument("--colorize", action="store_true",
+                            help="Enable colorized ASCII art.")
+        parser.add_argument("-t", "--theme", choices=COLOR_THEMES.keys(),
+                            default="grayscale", help="Color theme.")
+        parser.add_argument("--contours", action="store_true",
+                            help="Apply contour effect to the image.")
 
         args = parser.parse_args()
         run_cli(args.input_image, args.output, args.pattern, args.width, args.brightness, args.contrast,
-                 args.blur, args.sharpen, args.colorize, args.theme, args.contours)
+                args.blur, args.sharpen, args.colorize, args.theme, args.contours)
     else:
         run_streamlit_app()
