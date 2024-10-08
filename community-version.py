@@ -37,7 +37,13 @@ def apply_image_filters(image: Image.Image, brightness: float, contrast: float, 
         image = image.filter(ImageFilter.SHARPEN)
 
     return image
-
+# Function to flip image
+def flip_image(image: Image.Image, flip_horizontal: bool, flip_vertical: bool) -> Image.Image:
+    if flip_horizontal:
+        image = ImageOps.mirror(image)  # Flip horizontally
+    if flip_vertical:
+        image = ImageOps.flip(image)  # Flip vertically
+    return image
 
 # Function to dynamically adjust aspect ratio based on ASCII pattern
 def get_aspect_ratio(pattern: str) -> float:
