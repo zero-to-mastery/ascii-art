@@ -37,7 +37,13 @@ def apply_image_filters(image: Image.Image, brightness: float, contrast: float, 
         image = image.filter(ImageFilter.SHARPEN)
 
     return image
-
+# Function to flip image
+def flip_image(image: Image.Image, flip_horizontal: bool, flip_vertical: bool) -> Image.Image:
+    if flip_horizontal:
+        image = ImageOps.mirror(image)  # Flip horizontally
+    if flip_vertical:
+        image = ImageOps.flip(image)  # Flip vertically
+    return image
 
 # Function to dynamically adjust aspect ratio based on ASCII pattern
 def get_aspect_ratio(pattern: str) -> float:
@@ -101,6 +107,10 @@ def run_streamlit_app():
     colorize = st.sidebar.checkbox("Enable Colorized ASCII Art")
     color_theme = st.sidebar.selectbox("Choose Color Theme", options=list(COLOR_THEMES.keys()))
     width = st.sidebar.slider("Set ASCII Art Width", 50, 150, 100)
+
+    # New Flip Image Feature
+    flip_horizontal = st.sidebar.checkbox("Flip Image Horizontally")
+    flip_vertical = st.sidebar.checkbox("Flip Image Vertically")
 
     # Image filters
     brightness = st.sidebar.slider("Brightness", 0.5, 2.0, 1.0)
@@ -195,6 +205,9 @@ def main():
     parser.add_argument('--colorize', action='store_true', help='Enable colorized ASCII art')
     parser.add_argument('--theme', type=str, default='grayscale', choices=COLOR_THEMES.keys(),
                         help='Choose a color theme for colorized ASCII art')
+    parser.add_argument('--flip-horizontal', action='store_true', help='Flip the image horizontally')
+    parser.add_argument('--flip-vertical', action='store_true', help='Flip the image vertically')
+
 
     args = parser.parse_args()
 
