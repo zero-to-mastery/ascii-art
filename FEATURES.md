@@ -2,8 +2,6 @@
 
 Welcome to the **ASCII Art Generator**! This tool allows you to convert images into beautiful ASCII art. You can use the provided web interface powered by **Streamlit** or generate ASCII art directly from the command line with a variety of customization options.
 
----
-
 ## Web Interface (Streamlit)
 
 You can interact with the ASCII Art Generator using an easy-to-use web interface. This is ideal for those who want to quickly generate ASCII art without using the command line.
@@ -42,25 +40,21 @@ python community-version.py <input_image> --output <output_file> [OPTIONS]
 1. **`<input_image>`**: The path to the input image file (JPEG or PNG).
 2. **`--output <output_file>`**: The name of the output file (either `.txt` for grayscale ASCII or `.html` for colorized ASCII).
 
----
-
 ## Options and Arguments
 
 Here is a list of all available options and their descriptions:
 
-| Option                | Description                                                                                  | Default            |
-|-----------------------|----------------------------------------------------------------------------------------------|--------------------|
-| `--output`            | Specifies the output file path. (Required)                                                   | N/A                |
-| `--pattern {basic, complex, emoji}` | Selects the ASCII pattern to use.                                                | `basic`            |
-| `--width <int>`       | Sets the width of the ASCII art in characters.                                                | `100`              |
-| `--brightness <float>`| Adjusts the brightness of the image (range: 0.5 - 2.0).                                       | `1.0`              |
-| `--contrast <float>`  | Adjusts the contrast of the image (range: 0.5 - 2.0).                                         | `1.0`              |
-| `--blur`              | Applies a blur filter to the image.                                                           | Disabled           |
-| `--sharpen`           | Applies a sharpen filter to the image.                                                        | Disabled           |
-| `--colorize`          | Enables colorized ASCII art output.                                                           | Disabled (grayscale)|
-| `--theme {neon, pastel, grayscale}` | Specifies the color theme for colorized ASCII art. This requires `--colorize`.    | `grayscale`        |
-
----
+| Option                              | Description                                                                    | Default              |
+| ----------------------------------- | ------------------------------------------------------------------------------ | -------------------- |
+| `--output`                          | Specifies the output file path. (Required)                                     | N/A                  |
+| `--pattern {basic, complex, emoji}` | Selects the ASCII pattern to use.                                              | `basic`              |
+| `--width <int>`                     | Sets the width of the ASCII art in characters.                                 | `100`                |
+| `--brightness <float>`              | Adjusts the brightness of the image (range: 0.5 - 2.0).                        | `1.0`                |
+| `--contrast <float>`                | Adjusts the contrast of the image (range: 0.5 - 2.0).                          | `1.0`                |
+| `--blur`                            | Applies a blur filter to the image.                                            | Disabled             |
+| `--sharpen`                         | Applies a sharpen filter to the image.                                         | Disabled             |
+| `--colorize`                        | Enables colorized ASCII art output.                                            | Disabled (grayscale) |
+| `--theme {neon, pastel, grayscale}` | Specifies the color theme for colorized ASCII art. This requires `--colorize`. | `grayscale`          |
 
 ## Examples
 
@@ -90,34 +84,17 @@ python community-version.py example/ztm-logo.png --output ascii_art.html --patte
 
 This command uses the emoji pattern, adjusts brightness and contrast, and outputs a pastel color-themed ASCII art in HTML format.
 
----
-
-## Requirements
-
-Ensure you have the following requirements installed:
-
-- Python 3.x
-- Pillow (`pip install pillow`)
-- Numpy (`pip install numpy`)
-- Streamlit (`pip install streamlit`)
-
-You can install all dependencies using the `requirements.txt` file (if provided):
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
 ## Installation
 
 1. Clone this repository:
+
    ```bash
    git clone <repository-url>
    cd ascii-art
    ```
 
 2. Create a virtual environment (optional but recommended):
+
    ```bash
    python -m venv venv
    source venv/bin/activate  # For Linux/macOS
@@ -128,4 +105,3 @@ pip install -r requirements.txt
    ```bash
    pip install -r requirements.txt
    ```
-
