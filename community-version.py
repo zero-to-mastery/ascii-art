@@ -1,9 +1,7 @@
 import streamlit as st
-from PIL import Image, ImageOps, ImageEnhance, ImageFilter, ImageDraw, ImageFont
+from PIL import Image, ImageOps, ImageEnhance, ImageFilter
 import numpy as np
 import random
-import argparse
-import sys
 
 # ASCII patterns and color themes
 ASCII_PATTERNS = {
@@ -11,7 +9,6 @@ ASCII_PATTERNS = {
     'complex': ['▓', '▒', '░', '█', '▄', '▀', '▌', '▐', '▆', '▇', '▅', '▃', '▂'],
     'emoji': ['😁', '😎', '🤔', '😱', '🤩', '😏', '😴', '😬', '😵', '😃'],
 }
-
 
 COLOR_THEMES = {
     'neon': [(57, 255, 20), (255, 20, 147), (0, 255, 255)],
@@ -21,7 +18,7 @@ COLOR_THEMES = {
 
 # Function to apply filters to the image
 def apply_image_filters(image: Image.Image, brightness: float, contrast: float, blur: bool,
-                        sharpen: bool) -> Image.Image:
+                        sharpen: bool, contours: bool) -> Image.Image:
     if brightness != 1.0:
         enhancer = ImageEnhance.Brightness(image)
         image = enhancer.enhance(brightness)
@@ -36,14 +33,12 @@ def apply_image_filters(image: Image.Image, brightness: float, contrast: float, 
     if sharpen:
         image = image.filter(ImageFilter.SHARPEN)
 
+    # Apply contour detection if selected
+    if contours:
+        image = image.filter(ImageFilter.FIND_EDGES)
+
     return image
-# Function to flip image
-def flip_image(image: Image.Image, flip_horizontal: bool, flip_vertical: bool) -> Image.Image:
-    if flip_horizontal:
-        image = ImageOps.mirror(image)  # Flip horizontally
-    if flip_vertical:
-        image = ImageOps.flip(image)  # Flip vertically
-    return image
+
 
 # Function to dynamically adjust aspect ratio based on ASCII pattern
 def get_aspect_ratio(pattern: str) -> float:
@@ -108,15 +103,12 @@ def run_streamlit_app():
     color_theme = st.sidebar.selectbox("Choose Color Theme", options=list(COLOR_THEMES.keys()))
     width = st.sidebar.slider("Set ASCII Art Width", 50, 150, 100)
 
-    # New Flip Image Feature
-    flip_horizontal = st.sidebar.checkbox("Flip Image Horizontally")
-    flip_vertical = st.sidebar.checkbox("Flip Image Vertically")
-
     # Image filters
     brightness = st.sidebar.slider("Brightness", 0.5, 2.0, 1.0)
     contrast = st.sidebar.slider("Contrast", 0.5, 2.0, 1.0)
     apply_blur = st.sidebar.checkbox("Apply Blur")
     apply_sharpen = st.sidebar.checkbox("Apply Sharpen")
+    apply_contours = st.sidebar.checkbox("Apply Contour Detection")  # New checkbox for contours
 
     # Upload image
     uploaded_file = st.file_uploader("Upload an image (JPEG/PNG)", type=["jpg", "jpeg", "png"])
@@ -124,8 +116,8 @@ def run_streamlit_app():
     if uploaded_file:
         image = Image.open(uploaded_file)
 
-        # Apply filters to the image
-        image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen)
+        # Apply filters to the image, including contour detection
+        image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen, apply_contours)
 
         # Display the original processed image
         st.image(image, caption="Processed Image", use_column_width=True)
@@ -157,80 +149,6 @@ def run_streamlit_app():
         - 💾 Download your creation as a **text file** or **HTML** for colorized output.
     """)
 
-# Check if the file path is valid
-def is_valid_image_path(file_path: str) -> bool:
-    if not os.path.exists(file_path):
-        return False
-    if not os.path.isfile(file_path):
-        return False
-    return True
-
-# Command Line Interface (CLI) Function
-def run_cli(input_image: str, output: str, pattern_type: str, width: int, brightness: float, contrast: float,
-            blur: bool, sharpen: bool, colorize: bool, theme: str):
-    image = Image.open(input_image)
-
-    # Apply filters
-    image = apply_image_filters(image, brightness, contrast, blur, sharpen)
-
-    # Resize image
-    image_resized = resize_image(image, width, pattern_type)
-
-    # Generate ASCII art
-    ascii_pattern = ASCII_PATTERNS[pattern_type]
-    if colorize:
-        ascii_html = create_colorized_ascii_html(image_resized, ascii_pattern, theme)
-        with open(output, 'w', encoding='utf-8') as file:  # Use UTF-8 encoding
-            file.write(ascii_html)
-    else:
-        ascii_art = map_pixels_to_ascii(image_resized, ascii_pattern)
-        with open(output, 'w', encoding='utf-8') as file:  # Use UTF-8 encoding
-            file.write(ascii_art)
-
-    print(f"ASCII art saved to {output}")
-
-
-
-def main():
-    parser = argparse.ArgumentParser(description="Generate ASCII Art from an image.")
-    parser.add_argument('input_image', type=str, help='Path to the input image (JPEG/PNG)')
-    parser.add_argument('--output', type=str, default='output.txt', help='Path to save the generated ASCII art')
-    parser.add_argument('--pattern', type=str, default='basic', choices=ASCII_PATTERNS.keys(),
-                        help='Choose an ASCII pattern (basic, complex, emoji)')
-    parser.add_argument('--width', type=int, default=100, help='Width of the ASCII art')
-    parser.add_argument('--brightness', type=float, default=1.0, help='Brightness adjustment')
-    parser.add_argument('--contrast', type=float, default=1.0, help='Contrast adjustment')
-    parser.add_argument('--blur', action='store_true', help='Apply blur filter')
-    parser.add_argument('--sharpen', action='store_true', help='Apply sharpen filter')
-    parser.add_argument('--colorize', action='store_true', help='Enable colorized ASCII art')
-    parser.add_argument('--theme', type=str, default='grayscale', choices=COLOR_THEMES.keys(),
-                        help='Choose a color theme for colorized ASCII art')
-    parser.add_argument('--flip-horizontal', action='store_true', help='Flip the image horizontally')
-    parser.add_argument('--flip-vertical', action='store_true', help='Flip the image vertically')
-
-
-    args = parser.parse_args()
-
-    # Run the CLI mode if executed from command line
-    run_cli(args.input_image, args.output, args.pattern, args.width, args.brightness, args.contrast,
-            args.blur, args.sharpen, args.colorize, args.theme)
-
-# Check if the file path is valid
-def is_valid_image_path(file_path: str) -> bool:
-    if not os.path.exists(file_path):
-        return False
-    if not os.path.isfile(file_path):
-        return False
-    return True
-
 
 if __name__ == "__main__":
-
-    # Check if the script is being run with command-line arguments
-    if len(sys.argv) > 1:
-        main()  # Run the CLI mode
-    else:
-        try:
-            run_streamlit_app()  # Run the Streamlit app
-        except:
-            main()  # Fallback to CLI mode if Streamlit fails
+    run_streamlit_app()
