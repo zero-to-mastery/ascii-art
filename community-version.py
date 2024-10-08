@@ -205,6 +205,9 @@ def main():
     parser.add_argument('--colorize', action='store_true', help='Enable colorized ASCII art')
     parser.add_argument('--theme', type=str, default='grayscale', choices=COLOR_THEMES.keys(),
                         help='Choose a color theme for colorized ASCII art')
+    parser.add_argument('--flip-horizontal', action='store_true', help='Flip the image horizontally')
+    parser.add_argument('--flip-vertical', action='store_true', help='Flip the image vertically')
+
 
     args = parser.parse_args()
 
