@@ -12,7 +12,6 @@ ASCII_PATTERNS = {
     'emoji': ['😁', '😎', '🤔', '😱', '🤩', '😏', '😴', '😬', '😵', '😃'],
 }
 
-
 COLOR_THEMES = {
     'neon': [(57, 255, 20), (255, 20, 147), (0, 255, 255)],
     'pastel': [(255, 179, 186), (255, 223, 186), (186, 255, 201), (186, 225, 255)],
@@ -37,6 +36,11 @@ def apply_image_filters(image: Image.Image, brightness: float, contrast: float, 
         image = image.filter(ImageFilter.SHARPEN)
 
     return image
+
+# Function to create contours
+def create_contours(image: Image.Image) -> Image.Image:
+    return image.filter(ImageFilter.FIND_EDGES)
+
 # Function to flip image
 def flip_image(image: Image.Image, flip_horizontal: bool, flip_vertical: bool) -> Image.Image:
     if flip_horizontal:
@@ -48,13 +52,12 @@ def flip_image(image: Image.Image, flip_horizontal: bool, flip_vertical: bool) -
 # Function to dynamically adjust aspect ratio based on ASCII pattern
 def get_aspect_ratio(pattern: str) -> float:
     if pattern == 'basic':
-        return 0.55  # Basic ASCII characters have a slight vertical aspect
+        return 0.55
     elif pattern == 'complex':
-        return 0.65  # Complex characters are usually wider
+        return 0.65
     elif pattern == 'emoji':
-        return 1.0   # Emojis are generally square, so no aspect correction
+        return 1.0
     return 0.55
-
 
 # Function to resize the image dynamically based on the aspect ratio of the selected pattern
 def resize_image(image: Image.Image, width: int, pattern: str) -> Image.Image:
@@ -62,22 +65,17 @@ def resize_image(image: Image.Image, width: int, pattern: str) -> Image.Image:
     new_height = int(aspect_ratio * image.height / image.width * width)
     return image.resize((width, new_height))
 
-
 # Function to map pixels to ASCII characters
 def map_pixels_to_ascii(image: Image.Image, pattern: list) -> str:
-    grayscale_image = image.convert('L')  # Convert to grayscale
+    grayscale_image = image.convert('L')
     pixels = np.array(grayscale_image)
-
-    # Ensure that the index for the ASCII pattern doesn't go out of bounds
     ascii_chars = np.vectorize(lambda pixel: pattern[min(pixel // (256 // len(pattern)), len(pattern) - 1)])(pixels)
-
     ascii_image = "\n".join(["".join(row) for row in ascii_chars])
     return ascii_image
 
-
 # Function to create colorized ASCII art in HTML format
 def create_colorized_ascii_html(image: Image.Image, pattern: list, theme: str) -> str:
-    image = resize_image(image, 80, 'basic')  # Resizing for better ASCII mapping
+    image = resize_image(image, 80, 'basic')
     pixels = np.array(image)
 
     ascii_image_html = """
@@ -95,7 +93,6 @@ def create_colorized_ascii_html(image: Image.Image, pattern: list, theme: str) -
 
     ascii_image_html += "</div>"
     return ascii_image_html
-
 
 # Streamlit app for the ASCII art generator
 def run_streamlit_app():
@@ -117,6 +114,9 @@ def run_streamlit_app():
     contrast = st.sidebar.slider("Contrast", 0.5, 2.0, 1.0)
     apply_blur = st.sidebar.checkbox("Apply Blur")
     apply_sharpen = st.sidebar.checkbox("Apply Sharpen")
+    
+    # New Contour Feature
+    apply_contours = st.sidebar.checkbox("Apply Contours")
 
     # Upload image
     uploaded_file = st.file_uploader("Upload an image (JPEG/PNG)", type=["jpg", "jpeg", "png"])
@@ -126,6 +126,13 @@ def run_streamlit_app():
 
         # Apply filters to the image
         image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen)
+
+        # Apply contour effect if selected
+        if apply_contours:
+            image = create_contours(image)
+
+        # Flip the image if requested
+        image = flip_image(image, flip_horizontal, flip_vertical)
 
         # Display the original processed image
         st.image(image, caption="Processed Image", use_column_width=True)
@@ -165,13 +172,18 @@ def is_valid_image_path(file_path: str) -> bool:
         return False
     return True
 
+
 # Command Line Interface (CLI) Function
 def run_cli(input_image: str, output: str, pattern_type: str, width: int, brightness: float, contrast: float,
-            blur: bool, sharpen: bool, colorize: bool, theme: str):
+            blur: bool, sharpen: bool, colorize: bool, theme: str, apply_contours: bool):
     image = Image.open(input_image)
 
     # Apply filters
     image = apply_image_filters(image, brightness, contrast, blur, sharpen)
+
+    # Apply contour effect if selected
+    if apply_contours:
+        image = create_contours(image)
 
     # Resize image
     image_resized = resize_image(image, width, pattern_type)
@@ -189,48 +201,24 @@ def run_cli(input_image: str, output: str, pattern_type: str, width: int, bright
 
     print(f"ASCII art saved to {output}")
 
-
-
-def main():
-    parser = argparse.ArgumentParser(description="Generate ASCII Art from an image.")
-    parser.add_argument('input_image', type=str, help='Path to the input image (JPEG/PNG)')
-    parser.add_argument('--output', type=str, default='output.txt', help='Path to save the generated ASCII art')
-    parser.add_argument('--pattern', type=str, default='basic', choices=ASCII_PATTERNS.keys(),
-                        help='Choose an ASCII pattern (basic, complex, emoji)')
-    parser.add_argument('--width', type=int, default=100, help='Width of the ASCII art')
-    parser.add_argument('--brightness', type=float, default=1.0, help='Brightness adjustment')
-    parser.add_argument('--contrast', type=float, default=1.0, help='Contrast adjustment')
-    parser.add_argument('--blur', action='store_true', help='Apply blur filter')
-    parser.add_argument('--sharpen', action='store_true', help='Apply sharpen filter')
-    parser.add_argument('--colorize', action='store_true', help='Enable colorized ASCII art')
-    parser.add_argument('--theme', type=str, default='grayscale', choices=COLOR_THEMES.keys(),
-                        help='Choose a color theme for colorized ASCII art')
-    parser.add_argument('--flip-horizontal', action='store_true', help='Flip the image horizontally')
-    parser.add_argument('--flip-vertical', action='store_true', help='Flip the image vertically')
-
-
-    args = parser.parse_args()
-
-    # Run the CLI mode if executed from command line
-    run_cli(args.input_image, args.output, args.pattern, args.width, args.brightness, args.contrast,
-            args.blur, args.sharpen, args.colorize, args.theme)
-
-# Check if the file path is valid
-def is_valid_image_path(file_path: str) -> bool:
-    if not os.path.exists(file_path):
-        return False
-    if not os.path.isfile(file_path):
-        return False
-    return True
-
-
+# Main function for CLI execution
 if __name__ == "__main__":
-
-    # Check if the script is being run with command-line arguments
     if len(sys.argv) > 1:
-        main()  # Run the CLI mode
+        parser = argparse.ArgumentParser(description="Generate ASCII art from an image.")
+        parser.add_argument("input_image", help="Path to the input image file.")
+        parser.add_argument("-o", "--output", default="output.txt", help="Output file name.")
+        parser.add_argument("-p", "--pattern", choices=ASCII_PATTERNS.keys(), default="basic", help="ASCII pattern.")
+        parser.add_argument("-w", "--width", type=int, default=100, help="Width of ASCII art.")
+        parser.add_argument("-b", "--brightness", type=float, default=1.0, help="Brightness factor.")
+        parser.add_argument("-c", "--contrast", type=float, default=1.0, help="Contrast factor.")
+        parser.add_argument("--blur", action="store_true", help="Apply blur effect.")
+        parser.add_argument("--sharpen", action="store_true", help="Apply sharpen effect.")
+        parser.add_argument("--colorize", action="store_true", help="Enable colorized ASCII art.")
+        parser.add_argument("-t", "--theme", choices=COLOR_THEMES.keys(), default="grayscale", help="Color theme.")
+        parser.add_argument("--contours", action="store_true", help="Apply contour effect to the image.")
+
+        args = parser.parse_args()
+        run_cli(args.input_image, args.output, args.pattern, args.width, args.brightness, args.contrast,
+                 args.blur, args.sharpen, args.colorize, args.theme, args.contours)
     else:
-        try:
-            run_streamlit_app()  # Run the Streamlit app
-        except:
-            main()  # Fallback to CLI mode if Streamlit fails
+        run_streamlit_app()
