@@ -108,6 +108,10 @@ def run_streamlit_app():
     color_theme = st.sidebar.selectbox("Choose Color Theme", options=list(COLOR_THEMES.keys()))
     width = st.sidebar.slider("Set ASCII Art Width", 50, 150, 100)
 
+    # New Flip Image Feature
+    flip_horizontal = st.sidebar.checkbox("Flip Image Horizontally")
+    flip_vertical = st.sidebar.checkbox("Flip Image Vertically")
+
     # Image filters
     brightness = st.sidebar.slider("Brightness", 0.5, 2.0, 1.0)
     contrast = st.sidebar.slider("Contrast", 0.5, 2.0, 1.0)
