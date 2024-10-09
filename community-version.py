@@ -101,6 +101,10 @@ def run_streamlit_app():
     # Sidebar for options and settings
     st.sidebar.title("Settings")
     pattern_type = st.sidebar.selectbox("Choose ASCII Pattern", options=['basic', 'complex', 'emoji'])
+    
+    # New input for custom ASCII set
+    custom_set = st.sidebar.text_input("Custom ASCII Set (Optional)", max_chars=50)
+    
     colorize = st.sidebar.checkbox("Enable Colorized ASCII Art")
     color_theme = st.sidebar.selectbox("Choose Color Theme", options=list(COLOR_THEMES.keys()))
     width = st.sidebar.slider("Set ASCII Art Width", 50, 150, 100)
@@ -140,8 +144,18 @@ def run_streamlit_app():
         # Resize the image based on the pattern type's aspect ratio
         image_resized = resize_image(image, width, pattern_type)
 
+        # Check if the user has provided a custom ASCII set
+        if custom_set:
+            try:
+                ascii_pattern = list(custom_set)
+                validate_custom_set(ascii_pattern)  # Validate the custom ASCII set
+            except ValueError as e:
+                st.error(str(e))
+                return  # Stop execution if validation fails
+        else:
+            ascii_pattern = ASCII_PATTERNS[pattern_type]  # Use predefined pattern
+
         # Generate ASCII art
-        ascii_pattern = ASCII_PATTERNS[pattern_type]
         if colorize:
             st.subheader("Colorized ASCII Art Preview:")
             ascii_html = create_colorized_ascii_html(image_resized, ascii_pattern, color_theme)
@@ -164,6 +178,7 @@ def run_streamlit_app():
         - 💾 Download your creation as a **text file** or **HTML** for colorized output.
     """)
 
+
 # Check if the file path is valid
 def is_valid_image_path(file_path: str) -> bool:
     if not os.path.exists(file_path):
@@ -174,22 +189,23 @@ def is_valid_image_path(file_path: str) -> bool:
 
 
 # Command Line Interface (CLI) Function
-def run_cli(input_image: str, output: str, pattern_type: str, width: int, brightness: float, contrast: float,
-            blur: bool, sharpen: bool, colorize: bool, theme: str, apply_contours: bool):
+def run_cli(input_image: str, output: str, pattern_type: str, custom_set: str, width: int, brightness: float, contrast: float,
+            blur: bool, sharpen: bool, colorize: bool, theme: str):
     image = Image.open(input_image)
 
     # Apply filters
     image = apply_image_filters(image, brightness, contrast, blur, sharpen)
 
-    # Apply contour effect if selected
-    if apply_contours:
-        image = create_contours(image)
-
     # Resize image
     image_resized = resize_image(image, width, pattern_type)
 
+    # Use custom ASCII character set if provided
+    if custom_set:
+        ascii_pattern = list(custom_set)
+    else:
+        ascii_pattern = ASCII_PATTERNS[pattern_type]
+
     # Generate ASCII art
-    ascii_pattern = ASCII_PATTERNS[pattern_type]
     if colorize:
         ascii_html = create_colorized_ascii_html(image_resized, ascii_pattern, theme)
         with open(output, 'w', encoding='utf-8') as file:  # Use UTF-8 encoding
@@ -200,6 +216,14 @@ def run_cli(input_image: str, output: str, pattern_type: str, width: int, bright
             file.write(ascii_art)
 
     print(f"ASCII art saved to {output}")
+
+
+def validate_custom_set(custom_set: str):
+    if not custom_set or len(custom_set) < 2:
+        raise ValueError("Custom ASCII set must contain at least two characters.")
+    if len(set(custom_set)) != len(custom_set):
+        raise ValueError("Custom ASCII set must not contain duplicate characters.")
+    return list(custom_set)
 
 # Main function for CLI execution
 if __name__ == "__main__":
@@ -216,8 +240,17 @@ if __name__ == "__main__":
         parser.add_argument("--colorize", action="store_true", help="Enable colorized ASCII art.")
         parser.add_argument("-t", "--theme", choices=COLOR_THEMES.keys(), default="grayscale", help="Color theme.")
         parser.add_argument("--contours", action="store_true", help="Apply contour effect to the image.")
+        parser.add_argument('--custom-set', type=str, help='Custom ASCII character set to use')
 
         args = parser.parse_args()
+        if args.custom_set:
+            custom_set = list(args.custom_set)
+            validate_custom_set(custom_set)  # Validate the custom ASCII set
+            ascii_pattern = custom_set
+        else:
+            ascii_pattern = ASCII_PATTERNS[args.pattern]  # Use predefined pattern
+
+
         run_cli(args.input_image, args.output, args.pattern, args.width, args.brightness, args.contrast,
                  args.blur, args.sharpen, args.colorize, args.theme, args.contours)
     else:
