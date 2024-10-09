@@ -43,11 +43,28 @@ def create_contours(image: Image.Image) -> Image.Image:
 
 # Function to flip image
 def flip_image(image: Image.Image, flip_horizontal: bool, flip_vertical: bool) -> Image.Image:
-    if flip_horizontal:
-        image = ImageOps.mirror(image)  # Flip horizontally
-    if flip_vertical:
-        image = ImageOps.flip(image)  # Flip vertically
-    return image
+    # Error handling
+    try:
+        # Check if the input is a valid Image object
+        if not isinstance(image, Image.Image):
+            raise ValueError("Input must be a PIL Image object.")
+
+        # Check if flip_horizontal and flip_vertical are boolean
+        if not isinstance(flip_horizontal, bool) or not isinstance(flip_vertical, bool):
+            raise ValueError("flip_horizontal and flip_vertical must be boolean values.")
+
+        # Perform the flipping operations
+        if flip_horizontal:
+            image = ImageOps.mirror(image)  # Flip horizontally
+        if flip_vertical:
+            image = ImageOps.flip(image)  # Flip vertically
+
+        return image
+
+    except Exception as e:
+        print(f"Error flipping image: {e}")
+        return None  # You can return None or raise an exception depending on how you want to handle it
+
 
 # Function to dynamically adjust aspect ratio based on ASCII pattern
 def get_aspect_ratio(pattern: str) -> float:
@@ -166,11 +183,11 @@ def run_streamlit_app():
 
 # Check if the file path is valid
 def is_valid_image_path(file_path: str) -> bool:
-    if not os.path.exists(file_path):
+    try:
+        return os.path.exists(file_path) and os.path.isfile(file_path)
+    except Exception as e:
+        print(f"Error checking with file path :{e}")
         return False
-    if not os.path.isfile(file_path):
-        return False
-    return True
 
 
 # Command Line Interface (CLI) Function
