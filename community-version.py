@@ -18,9 +18,8 @@ COLOR_THEMES = {
     'grayscale': [(i, i, i) for i in range(0, 255, 25)],
 }
 
-# Function to apply filters to the image
 def apply_image_filters(image: Image.Image, brightness: float, contrast: float, blur: bool,
-                        sharpen: bool) -> Image.Image:
+                        sharpen: bool, saturation: float) -> Image.Image:
     if brightness != 1.0:
         enhancer = ImageEnhance.Brightness(image)
         image = enhancer.enhance(brightness)
@@ -28,6 +27,10 @@ def apply_image_filters(image: Image.Image, brightness: float, contrast: float, 
     if contrast != 1.0:
         enhancer = ImageEnhance.Contrast(image)
         image = enhancer.enhance(contrast)
+
+    if saturation != 1.0:
+        enhancer = ImageEnhance.Color(image)
+        image = enhancer.enhance(saturation)
 
     if blur:
         image = image.filter(ImageFilter.BLUR)
@@ -94,7 +97,6 @@ def create_colorized_ascii_html(image: Image.Image, pattern: list, theme: str) -
     ascii_image_html += "</div>"
     return ascii_image_html
 
-# Streamlit app for the ASCII art generator
 def run_streamlit_app():
     st.title("🌟 Customizable ASCII Art Generator")
 
@@ -112,15 +114,15 @@ def run_streamlit_app():
     # Image filters
     brightness = st.sidebar.slider("Brightness", 0.5, 2.0, 1.0)
     contrast = st.sidebar.slider("Contrast", 0.5, 2.0, 1.0)
-    
-    # new rotation feature
-    rotation_angle = st.sidebar.slider("Rotation Angle", 0, 360, 0)
-
+    saturation = st.sidebar.slider("Saturation", 0.0, 2.0, 1.0)  # New saturation slider
     apply_blur = st.sidebar.checkbox("Apply Blur")
     apply_sharpen = st.sidebar.checkbox("Apply Sharpen")
     
     # New Contour Feature
     apply_contours = st.sidebar.checkbox("Apply Contours")
+    
+    # New Rotation Slider
+    rotation_angle = st.sidebar.slider("Rotation Angle", 0, 360, 0)
 
     # Upload image
     uploaded_file = st.file_uploader("Upload an image (JPEG/PNG)", type=["jpg", "jpeg", "png"])
@@ -129,14 +131,15 @@ def run_streamlit_app():
         image = Image.open(uploaded_file)
 
         # Apply filters to the image
-        image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen)
+        image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen, saturation)
 
         # Apply contour effect if selected
         if apply_contours:
             image = create_contours(image)
 
-        # apply rotation based on rotation value
-        image = image.rotate(rotation_angle, expand=True)
+        # Apply rotation based on the slider value
+        if rotation_angle != 0:
+            image = image.rotate(rotation_angle, expand=True)
 
         # Flip the image if requested
         image = flip_image(image, flip_horizontal, flip_vertical)
@@ -182,11 +185,11 @@ def is_valid_image_path(file_path: str) -> bool:
 
 # Command Line Interface (CLI) Function
 def run_cli(input_image: str, output: str, pattern_type: str, width: int, brightness: float, contrast: float,
-            blur: bool, sharpen: bool, colorize: bool, theme: str, apply_contours: bool):
+            blur: bool, sharpen: bool, colorize: bool, theme: str, apply_contours: bool, saturation: float):
     image = Image.open(input_image)
 
     # Apply filters
-    image = apply_image_filters(image, brightness, contrast, blur, sharpen)
+    image = apply_image_filters(image, brightness, contrast, blur, sharpen, saturation)
 
     # Apply contour effect if selected
     if apply_contours:
@@ -208,7 +211,7 @@ def run_cli(input_image: str, output: str, pattern_type: str, width: int, bright
 
     print(f"ASCII art saved to {output}")
 
-# Main function for CLI execution
+
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         parser = argparse.ArgumentParser(description="Generate ASCII art from an image.")
@@ -223,9 +226,10 @@ if __name__ == "__main__":
         parser.add_argument("--colorize", action="store_true", help="Enable colorized ASCII art.")
         parser.add_argument("-t", "--theme", choices=COLOR_THEMES.keys(), default="grayscale", help="Color theme.")
         parser.add_argument("--contours", action="store_true", help="Apply contour effect to the image.")
+        parser.add_argument("--saturation", type=float, default=1.0, help="Saturation factor.")  # Add saturation argument
 
         args = parser.parse_args()
         run_cli(args.input_image, args.output, args.pattern, args.width, args.brightness, args.contrast,
-                 args.blur, args.sharpen, args.colorize, args.theme, args.contours)
+                args.blur, args.sharpen, args.colorize, args.theme, args.contours, args.saturation)
     else:
         run_streamlit_app()
