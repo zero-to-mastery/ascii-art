@@ -91,6 +91,65 @@ def create_colorized_ascii_html(image: Image.Image, pattern: list, theme: str) -
     return ascii_image_html
 
 
+# Update argparse in the main function to add custom-set option
+def main():
+    parser = argparse.ArgumentParser(description="Generate ASCII Art from an image.")
+    parser.add_argument('input_image', type=str, help='Path to the input image (JPEG/PNG)')
+    parser.add_argument('--output', type=str, default='output.txt', help='Path to save the generated ASCII art')
+    parser.add_argument('--pattern', type=str, default='basic', choices=ASCII_PATTERNS.keys(),
+                        help='Choose an ASCII pattern (basic, complex, emoji)')
+    parser.add_argument('--custom-set', type=str, help='Custom ASCII character set to use')
+    parser.add_argument('--width', type=int, default=100, help='Width of the ASCII art')
+    parser.add_argument('--brightness', type=float, default=1.0, help='Brightness adjustment')
+    parser.add_argument('--contrast', type=float, default=1.0, help='Contrast adjustment')
+    parser.add_argument('--blur', action='store_true', help='Apply blur filter')
+    parser.add_argument('--sharpen', action='store_true', help='Apply sharpen filter')
+    parser.add_argument('--colorize', action='store_true', help='Enable colorized ASCII art')
+    parser.add_argument('--theme', type=str, default='grayscale', choices=COLOR_THEMES.keys(),
+                        help='Choose a color theme for colorized ASCII art')
+
+    args = parser.parse_args()
+    if args.custom_set:
+        custom_set = list(args.custom_set)
+        validate_custom_set(custom_set)  # Validate the custom ASCII set
+        ascii_pattern = custom_set
+    else:
+        ascii_pattern = ASCII_PATTERNS[args.pattern]  # Use predefined pattern
+
+
+    # Run the CLI mode if executed from command line
+    run_cli(args.input_image, args.output, args.pattern, args.custom_set, args.width, args.brightness, args.contrast,
+            args.blur, args.sharpen, args.colorize, args.theme)
+
+# Modify the run_cli function to use the custom ASCII character set
+def run_cli(input_image: str, output: str, pattern_type: str, custom_set: str, width: int, brightness: float, contrast: float,
+            blur: bool, sharpen: bool, colorize: bool, theme: str):
+    image = Image.open(input_image)
+
+    # Apply filters
+    image = apply_image_filters(image, brightness, contrast, blur, sharpen)
+
+    # Resize image
+    image_resized = resize_image(image, width, pattern_type)
+
+    # Use custom ASCII character set if provided
+    if custom_set:
+        ascii_pattern = list(custom_set)
+    else:
+        ascii_pattern = ASCII_PATTERNS[pattern_type]
+
+    # Generate ASCII art
+    if colorize:
+        ascii_html = create_colorized_ascii_html(image_resized, ascii_pattern, theme)
+        with open(output, 'w', encoding='utf-8') as file:  # Use UTF-8 encoding
+            file.write(ascii_html)
+    else:
+        ascii_art = map_pixels_to_ascii(image_resized, ascii_pattern)
+        with open(output, 'w', encoding='utf-8') as file:  # Use UTF-8 encoding
+            file.write(ascii_art)
+
+    print(f"ASCII art saved to {output}")
+
 # Streamlit app for the ASCII art generator
 def run_streamlit_app():
     st.title("🌟 Customizable ASCII Art Generator")
@@ -98,6 +157,10 @@ def run_streamlit_app():
     # Sidebar for options and settings
     st.sidebar.title("Settings")
     pattern_type = st.sidebar.selectbox("Choose ASCII Pattern", options=['basic', 'complex', 'emoji'])
+    
+    # New input for custom ASCII set
+    custom_set = st.sidebar.text_input("Custom ASCII Set (Optional)", max_chars=50)
+    
     colorize = st.sidebar.checkbox("Enable Colorized ASCII Art")
     color_theme = st.sidebar.selectbox("Choose Color Theme", options=list(COLOR_THEMES.keys()))
     width = st.sidebar.slider("Set ASCII Art Width", 50, 150, 100)
@@ -123,8 +186,18 @@ def run_streamlit_app():
         # Resize the image based on the pattern type's aspect ratio
         image_resized = resize_image(image, width, pattern_type)
 
+        # Check if the user has provided a custom ASCII set
+        if custom_set:
+            try:
+                ascii_pattern = list(custom_set)
+                validate_custom_set(ascii_pattern)  # Validate the custom ASCII set
+            except ValueError as e:
+                st.error(str(e))
+                return  # Stop execution if validation fails
+        else:
+            ascii_pattern = ASCII_PATTERNS[pattern_type]  # Use predefined pattern
+
         # Generate ASCII art
-        ascii_pattern = ASCII_PATTERNS[pattern_type]
         if colorize:
             st.subheader("Colorized ASCII Art Preview:")
             ascii_html = create_colorized_ascii_html(image_resized, ascii_pattern, color_theme)
@@ -147,60 +220,13 @@ def run_streamlit_app():
         - 💾 Download your creation as a **text file** or **HTML** for colorized output.
     """)
 
-# Check if the file path is valid
-def is_valid_image_path(file_path: str) -> bool:
-    if not os.path.exists(file_path):
-        return False
-    if not os.path.isfile(file_path):
-        return False
-    return True
+def validate_custom_set(custom_set: str):
+    if not custom_set or len(custom_set) < 2:
+        raise ValueError("Custom ASCII set must contain at least two characters.")
+    if len(set(custom_set)) != len(custom_set):
+        raise ValueError("Custom ASCII set must not contain duplicate characters.")
+    return list(custom_set)
 
-# Command Line Interface (CLI) Function
-def run_cli(input_image: str, output: str, pattern_type: str, width: int, brightness: float, contrast: float,
-            blur: bool, sharpen: bool, colorize: bool, theme: str):
-    image = Image.open(input_image)
-
-    # Apply filters
-    image = apply_image_filters(image, brightness, contrast, blur, sharpen)
-
-    # Resize image
-    image_resized = resize_image(image, width, pattern_type)
-
-    # Generate ASCII art
-    ascii_pattern = ASCII_PATTERNS[pattern_type]
-    if colorize:
-        ascii_html = create_colorized_ascii_html(image_resized, ascii_pattern, theme)
-        with open(output, 'w', encoding='utf-8') as file:  # Use UTF-8 encoding
-            file.write(ascii_html)
-    else:
-        ascii_art = map_pixels_to_ascii(image_resized, ascii_pattern)
-        with open(output, 'w', encoding='utf-8') as file:  # Use UTF-8 encoding
-            file.write(ascii_art)
-
-    print(f"ASCII art saved to {output}")
-
-
-
-def main():
-    parser = argparse.ArgumentParser(description="Generate ASCII Art from an image.")
-    parser.add_argument('input_image', type=str, help='Path to the input image (JPEG/PNG)')
-    parser.add_argument('--output', type=str, default='output.txt', help='Path to save the generated ASCII art')
-    parser.add_argument('--pattern', type=str, default='basic', choices=ASCII_PATTERNS.keys(),
-                        help='Choose an ASCII pattern (basic, complex, emoji)')
-    parser.add_argument('--width', type=int, default=100, help='Width of the ASCII art')
-    parser.add_argument('--brightness', type=float, default=1.0, help='Brightness adjustment')
-    parser.add_argument('--contrast', type=float, default=1.0, help='Contrast adjustment')
-    parser.add_argument('--blur', action='store_true', help='Apply blur filter')
-    parser.add_argument('--sharpen', action='store_true', help='Apply sharpen filter')
-    parser.add_argument('--colorize', action='store_true', help='Enable colorized ASCII art')
-    parser.add_argument('--theme', type=str, default='grayscale', choices=COLOR_THEMES.keys(),
-                        help='Choose a color theme for colorized ASCII art')
-
-    args = parser.parse_args()
-
-    # Run the CLI mode if executed from command line
-    run_cli(args.input_image, args.output, args.pattern, args.width, args.brightness, args.contrast,
-            args.blur, args.sharpen, args.colorize, args.theme)
 
 # Check if the file path is valid
 def is_valid_image_path(file_path: str) -> bool:
