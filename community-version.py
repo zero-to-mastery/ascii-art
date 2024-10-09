@@ -112,6 +112,10 @@ def run_streamlit_app():
     # Image filters
     brightness = st.sidebar.slider("Brightness", 0.5, 2.0, 1.0)
     contrast = st.sidebar.slider("Contrast", 0.5, 2.0, 1.0)
+    
+    # new rotation feature
+    rotation_angle = st.sidebar.slider("Rotation Angle", 0, 360, 0)
+
     apply_blur = st.sidebar.checkbox("Apply Blur")
     apply_sharpen = st.sidebar.checkbox("Apply Sharpen")
     
@@ -130,6 +134,9 @@ def run_streamlit_app():
         # Apply contour effect if selected
         if apply_contours:
             image = create_contours(image)
+
+        # apply rotation based on rotation value
+        image = image.rotate(rotation_angle, expand=True)
 
         # Flip the image if requested
         image = flip_image(image, flip_horizontal, flip_vertical)
