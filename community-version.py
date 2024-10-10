@@ -1,9 +1,11 @@
 import streamlit as st
-from PIL import Image, ImageOps, ImageEnhance, ImageFilter, ImageDraw, ImageFont
+from PIL import Image, ImageOps, ImageEnhance, ImageFilter, ImageDraw, ImageFont, ImageSequence
 import numpy as np
 import random
 import argparse
 import sys
+import io
+import base64
 
 # ASCII patterns and color themes
 ASCII_PATTERNS = {
@@ -94,6 +96,79 @@ def create_colorized_ascii_html(image: Image.Image, pattern: list, theme: str) -
     ascii_image_html += "</div>"
     return ascii_image_html
 
+# # Function to process GIF frames and convert to ASCII art
+# def process_gif_frames_to_ascii(gif_image: Image.Image, pattern: list, width, pattern_type:str) -> list:
+#     frames = []
+#     for frame in ImageSequence.Iterator(gif_image):
+#         resized_frame = resize_image(frame, width, pattern_type)
+#         ascii_frame = map_pixels_to_ascii(resized_frame, pattern)
+#         frames.append(ascii_frame)
+#     return frames
+
+# Function to process GIF frames and convert to ASCII art
+def process_gif_frames_to_ascii(gif_image: Image.Image, pattern: list, width, pattern_type:str) -> list:
+    frames = []
+    # for frame in ImageSequence.Iterator(gif_image):
+    for frame in gif_image:
+
+        resized_frame = resize_image(frame, width, pattern_type)
+        ascii_frame = map_pixels_to_ascii(resized_frame, pattern)
+        frames.append(ascii_frame)
+    return frames
+
+
+# Calculate max char size based on font
+def calculate_char_size(font, pattern_type: str):
+
+    ascii_chars = ASCII_PATTERNS[pattern_type]
+    
+    # left, top, right, bottom = font.getbbox(char)
+    max_char_width = max (font.getbbox(char)[2] for char in ascii_chars)
+    max_char_height = max(font.getbbox(char)[3] for char in ascii_chars)
+    return max_char_width, max_char_height
+
+def convert_ascii_to_new_image(frame: str, pattern_type): ### add image size
+    image = Image.new('RGB', (800, 600), color='white')
+    draw = ImageDraw.Draw(image)
+    font = ImageFont.load_default()
+    max_char_width, max_char_height = calculate_char_size(font, pattern_type)
+
+    # Calculate x offset and y_offset for each character to accommodate for variable widths
+    y_offset = 0
+    for line in frame.splitlines():
+        x_offset = 0
+        for char in line:
+            left, top, right, bottom = draw.textbbox((x_offset, y_offset), char, font=font)
+            char_width = right - left
+            char_height = bottom - top
+            draw.text(
+                (x_offset + (max_char_width - char_width) // 2,
+                y_offset + (max_char_height - char_height) // 2),
+                char, fill="black", font=font
+            )
+            x_offset += max_char_width
+        y_offset += max_char_height
+    return image
+
+
+def convert_ascii_to_new_images(frames: list, pattern_type):
+    images = []
+    for frame in frames:
+        image = convert_ascii_to_new_image(frame, pattern_type)
+        images.append(image)
+    return images
+
+
+
+# Function to save ASCII frames back into a GIF####
+def save_new_images_to_gif(images: list, duration: int):
+    gif_output = io.BytesIO()
+    images[0].save(gif_output, format='GIF', save_all=True, append_images=images[1:], duration=duration, loop=0)
+    gif_output.seek(0)
+    return gif_output
+
+
+
 # Streamlit app for the ASCII art generator
 def run_streamlit_app():
     st.title("🌟 Customizable ASCII Art Generator")
@@ -119,49 +194,80 @@ def run_streamlit_app():
     apply_contours = st.sidebar.checkbox("Apply Contours")
 
     # Upload image
-    uploaded_file = st.file_uploader("Upload an image (JPEG/PNG)", type=["jpg", "jpeg", "png"])
+    uploaded_file = st.file_uploader("Upload an image (JPEG/PNG/GIF)", type=["jpg", "jpeg", "png", "gif"])
 
     if uploaded_file:
         image = Image.open(uploaded_file)
-
-        # Apply filters to the image
-        image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen)
-
-        # Apply contour effect if selected
-        if apply_contours:
-            image = create_contours(image)
-
-        # Flip the image if requested
-        image = flip_image(image, flip_horizontal, flip_vertical)
-
-        # Display the original processed image
-        st.image(image, caption="Processed Image", use_column_width=True)
-
-        # Resize the image based on the pattern type's aspect ratio
-        image_resized = resize_image(image, width, pattern_type)
-
-        # Generate ASCII art
         ascii_pattern = ASCII_PATTERNS[pattern_type]
-        if colorize:
-            st.subheader("Colorized ASCII Art Preview:")
-            ascii_html = create_colorized_ascii_html(image_resized, ascii_pattern, color_theme)
-            st.markdown(ascii_html, unsafe_allow_html=True)
-        else:
-            st.subheader("Grayscale ASCII Art Preview:")
-            ascii_art = map_pixels_to_ascii(image_resized, ascii_pattern)
-            st.text(ascii_art)
 
-        # Download options
-        if colorize:
-            st.download_button("Download ASCII Art as HTML", ascii_html, file_name="ascii_art.html", mime="text/html")
+        if image.format == "GIF":
+            durations = image.info['duration']
+            frames = []
+            for frame in ImageSequence.Iterator(image):
+                frame = frame.convert("RGB")
+                frame = apply_image_filters(frame, brightness, contrast, apply_blur, apply_sharpen)
+                
+                if apply_contours:
+                    frame = create_contours(frame)
+
+                frame = flip_image(frame, flip_horizontal, flip_vertical)
+                frames.append(frame)
+           
+            git_output = save_new_images_to_gif(frames,durations)
+
+            # Display the original processed image
+            st.image(git_output, caption="Processed Gif", use_column_width=True)
+
+
+            # Generate ASCII art
+            st.subheader("ASCII Art GIF Preview:")
+            frames = process_gif_frames_to_ascii(frames, ascii_pattern, width, pattern_type)
+            images = convert_ascii_to_new_images(frames, pattern_type)
+            ascii_gif_output = save_new_images_to_gif(images,durations)
+
+            # Show and allow download of ASCII GIF
+            st.image(ascii_gif_output, caption="ASCII Art GIF", use_column_width=True)
+            st.download_button("Download ASCII Art as GIF", ascii_gif_output, file_name="ascii_art.gif", mime="image/gif")
+        
         else:
-            st.download_button("Download ASCII Art as Text", ascii_art, file_name="ascii_art.txt", mime="text/plain")
+            # Apply filters to the image
+            image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen)
+
+            # Apply contour effect if selected
+            if apply_contours:
+                image = create_contours(image)
+
+            # Flip the image if requested
+            image = flip_image(image, flip_horizontal, flip_vertical)
+
+            # Display the original processed image
+            st.image(image, caption="Processed Image", use_column_width=True)
+
+            # Resize the image based on the pattern type's aspect ratio
+            image_resized = resize_image(image, width, pattern_type)
+
+            # Generate ASCII art
+            ascii_pattern = ASCII_PATTERNS[pattern_type]
+            if colorize:
+                st.subheader("Colorized ASCII Art Preview:")
+                ascii_html = create_colorized_ascii_html(image_resized, ascii_pattern, color_theme)
+                st.markdown(ascii_html, unsafe_allow_html=True)
+            else:
+                st.subheader("Grayscale ASCII Art Preview:")
+                ascii_art = map_pixels_to_ascii(image_resized, ascii_pattern)
+                st.text(ascii_art)
+
+            # Download options
+            if colorize:
+                st.download_button("Download ASCII Art as HTML", ascii_html, file_name="ascii_art.html", mime="text/html")
+            else:
+                st.download_button("Download ASCII Art as Text", ascii_art, file_name="ascii_art.txt", mime="text/plain")
 
     # Instructions for the user
     st.markdown("""
         - 🎨 Use the **Settings** panel to customize your ASCII art with patterns, colors, and image filters.
-        - 📤 Upload an image in JPEG or PNG format to start generating your ASCII art.
-        - 💾 Download your creation as a **text file** or **HTML** for colorized output.
+        - 📤 Upload an image in JPEG, PNG or GIF format to start generating your ASCII art.
+        - 💾 Download your creation as a **text file**, **HTML** or **GIF** for colorized output.
     """)
 
 # Check if the file path is valid
