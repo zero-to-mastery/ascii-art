@@ -1,6 +1,6 @@
-from tkinter import *
-from tkinter import ttk, filedialog, Toplevel
 import importlib.util
+from tkinter import END, FALSE, NORMAL, Menu, Scrollbar, StringVar, Text, Tk, Toplevel, filedialog, ttk
+from tkinter.constants import E, N, S, W
 
 # Workaroung because of hyphen in filename
 module_name = "community-version"
@@ -9,12 +9,19 @@ spec = importlib.util.spec_from_file_location(module_name, file_path)
 community_version = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(community_version)
 
+
 def browse_image():
     file_path = filedialog.askopenfilename(
-        filetypes=[("JPEG", "*.jpg *.jpeg"), ("PNG", "*.png"), ("BMP", "*.bmp"), ("TIFF", "*.tiff")]
+        filetypes=[
+            ("JPEG", "*.jpg *.jpeg"),
+            ("PNG", "*.png"),
+            ("BMP", "*.bmp"),
+            ("TIFF", "*.tiff"),
+        ]
     )
     if file_path:
         image_path.set(file_path)
+
 
 def convert_image():
     image = image_path.get()
@@ -22,20 +29,19 @@ def convert_image():
         ascii_art = community_version.handle_image_conversion(image)
         display_ascii_art(ascii_art)
 
+
 def save_file(ascii_art):
-    file_path = filedialog.asksaveasfilename(
-        defaultextension=".txt",
-        filetypes=[("Text file", "*.txt")]
-        )
+    file_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text file", "*.txt")])
     if file_path:
-        with open(file_path, 'w') as file:
+        with open(file_path, "w") as file:
             file.write(ascii_art)
+
 
 def display_ascii_art(ascii_art):
     # Create ascii art preview window
     preview_window = Toplevel(root)
     preview_window.title("ZTM - Ascii Preview")
-    preview_window.iconbitmap('ztm-icon.ico')
+    preview_window.iconbitmap("ztm-icon.ico")
     preview_window.columnconfigure(0, weight=1)
     preview_window.rowconfigure(0, weight=1)
 
@@ -46,36 +52,36 @@ def display_ascii_art(ascii_art):
     preview_frame.rowconfigure(0, weight=1)
 
     # Create text widget to display the ascii art
-    text_widget = Text(preview_frame, wrap='none')  # Set wrap to none
+    text_widget = Text(preview_frame, wrap="none")  # Set wrap to none
     text_widget.insert(END, ascii_art)
     text_widget.config(state=NORMAL)
     text_widget.grid(column=0, row=0, sticky=(N, W, E, S))
 
     # Add vertical scrollbar
-    vert_scroll_bar = Scrollbar(preview_frame, orient='vertical', command=text_widget.yview)
+    vert_scroll_bar = Scrollbar(preview_frame, orient="vertical", command=text_widget.yview)
     text_widget.config(yscrollcommand=vert_scroll_bar.set)
     vert_scroll_bar.grid(column=1, row=0, sticky=(N, S))
 
     # Add horizontal scrollbar
-    horz_scroll_bar = Scrollbar(preview_frame, orient='horizontal', command=text_widget.xview)
+    horz_scroll_bar = Scrollbar(preview_frame, orient="horizontal", command=text_widget.xview)
     text_widget.config(xscrollcommand=horz_scroll_bar.set)
     horz_scroll_bar.grid(column=0, row=1, sticky=(W, E))
 
     # Add File Menu
-    preview_window.option_add('*tearOff', FALSE)
+    preview_window.option_add("*tearOff", FALSE)
     menubar = Menu(preview_window)
-    preview_window['menu'] = menubar
+    preview_window["menu"] = menubar
     menu_file = Menu(menubar)
-    menubar.add_cascade(menu=menu_file, label='File')
+    menubar.add_cascade(menu=menu_file, label="File")
 
     # Add Save functionality to File Menu
-    menu_file.add_command(label='Save As...', command=lambda: save_file(ascii_art))
+    menu_file.add_command(label="Save As...", command=lambda: save_file(ascii_art))
 
 
 # Create the root window
 root = Tk()
 root.title("ZTM - Ascii Art")
-root.iconbitmap('ztm-icon.ico')
+root.iconbitmap("ztm-icon.ico")
 
 # Main Window Frame
 mainframe = ttk.Frame(root, padding="3 3 12 12")
@@ -96,7 +102,7 @@ ttk.Button(mainframe, text="Browse", command=browse_image).grid(column=0, row=1,
 ttk.Button(mainframe, text="Convert", command=convert_image).grid(column=0, row=2, sticky=(W))
 
 # Add padding
-for child in mainframe.winfo_children(): 
+for child in mainframe.winfo_children():
     child.grid_configure(padx=0, pady=5)
 
 # Run mainloop
