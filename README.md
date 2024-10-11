@@ -80,19 +80,13 @@ pip install -r requirements.txt
 
 ### Step 2: Running the example code
 
-1. Navigate to the `example` directory.
-
-```bash
-cd example
-```
-
-2. Run the example code with the command.
+1. Run the example code with the command.
 
 ```bash
 python3 community-version.py example/ztm-logo.png
 ```
 
-3. Stare with amazement 😮
+2. Stare with amazement 😮
 
 ### Step 3: Contribute and Collaborate
 
@@ -146,3 +140,59 @@ _______
 / O O
 | ^ | | ‘-’ | _________/
 ```
+
+## Code Quality and Linting
+
+This project uses [Ruff](https://github.com/charliermarsh/ruff), a fast Python linter, to ensure code quality and consistency. Ruff checks for common Python code issues, ensures consistent code style, and enforces best practices. It is integrated as part of the development workflow to maintain a clean codebase.
+
+### Installation
+
+To install `pre-commit` and `Ruff`, simply install the dependencies listed in `requirements.txt`:
+
+```bash
+pip install -r requirements.txt
+```
+
+Then, install the pre-commit hooks:
+
+```bash
+pre-commit install
+```
+
+This will set up `Ruff` to automatically check your code before each commit.
+
+### Running Ruff
+
+Ruff will automatically run when you make a commit, but you can also manually check your code with the following command:
+
+```bash
+ruff check .
+```
+
+To automatically fix issues detected by Ruff, you can use:
+
+```bash
+ruff check . --fix
+```
+
+### Configuration
+
+Ruff is configured through the `pyproject.toml` file. You can modify the linter rules by adjusting the following section:
+
+```toml
+[tool.ruff]
+line-length = 100  # Adjust as necessary
+select = ["E", "F", "I", "UP"]  # Add or remove specific rules here
+```
+
+### Pre-commit Hook
+
+We have configured Ruff as a pre-commit hook, so it will run automatically before every commit. If you'd like to manually run it on all files, you can use:
+
+```bash
+pre-commit run --all-files
+```
+
+### Ignoring Rules
+
+If you want to ignore specific files or directories, or disable certain rules, you can do so by editing the `.ruffignore` file or configuring rule exceptions in `pyproject.toml`.
