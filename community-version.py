@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 from PIL import Image, ImageOps, ImageEnhance, ImageFilter, ImageDraw, ImageFont
 import numpy as np
