@@ -4,6 +4,7 @@ import numpy as np
 import random
 import argparse
 import sys
+import os
 
 # ASCII patterns and color themes
 ASCII_PATTERNS = {
