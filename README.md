@@ -85,7 +85,7 @@ pip install -r requirements.txt
 ```bash
 cd example
 ```
-2.Go back to the previous folder ascii-art
+2.Go back to the previous folder ascii-art.
 
 ```bash
 cd ..
