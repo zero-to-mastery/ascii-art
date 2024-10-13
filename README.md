@@ -80,19 +80,24 @@ pip install -r requirements.txt
 
 ### Step 2: Running the example code
 
-1. Navigate to the `example` directory.
+1. Navigate to the `example` directory.There you will get a sample ztm-logo.png photo.
 
 ```bash
 cd example
 ```
-
-2. Run the example code with the command.
+2.Go back to the previous folder ascii-art
 
 ```bash
-python3 community-version.py example/ztm-logo.png
+cd ..
 ```
 
-3. Stare with amazement 😮
+3. Run the example code with the command.
+
+```bash
+python community-version.py example/ztm-logo.png
+```
+
+4. Stare with amazement 😮
 
 ### Step 3: Contribute and Collaborate
 
