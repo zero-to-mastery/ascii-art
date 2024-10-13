@@ -102,8 +102,7 @@ def run_streamlit_app():
     st.sidebar.title("Settings")
     pattern_type = st.sidebar.selectbox("Choose ASCII Pattern", options=['basic', 'complex', 'emoji'])
     colorize = st.sidebar.checkbox("Enable Colorized ASCII Art")
-    if colorize:
-        color_theme = st.sidebar.selectbox("Choose Color Theme", options=list(COLOR_THEMES.keys()))
+    color_theme = st.sidebar.selectbox("Choose Color Theme", options=list(COLOR_THEMES.keys()))
     width = st.sidebar.slider("Set ASCII Art Width", 50, 150, 100)
 
     # New Flip Image Feature
