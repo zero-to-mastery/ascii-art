@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 from PIL import Image, ImageOps, ImageEnhance, ImageFilter, ImageDraw, ImageFont
 import numpy as np
@@ -17,6 +18,33 @@ COLOR_THEMES = {
     'pastel': [(255, 179, 186), (255, 223, 186), (186, 255, 201), (186, 225, 255)],
     'grayscale': [(i, i, i) for i in range(0, 255, 25)],
 }
+
+# Function to get the terminal size
+def get_terminal_size():
+    """
+    Returns the width and height of the terminal in characters.
+    """
+    return os.get_terminal_size().columns, os.get_terminal_size().lines
+
+# Function to resize the image based on the terminal's dimensions
+def resize_image_for_terminal(image: Image.Image, pattern: str) -> Image.Image:
+    """
+    Resizes the image based on terminal size while maintaining aspect ratio.
+    """
+    # Get terminal width and height
+    terminal_width, terminal_height = get_terminal_size()
+
+    # Adjust for typical ASCII character aspect ratio (characters are taller than wide)
+    aspect_ratio = get_aspect_ratio(pattern)
+    
+    # Calculate the new width based on the terminal size
+    new_width = min(terminal_width, image.width)
+    
+    # Calculate the new height based on the aspect ratio and width
+    new_height = int(aspect_ratio * image.height / image.width * new_width)
+    
+    # Resize the image
+    return image.resize((new_width, new_height))
 
 # Function to apply filters to the image
 def apply_image_filters(image: Image.Image, brightness: float, contrast: float, blur: bool,
@@ -164,17 +192,8 @@ def run_streamlit_app():
         - 💾 Download your creation as a **text file** or **HTML** for colorized output.
     """)
 
-# Check if the file path is valid
-def is_valid_image_path(file_path: str) -> bool:
-    if not os.path.exists(file_path):
-        return False
-    if not os.path.isfile(file_path):
-        return False
-    return True
-
-
 # Command Line Interface (CLI) Function
-def run_cli(input_image: str, output: str, pattern_type: str, width: int, brightness: float, contrast: float,
+def run_cli(input_image: str, output: str, pattern_type: str, brightness: float, contrast: float,
             blur: bool, sharpen: bool, colorize: bool, theme: str, apply_contours: bool):
     image = Image.open(input_image)
 
@@ -185,8 +204,8 @@ def run_cli(input_image: str, output: str, pattern_type: str, width: int, bright
     if apply_contours:
         image = create_contours(image)
 
-    # Resize image
-    image_resized = resize_image(image, width, pattern_type)
+    # Resize image based on terminal size
+    image_resized = resize_image_for_terminal(image, pattern_type)
 
     # Generate ASCII art
     ascii_pattern = ASCII_PATTERNS[pattern_type]
@@ -208,7 +227,6 @@ if __name__ == "__main__":
         parser.add_argument("input_image", help="Path to the input image file.")
         parser.add_argument("-o", "--output", default="output.txt", help="Output file name.")
         parser.add_argument("-p", "--pattern", choices=ASCII_PATTERNS.keys(), default="basic", help="ASCII pattern.")
-        parser.add_argument("-w", "--width", type=int, default=100, help="Width of ASCII art.")
         parser.add_argument("-b", "--brightness", type=float, default=1.0, help="Brightness factor.")
         parser.add_argument("-c", "--contrast", type=float, default=1.0, help="Contrast factor.")
         parser.add_argument("--blur", action="store_true", help="Apply blur effect.")
@@ -218,7 +236,7 @@ if __name__ == "__main__":
         parser.add_argument("--contours", action="store_true", help="Apply contour effect to the image.")
 
         args = parser.parse_args()
-        run_cli(args.input_image, args.output, args.pattern, args.width, args.brightness, args.contrast,
+        run_cli(args.input_image, args.output, args.pattern, args.brightness, args.contrast,
                  args.blur, args.sharpen, args.colorize, args.theme, args.contours)
     else:
         run_streamlit_app()
