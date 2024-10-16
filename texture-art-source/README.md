@@ -1,0 +1,2 @@
+- All textures are from [Pexels](https://www.pexels.com/)
+- License: https://www.pexels.com/license/
