@@ -80,11 +80,18 @@ pip install -r requirements.txt
 
 ### Step 2: Running the example code
 
-1. Navigate to the `example` directory.
+1. To list files in `example` directory.
 
-```bash
-cd example
-```
+   - On Windows:
+   ```bash
+   dir example
+   ```
+   - On Mac/Linux:
+   ```bash
+   ls example
+   ```
+   
+   You can see a image file `ztm-logo.png`
 
 2. Run the example code with the command.
 
