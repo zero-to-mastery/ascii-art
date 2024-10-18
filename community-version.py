@@ -20,7 +20,7 @@ COLOR_THEMES = {
 
 # Function to apply filters to the image
 def apply_image_filters(image: Image.Image, brightness: float, contrast: float, blur: bool,
-                        sharpen: bool) -> Image.Image:
+                        sharpen: bool, gaussBlur: float) -> Image.Image:
     if brightness != 1.0:
         enhancer = ImageEnhance.Brightness(image)
         image = enhancer.enhance(brightness)
@@ -31,6 +31,9 @@ def apply_image_filters(image: Image.Image, brightness: float, contrast: float, 
 
     if blur:
         image = image.filter(ImageFilter.BLUR)
+
+    if gaussBlur != 1.0 :
+        image = image.filter(ImageFilter.GaussianBlur(gaussBlur))
 
     if sharpen:
         image = image.filter(ImageFilter.SHARPEN)
@@ -112,6 +115,7 @@ def run_streamlit_app():
     # Image filters
     brightness = st.sidebar.slider("Brightness", 0.5, 2.0, 1.0)
     contrast = st.sidebar.slider("Contrast", 0.5, 2.0, 1.0)
+    gauss_blur = st.sidebar.slider("Gaussian Blur Radius", min_value=1.0, max_value=20.0, value=1.0, step=1.0)
     apply_blur = st.sidebar.checkbox("Apply Blur")
     apply_sharpen = st.sidebar.checkbox("Apply Sharpen")
     
@@ -125,7 +129,7 @@ def run_streamlit_app():
         image = Image.open(uploaded_file)
 
         # Apply filters to the image
-        image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen)
+        image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen, gauss_blur)
 
         # Apply contour effect if selected
         if apply_contours:
