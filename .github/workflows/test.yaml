@@ -1,0 +1,29 @@
+name: test community-version.py
+# Confirms that community-version will run without crashing
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  test-community-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: install dependencies
+        run: pip install -r requirements.txt
+      - name: remove output.txt if it exists
+        run: |
+          if [ -f output.txt ]; then
+            rm output.txt
+          fi
+      - name: run community version
+        run: python3 community-version.py example/ztm-logo.png
+      - name: confirm output.txt is created
+        run: |
+          if [ ! -f output.txt ]; then
+            echo "no output.txt file was created. failing build..."
+            exit 1
+          fi
+          echo "=== contents of output.txt ==="
+          cat output.txt
