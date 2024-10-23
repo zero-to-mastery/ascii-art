@@ -18,16 +18,14 @@ jobs:
         run: pip install -r requirements.txt
       - name: remove output.txt if it exists
         run: |
-          output=$(ls | grep output.txt || true)
-          if ! [ -z output ]; then
+          if [ -f output.txt ]; then
             rm output.txt
           fi
       - name: run community version
         run: python3 community-version.py example/ztm-logo.png
       - name: confirm output.txt is created
         run: |
-          output=$(ls | grep output.txt || true)
-          if [ -z output ]; then
+          if [ ! -f output.txt ]; then
             echo "no output.txt file was created. failing build..."
             exit 1
           fi
