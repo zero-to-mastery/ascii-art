@@ -1,15 +1,19 @@
+import os
 import streamlit as st
-from PIL import Image, ImageOps, ImageEnhance, ImageFilter, ImageDraw, ImageFont
+from PIL import Image, ImageOps, ImageEnhance, ImageFilter, ImageDraw, ImageFont, ImageSequence
 import numpy as np
 import random
 import argparse
 import sys
+import io
+import base64
 
 # ASCII patterns and color themes
 ASCII_PATTERNS = {
     'basic': ['@', '#', 'S', '%', '?', '*', '+', '-', '/', ';', ':', ',', '.'],
     'complex': ['▓', '▒', '░', '█', '▄', '▀', '▌', '▐', '▆', '▇', '▅', '▃', '▂'],
     'emoji': ['😁', '😎', '🤔', '😱', '🤩', '😏', '😴', '😬', '😵', '😃'],
+    'numeric': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
 }
 
 COLOR_THEMES = {
@@ -17,6 +21,33 @@ COLOR_THEMES = {
     'pastel': [(255, 179, 186), (255, 223, 186), (186, 255, 201), (186, 225, 255)],
     'grayscale': [(i, i, i) for i in range(0, 255, 25)],
 }
+
+# Function to get the terminal size
+def get_terminal_size():
+    """
+    Returns the width and height of the terminal in characters.
+    """
+    return os.get_terminal_size().columns, os.get_terminal_size().lines
+
+# Function to resize the image based on the terminal's dimensions
+def resize_image_for_terminal(image: Image.Image, pattern: str) -> Image.Image:
+    """
+    Resizes the image based on terminal size while maintaining aspect ratio.
+    """
+    # Get terminal width and height
+    terminal_width, terminal_height = get_terminal_size()
+
+    # Adjust for typical ASCII character aspect ratio (characters are taller than wide)
+    aspect_ratio = get_aspect_ratio(pattern)
+    
+    # Calculate the new width based on the terminal size
+    new_width = min(terminal_width, image.width)
+    
+    # Calculate the new height based on the aspect ratio and width
+    new_height = int(aspect_ratio * image.height / image.width * new_width)
+    
+    # Resize the image
+    return image.resize((new_width, new_height))
 
 # Function to apply filters to the image
 def apply_image_filters(image: Image.Image, brightness: float, contrast: float, blur: bool,
@@ -65,13 +96,15 @@ def resize_image(image: Image.Image, width: int, pattern: str) -> Image.Image:
     new_height = int(aspect_ratio * image.height / image.width * width)
     return image.resize((width, new_height))
 
-# Function to map pixels to ASCII characters
-def map_pixels_to_ascii(image: Image.Image, pattern: list) -> str:
+# Function to map pixels to ASCII characters and capture colors
+def map_pixels_to_ascii_with_colors(image: Image.Image, pattern: list):
+    pixels = np.array(image)  # Get pixel data
     grayscale_image = image.convert('L')
-    pixels = np.array(grayscale_image)
-    ascii_chars = np.vectorize(lambda pixel: pattern[min(pixel // (256 // len(pattern)), len(pattern) - 1)])(pixels)
+    grayscale_pixels = np.array(grayscale_image)
+
+    ascii_chars = np.vectorize(lambda pixel: pattern[min(pixel // (256 // len(pattern)), len(pattern) - 1)])(grayscale_pixels)
     ascii_image = "\n".join(["".join(row) for row in ascii_chars])
-    return ascii_image
+    return ascii_image, pixels  # Return both ASCII characters and color information
 
 # Function to create colorized ASCII art in HTML format
 def create_colorized_ascii_html(image: Image.Image, pattern: list, theme: str) -> str:
@@ -93,6 +126,84 @@ def create_colorized_ascii_html(image: Image.Image, pattern: list, theme: str) -
 
     ascii_image_html += "</div>"
     return ascii_image_html
+
+# Function to process GIF frames and convert to colorized ASCII art
+def process_gif_frames_to_ascii_with_colors(gif_image: Image.Image, pattern: list, width, pattern_type: str):
+    frames = []
+    colors = []
+    
+    # Process each frame in the GIF
+    for frame in gif_image:
+        resized_frame = resize_image(frame, width, pattern_type)
+        ascii_frame, frame_colors = map_pixels_to_ascii_with_colors(resized_frame, pattern)
+        frames.append(ascii_frame)
+        colors.append(frame_colors)
+    return frames, colors
+
+
+# Calculate max char size based on font
+def calculate_char_size(font, pattern_type: str):
+    ascii_chars = ASCII_PATTERNS[pattern_type]
+    
+    # left, top, right, bottom = font.getbbox(char)
+    max_char_width = max (font.getbbox(char)[2] for char in ascii_chars)
+    max_char_height = max(font.getbbox(char)[3] for char in ascii_chars)
+    return max_char_width, max_char_height
+
+
+# Function to convert ASCII frame to a colorized image
+def convert_ascii_to_new_image_with_colors(frame: str, pattern_type: str, colors: np.array, colorize = None):
+    image = Image.new('RGB', (800, 600), color='white')
+    draw = ImageDraw.Draw(image)
+    font = ImageFont.load_default()
+    max_char_width, max_char_height = calculate_char_size(font, pattern_type)
+
+    y_offset = 0
+    for i, line in enumerate(frame.splitlines()):
+        x_offset = 0
+        for j, char in enumerate(line):
+            
+            left, top, right, bottom = draw.textbbox((x_offset, y_offset), char, font=font)
+            char_width = right - left
+            char_height = bottom - top
+
+            if colorize:
+                # Get the color of the pixel corresponding to the character
+                pixel_color = colors[i, j]
+                pixel_color = tuple(int(c) for c in pixel_color)
+
+                draw.text(
+                    (x_offset + (max_char_width - char_width) // 2,
+                    y_offset + (max_char_height - char_height) // 2),
+                    char, fill=pixel_color, font=font
+                )
+            else:
+                draw.text(
+                    (x_offset + (max_char_width - char_width) // 2,
+                    y_offset + (max_char_height - char_height) // 2),
+                    char, fill="black", font=font
+                )
+            x_offset += max_char_width
+        y_offset += max_char_height
+    
+    return image
+
+# Function to convert ASCII frame to colorized images
+def convert_ascii_to_new_images(frames: list, pattern_type, color, colorize = None):
+    images = []
+    for frame in frames:
+        image = convert_ascii_to_new_image_with_colors(frame, pattern_type, color, colorize)
+        images.append(image)
+    return images
+
+
+# Function to save ASCII images back into a GIF
+def save_new_images_to_gif(images: list, duration: int):
+    gif_output = io.BytesIO()
+    images[0].save(gif_output, format='GIF', save_all=True, append_images=images[1:], duration=duration, loop=0)
+    gif_output.seek(0)
+    return gif_output
+
 
 # Streamlit app for the ASCII art generator
 def run_streamlit_app():
@@ -119,62 +230,92 @@ def run_streamlit_app():
     apply_contours = st.sidebar.checkbox("Apply Contours")
 
     # Upload image
-    uploaded_file = st.file_uploader("Upload an image (JPEG/PNG)", type=["jpg", "jpeg", "png"])
+    uploaded_file = st.file_uploader("Upload an image (JPEG/PNG/GIF)", type=["jpg", "jpeg", "png", "gif"])
 
     if uploaded_file:
         image = Image.open(uploaded_file)
-
-        # Apply filters to the image
-        image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen)
-
-        # Apply contour effect if selected
-        if apply_contours:
-            image = create_contours(image)
-
-        # Flip the image if requested
-        image = flip_image(image, flip_horizontal, flip_vertical)
-
-        # Display the original processed image
-        st.image(image, caption="Processed Image", use_column_width=True)
-
-        # Resize the image based on the pattern type's aspect ratio
-        image_resized = resize_image(image, width, pattern_type)
-
-        # Generate ASCII art
         ascii_pattern = ASCII_PATTERNS[pattern_type]
-        if colorize:
-            st.subheader("Colorized ASCII Art Preview:")
-            ascii_html = create_colorized_ascii_html(image_resized, ascii_pattern, color_theme)
-            st.markdown(ascii_html, unsafe_allow_html=True)
-        else:
-            st.subheader("Grayscale ASCII Art Preview:")
-            ascii_art = map_pixels_to_ascii(image_resized, ascii_pattern)
-            st.text(ascii_art)
 
-        # Download options
-        if colorize:
-            st.download_button("Download ASCII Art as HTML", ascii_html, file_name="ascii_art.html", mime="text/html")
+        if image.format == "GIF":
+            durations = image.info['duration']
+            frames = []
+            for frame in ImageSequence.Iterator(image):
+                frame = frame.convert("RGB")
+                frame = apply_image_filters(frame, brightness, contrast, apply_blur, apply_sharpen)
+                
+                if apply_contours:
+                    frame = create_contours(frame)
+
+                frame = flip_image(frame, flip_horizontal, flip_vertical)
+                frames.append(frame)
+           
+            # Display the original processed image
+            git_output = save_new_images_to_gif(frames,durations)           
+            st.image(git_output, caption="Processed Gif", use_column_width=True)
+
+            # Process ASCII art with colors if colorize option is selected
+            if colorize:
+                st.subheader("Colorized ASCII Art GIF Preview:")
+                ascii_frames, frame_colors = process_gif_frames_to_ascii_with_colors(frames, ascii_pattern, width, pattern_type)
+                images = [convert_ascii_to_new_image_with_colors(ascii_frame, pattern_type, frame_color, colorize)
+                          for ascii_frame, frame_color in zip(ascii_frames, frame_colors)]
+            else:
+                st.subheader("Grayscale ASCII Art GIF Preview:")
+                ascii_frames, _ = process_gif_frames_to_ascii_with_colors(frames, ascii_pattern, width, pattern_type)
+                images = convert_ascii_to_new_images(ascii_frames, pattern_type, None)
+
+            # Display the ASCII GIF
+            ascii_gif_output = save_new_images_to_gif(images, durations)
+            st.image(ascii_gif_output, caption="ASCII Art GIF", use_column_width=True)
+            
+            # Download options
+            st.download_button("Download ASCII Art as GIF", ascii_gif_output, file_name="ascii_art.gif", mime="image/gif")
+
+
+
         else:
-            st.download_button("Download ASCII Art as Text", ascii_art, file_name="ascii_art.txt", mime="text/plain")
+            # Apply filters to the image
+            image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen)
+
+            # Apply contour effect if selected
+            if apply_contours:
+                image = create_contours(image)
+
+            # Flip the image if requested
+            image = flip_image(image, flip_horizontal, flip_vertical)
+
+            # Display the original processed image
+            st.image(image, caption="Processed Image", use_column_width=True)
+
+            # Resize the image based on the pattern type's aspect ratio
+            image_resized = resize_image(image, width, pattern_type)
+
+            # Generate ASCII art
+            ascii_pattern = ASCII_PATTERNS[pattern_type]
+            if colorize:
+                st.subheader("Colorized ASCII Art Preview:")
+                ascii_html = create_colorized_ascii_html(image_resized, ascii_pattern, color_theme)
+                st.markdown(ascii_html, unsafe_allow_html=True)
+            else:
+                st.subheader("Grayscale ASCII Art Preview:")
+                ascii_art, _ = map_pixels_to_ascii_with_colors(image_resized, ascii_pattern)
+                st.text(ascii_art)
+
+            # Download options
+            if colorize:
+                st.download_button("Download ASCII Art as HTML", ascii_html, file_name="ascii_art.html", mime="text/html")
+            else:
+                st.download_button("Download ASCII Art as Text", ascii_art, file_name="ascii_art.txt", mime="text/plain")
 
     # Instructions for the user
     st.markdown("""
         - 🎨 Use the **Settings** panel to customize your ASCII art with patterns, colors, and image filters.
-        - 📤 Upload an image in JPEG or PNG format to start generating your ASCII art.
-        - 💾 Download your creation as a **text file** or **HTML** for colorized output.
+        - 📤 Upload an image in JPEG, PNG or GIF format to start generating your ASCII art.
+        - 💾 Download your creation as a **text file**, **HTML** or **GIF** for colorized output.
     """)
 
-# Check if the file path is valid
-def is_valid_image_path(file_path: str) -> bool:
-    if not os.path.exists(file_path):
-        return False
-    if not os.path.isfile(file_path):
-        return False
-    return True
-
-
 # Command Line Interface (CLI) Function
-def run_cli(input_image: str, output: str, pattern_type: str, width: int, brightness: float, contrast: float,
+def run_cli(input_image: str, output: str, pattern_type: str, brightness: float, contrast: float,
             blur: bool, sharpen: bool, colorize: bool, theme: str, apply_contours: bool):
     image = Image.open(input_image)
 
@@ -185,8 +326,8 @@ def run_cli(input_image: str, output: str, pattern_type: str, width: int, bright
     if apply_contours:
         image = create_contours(image)
 
-    # Resize image
-    image_resized = resize_image(image, width, pattern_type)
+    # Resize image based on terminal size
+    image_resized = resize_image_for_terminal(image, pattern_type)
 
     # Generate ASCII art
     ascii_pattern = ASCII_PATTERNS[pattern_type]
@@ -195,7 +336,7 @@ def run_cli(input_image: str, output: str, pattern_type: str, width: int, bright
         with open(output, 'w', encoding='utf-8') as file:  # Use UTF-8 encoding
             file.write(ascii_html)
     else:
-        ascii_art = map_pixels_to_ascii(image_resized, ascii_pattern)
+        ascii_art, _ = map_pixels_to_ascii_with_colors(image_resized, ascii_pattern)
         with open(output, 'w', encoding='utf-8') as file:  # Use UTF-8 encoding
             file.write(ascii_art)
 
@@ -208,7 +349,6 @@ if __name__ == "__main__":
         parser.add_argument("input_image", help="Path to the input image file.")
         parser.add_argument("-o", "--output", default="output.txt", help="Output file name.")
         parser.add_argument("-p", "--pattern", choices=ASCII_PATTERNS.keys(), default="basic", help="ASCII pattern.")
-        parser.add_argument("-w", "--width", type=int, default=100, help="Width of ASCII art.")
         parser.add_argument("-b", "--brightness", type=float, default=1.0, help="Brightness factor.")
         parser.add_argument("-c", "--contrast", type=float, default=1.0, help="Contrast factor.")
         parser.add_argument("--blur", action="store_true", help="Apply blur effect.")
@@ -218,7 +358,7 @@ if __name__ == "__main__":
         parser.add_argument("--contours", action="store_true", help="Apply contour effect to the image.")
 
         args = parser.parse_args()
-        run_cli(args.input_image, args.output, args.pattern, args.width, args.brightness, args.contrast,
+        run_cli(args.input_image, args.output, args.pattern, args.brightness, args.contrast,
                  args.blur, args.sharpen, args.colorize, args.theme, args.contours)
     else:
         run_streamlit_app()
