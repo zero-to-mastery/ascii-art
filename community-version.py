@@ -201,6 +201,12 @@ def run_cli(input_image: str, output: str, pattern_type: str, width: int, bright
             file.write(ascii_art)
 
     print(f"ASCII art saved to {output}")
+    # show the file contents in the CLI if colorize flag is false
+    if colorize==False: 
+        f=open(output, 'r')
+        file_contents=f.read()
+        print(file_contents)
+        f.close()
 
 # Main function for CLI execution
 if __name__ == "__main__":
