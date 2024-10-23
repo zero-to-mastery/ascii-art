@@ -25,3 +25,5 @@ jobs:
             echo "no output.txt file was created. failing build..."
             exit 1
           fi
+          echo "=== contents of output.txt ==="
+          cat output.txt
