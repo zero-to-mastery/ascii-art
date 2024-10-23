@@ -1,3 +1,4 @@
+name: test community-version.py
 # Confirms that community-version will run without crashing
 on:
   pull_request:
