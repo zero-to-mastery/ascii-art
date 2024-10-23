@@ -202,7 +202,7 @@ def run_cli(input_image: str, output: str, pattern_type: str, width: int, bright
 
     print(f"ASCII art saved to {output}")
 
-# Main function for CLI executions
+# The main function for CLI executions
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         parser = argparse.ArgumentParser(description="Generate ASCII art from an image.")
