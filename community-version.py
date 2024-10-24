@@ -212,6 +212,8 @@ def run_streamlit_app():
     # Sidebar for options and settings
     st.sidebar.title("Settings")
     pattern_type = st.sidebar.selectbox("Choose ASCII Pattern", options=['basic', 'complex', 'emoji'])
+    custom_set = st.sidebar.text_input("Custom ASCII Set (Optional)", max_chars=50)
+
     colorize = st.sidebar.checkbox("Enable Colorized ASCII Art")
     color_theme = st.sidebar.selectbox("Choose Color Theme", options=list(COLOR_THEMES.keys()))
     width = st.sidebar.slider("Set ASCII Art Width", 50, 150, 100)
@@ -234,7 +236,16 @@ def run_streamlit_app():
 
     if uploaded_file:
         image = Image.open(uploaded_file)
-        ascii_pattern = ASCII_PATTERNS[pattern_type]
+        # Check if the user has provided a custom ASCII set
+        if custom_set:
+            try:
+                ascii_pattern = list(custom_set)
+                validate_custom_set(ascii_pattern)  # Validate the custom ASCII set
+            except ValueError as e:
+                st.error(str(e))
+                return  # Stop execution if validation fails
+        else:
+            ascii_pattern = ASCII_PATTERNS[pattern_type]  # Use predefined pattern
 
         if image.format == "GIF":
             durations = image.info['duration']
@@ -252,17 +263,15 @@ def run_streamlit_app():
             # Display the original processed image
             git_output = save_new_images_to_gif(frames,durations)           
             st.image(git_output, caption="Processed Gif", use_column_width=True)
-
-            # Process ASCII art with colors if colorize option is selected
+            
             if colorize:
-                st.subheader("Colorized ASCII Art GIF Preview:")
-                ascii_frames, frame_colors = process_gif_frames_to_ascii_with_colors(frames, ascii_pattern, width, pattern_type)
-                images = [convert_ascii_to_new_image_with_colors(ascii_frame, pattern_type, frame_color, colorize)
-                          for ascii_frame, frame_color in zip(ascii_frames, frame_colors)]
+                st.subheader("Colorized ASCII Art Preview:")
+                ascii_html = create_colorized_ascii_html(image_resized, ascii_pattern, color_theme)
+                st.markdown(ascii_html, unsafe_allow_html=True)
             else:
-                st.subheader("Grayscale ASCII Art GIF Preview:")
-                ascii_frames, _ = process_gif_frames_to_ascii_with_colors(frames, ascii_pattern, width, pattern_type)
-                images = convert_ascii_to_new_images(ascii_frames, pattern_type, None)
+                st.subheader("Grayscale ASCII Art Preview:")
+                ascii_art, _ = map_pixels_to_ascii_with_colors(image_resized, ascii_pattern)
+                st.text(ascii_art)
 
             # Display the ASCII GIF
             ascii_gif_output = save_new_images_to_gif(images, durations)
@@ -274,6 +283,15 @@ def run_streamlit_app():
 
 
         else:
+            if custom_set:
+                try:
+                    ascii_pattern = list(custom_set)
+                    validate_custom_set(ascii_pattern)  # Validate the custom ASCII set
+                except ValueError as e:
+                    st.error(str(e))
+                    return  # Stop execution if validation fails
+            else:
+                ascii_pattern = ASCII_PATTERNS[pattern_type]  # Use predefined pattern
             # Apply filters to the image
             image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen)
 
@@ -291,7 +309,6 @@ def run_streamlit_app():
             image_resized = resize_image(image, width, pattern_type)
 
             # Generate ASCII art
-            ascii_pattern = ASCII_PATTERNS[pattern_type]
             if colorize:
                 st.subheader("Colorized ASCII Art Preview:")
                 ascii_html = create_colorized_ascii_html(image_resized, ascii_pattern, color_theme)
@@ -316,11 +333,19 @@ def run_streamlit_app():
 
 # Command Line Interface (CLI) Function
 def run_cli(input_image: str, output: str, pattern_type: str, brightness: float, contrast: float,
-            blur: bool, sharpen: bool, colorize: bool, theme: str, apply_contours: bool):
+            blur: bool, sharpen: bool, colorize: bool, theme: str, apply_contours: bool, custom_set: str, width: int):
     image = Image.open(input_image)
 
     # Apply filters
     image = apply_image_filters(image, brightness, contrast, blur, sharpen)
+    
+    # Resize image
+    image_resized = resize_image(image, width, pattern_type)
+    # Use custom ASCII character set if provided
+    if custom_set:
+        ascii_pattern = list(custom_set)
+    else:
+        ascii_pattern = ASCII_PATTERNS[pattern_type]
 
     # Apply contour effect if selected
     if apply_contours:
@@ -330,7 +355,6 @@ def run_cli(input_image: str, output: str, pattern_type: str, brightness: float,
     image_resized = resize_image_for_terminal(image, pattern_type)
 
     # Generate ASCII art
-    ascii_pattern = ASCII_PATTERNS[pattern_type]
     if colorize:
         ascii_html = create_colorized_ascii_html(image_resized, ascii_pattern, theme)
         with open(output, 'w', encoding='utf-8') as file:  # Use UTF-8 encoding
@@ -342,6 +366,13 @@ def run_cli(input_image: str, output: str, pattern_type: str, brightness: float,
 
     print(f"ASCII art saved to {output}")
 
+def validate_custom_set(custom_set: str):
+    if not custom_set or len(custom_set) < 2:
+        raise ValueError("Custom ASCII set must contain at least two characters.")
+    if len(set(custom_set)) != len(custom_set):
+        raise ValueError("Custom ASCII set must not contain duplicate characters.")
+    return list(custom_set)
+
 # Main function for CLI execution
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -349,6 +380,7 @@ if __name__ == "__main__":
         parser.add_argument("input_image", help="Path to the input image file.")
         parser.add_argument("-o", "--output", default="output.txt", help="Output file name.")
         parser.add_argument("-p", "--pattern", choices=ASCII_PATTERNS.keys(), default="basic", help="ASCII pattern.")
+        parser.add_argument("-w", "--width", type=int, default=100, help="Width of ASCII art.")
         parser.add_argument("-b", "--brightness", type=float, default=1.0, help="Brightness factor.")
         parser.add_argument("-c", "--contrast", type=float, default=1.0, help="Contrast factor.")
         parser.add_argument("--blur", action="store_true", help="Apply blur effect.")
@@ -356,9 +388,18 @@ if __name__ == "__main__":
         parser.add_argument("--colorize", action="store_true", help="Enable colorized ASCII art.")
         parser.add_argument("-t", "--theme", choices=COLOR_THEMES.keys(), default="grayscale", help="Color theme.")
         parser.add_argument("--contours", action="store_true", help="Apply contour effect to the image.")
+        parser.add_argument('--custom-set', type=str, help='Custom ASCII character set to use')
 
         args = parser.parse_args()
+        if args.custom_set:
+            custom_set = list(args.custom_set)
+            print(custom_set)
+            validate_custom_set(custom_set)  # Validate the custom ASCII set
+            ascii_pattern = custom_set
+        else:
+            ascii_pattern = ASCII_PATTERNS[args.pattern]  # Use predefined pattern
+        
         run_cli(args.input_image, args.output, args.pattern, args.brightness, args.contrast,
-                 args.blur, args.sharpen, args.colorize, args.theme, args.contours)
+                 args.blur, args.sharpen, args.colorize, args.theme, args.contours, args.custom_set, args.width)
     else:
         run_streamlit_app()
