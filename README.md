@@ -80,7 +80,7 @@ pip install -r requirements.txt
 
 ### Step 2: Running the example code
 
-1. To list files in `example` directory.
+0. To list files in `example` directory.
 
    - On Windows:
    ```bash
@@ -93,13 +93,13 @@ pip install -r requirements.txt
    
    You can see a image file `ztm-logo.png`
 
-2. Run the example code with the command.
+1. Run the example code with the command.
 
 ```bash
 python3 community-version.py example/ztm-logo.png
 ```
 
-3. Stare with amazement 😮
+2. Stare with amazement 😮
 
 ### Step 3: Contribute and Collaborate
 
