@@ -56,3 +56,5 @@ watchdog==5.0.3
 gradio==3.34.0
 transformers==4.37.0
 torch==2.0.0
+ruff==0.6.9
+pre-commit==4.0.1
