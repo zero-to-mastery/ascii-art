@@ -11,12 +11,10 @@ from fastapi_source.core.config import settings
 # Initialize FastAPI app with project metadata
 app = FastAPI(
     title=settings.PROJECT_NAME_EN_US,
-    description=settings.PROJECT_DESCRIPTION_EN_US,
     version=settings.VERSION,
     openapi_tags=[
         {
             "name": settings.ROUTER_NAME_Object_Detection,
-            "description": settings.ROUTER_DESCRIPTION_Object_Detection
         }
     ]
 )
