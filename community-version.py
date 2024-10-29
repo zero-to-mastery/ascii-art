@@ -51,13 +51,21 @@ def apply_image_filters(
     """Applies brightness, contrast, blur, and sharpen filters to the image."""
 
 # Function to apply filters to the image
-def apply_image_filters(image: Image.Image, brightness: float, contrast: float, blur: bool,
-                        sharpen: bool, gaussBlur: float) -> Image.Image:
+def apply_image_filters(image: Image.Image, brightness: float, contrast: float, blur: bool, sharpen: bool, gaussBlur: float, sharpRange: float) -> Image.Image:
 
     if brightness != 1.0:
         image = ImageEnhance.Brightness(image).enhance(brightness)
     if contrast != 1.0:
+
         image = ImageEnhance.Contrast(image).enhance(contrast)
+
+        enhancer = ImageEnhance.Contrast(image)
+        image = enhancer.enhance(contrast)
+
+    if sharpRange != 1.0:
+        enhancer = ImageEnhance.Sharpness(image)
+        image = enhancer.enhance(sharpRange)
+
     if blur:
         image = image.filter(ImageFilter.BLUR)
 
@@ -321,6 +329,7 @@ def run_streamlit_app():
     brightness = st.sidebar.slider("Brightness", 0.5, 2.0, 1.0)
     contrast = st.sidebar.slider("Contrast", 0.5, 2.0, 1.0)
     gauss_blur = st.sidebar.slider("Gaussian Blur Radius", min_value=1.0, max_value=20.0, value=1.0, step=1.0)
+    sharpRange = st.sidebar.slider("Sharpness", min_value=-2.0, max_value=10.0, value=1.0, step=1.0)
     apply_blur = st.sidebar.checkbox("Apply Blur")
     apply_sharpen = st.sidebar.checkbox("Apply Sharpen")
     
@@ -352,7 +361,7 @@ def run_streamlit_app():
             )
 
         # Apply filters to the image
-        image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen, gauss_blur)
+        image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen, gauss_blur, sharpRange)
 
 def get_sidebar_options():
     """Gets options from the sidebar."""
@@ -467,7 +476,7 @@ def run_cli(
 ):
     """Runs the CLI function for generating ASCII art."""
     image = Image.open(input_image)
-    image = apply_image_filters(image, brightness, contrast, blur, sharpen, gaussBlur=0.0)
+    image = apply_image_filters(image, brightness, contrast, blur, sharpen, gaussBlur=0.0, sharpRange=0.0)
     image_resized = resize_image(image, width, pattern_type)
     ascii_pattern = (
         validate_custom_set(custom_set) if custom_set else ASCII_PATTERNS[pattern_type]
