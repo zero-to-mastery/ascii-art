@@ -46,15 +46,24 @@ def resize_image_for_terminal(image: Image.Image, pattern: str) -> Image.Image:
 
 
 def apply_image_filters(
-    image: Image.Image, brightness: float, contrast: float, blur: bool, sharpen: bool
+    image: Image.Image, brightness: float, contrast: float, blur: bool, sharpen: bool, gaussBlur: float
 ) -> Image.Image:
     """Applies brightness, contrast, blur, and sharpen filters to the image."""
+
+# Function to apply filters to the image
+def apply_image_filters(image: Image.Image, brightness: float, contrast: float, blur: bool,
+                        sharpen: bool, gaussBlur: float) -> Image.Image:
+
     if brightness != 1.0:
         image = ImageEnhance.Brightness(image).enhance(brightness)
     if contrast != 1.0:
         image = ImageEnhance.Contrast(image).enhance(contrast)
     if blur:
         image = image.filter(ImageFilter.BLUR)
+
+    if gaussBlur != 1.0 :
+        image = image.filter(ImageFilter.GaussianBlur(gaussBlur))
+
     if sharpen:
         image = image.filter(ImageFilter.SHARPEN)
     return image
@@ -296,6 +305,31 @@ def run_streamlit_app():
     uploaded_file = st.file_uploader(
         "Upload an image (JPEG/PNG/GIF)", type=["jpg", "jpeg", "png", "gif"]
     )
+
+    # Sidebar for options and settings
+    st.sidebar.title("Settings")
+    pattern_type = st.sidebar.selectbox("Choose ASCII Pattern", options=['basic', 'complex', 'emoji'])
+    colorize = st.sidebar.checkbox("Enable Colorized ASCII Art")
+    color_theme = st.sidebar.selectbox("Choose Color Theme", options=list(COLOR_THEMES.keys()))
+    width = st.sidebar.slider("Set ASCII Art Width", 50, 150, 100)
+
+    # New Flip Image Feature
+    flip_horizontal = st.sidebar.checkbox("Flip Image Horizontally")
+    flip_vertical = st.sidebar.checkbox("Flip Image Vertically")
+
+    # Image filters
+    brightness = st.sidebar.slider("Brightness", 0.5, 2.0, 1.0)
+    contrast = st.sidebar.slider("Contrast", 0.5, 2.0, 1.0)
+    gauss_blur = st.sidebar.slider("Gaussian Blur Radius", min_value=1.0, max_value=20.0, value=1.0, step=1.0)
+    apply_blur = st.sidebar.checkbox("Apply Blur")
+    apply_sharpen = st.sidebar.checkbox("Apply Sharpen")
+    
+    # New Contour Feature
+    apply_contours = st.sidebar.checkbox("Apply Contours")
+
+    # Upload image
+    uploaded_file = st.file_uploader("Upload an image (JPEG/PNG)", type=["jpg", "jpeg", "png"])
+
     if uploaded_file:
         image = Image.open(uploaded_file)
         ascii_pattern = (
@@ -317,6 +351,8 @@ def run_streamlit_app():
                 animation_speed,
             )
 
+        # Apply filters to the image
+        image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen, gauss_blur)
 
 def get_sidebar_options():
     """Gets options from the sidebar."""
@@ -354,7 +390,7 @@ def process_gif(image, ascii_pattern, colorize, color_theme, width):
     for frame in ImageSequence.Iterator(image):
         frame = frame.convert("RGB")
         frame = apply_image_filters(
-            frame, 1.0, 1.0, False, False
+            frame, 1.0, 1.0, False, False, 0.0
         )  # No filters for simplicity
         frames.append(frame)
 
@@ -374,7 +410,7 @@ def process_image(
 ):
     """Processes a regular image."""
     image = apply_image_filters(
-        image, 1.0, 1.0, False, False
+        image, 1.0, 1.0, False, False, 0.0
     )  # No filters for simplicity
     st.image(image, caption="Processed Image", use_column_width=True)
 
@@ -431,7 +467,7 @@ def run_cli(
 ):
     """Runs the CLI function for generating ASCII art."""
     image = Image.open(input_image)
-    image = apply_image_filters(image, brightness, contrast, blur, sharpen)
+    image = apply_image_filters(image, brightness, contrast, blur, sharpen, gaussBlur=0.0)
     image_resized = resize_image(image, width, pattern_type)
     ascii_pattern = (
         validate_custom_set(custom_set) if custom_set else ASCII_PATTERNS[pattern_type]
