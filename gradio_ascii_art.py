@@ -1,9 +1,7 @@
 import gradio as gr
-from PIL import Image
 import numpy as np
 import torch
-from transformers import CLIPProcessor, CLIPModel
-import os
+from transformers import CLIPModel, CLIPProcessor
 
 # Load the CLIP model and processor
 try:
@@ -13,11 +11,12 @@ try:
 except Exception as e:
     print("Error loading the model:", e)
 
+
 # Function to convert image to ASCII art
 def image_to_ascii(image, width=100):
     image = image.resize((width, int((width / image.width) * image.height)))
     image = image.convert("L")  # Convert to grayscale
-    
+
     ascii_chars = "@%#*+=-:. "
     pixels = np.array(image)
     ascii_str = ""
@@ -27,6 +26,7 @@ def image_to_ascii(image, width=100):
         ascii_str += "\n"  # New line for each row of pixels
     return ascii_str
 
+
 # Main function: Classifies the image and generates ASCII art
 def classify_image(image):
     try:
@@ -35,18 +35,96 @@ def classify_image(image):
 
         # List of classes that the model can predict
         classes = [
-            "dog", "cat", "car", "flower", "tree", "building", "person", "bicycle",
-            "airplane", "train", "boat", "mountain", "beach", "forest", "lake", 
-            "city", "sunset", "bird", "fish", "food", "pizza", "burger", "pasta", 
-            "cake", "coffee", "phone", "laptop", "book", "pen", "chair", "table", 
-            "shoe", "bag", "hat", "watch", "ball", "trophy", "guitar", "piano",
-            "sunglasses", "camera", "tree", "cloud", "rainbow", "fire", "waterfall",
-            "cup", "bottle", "bridge", "street", "bus", "truck", "motorcycle", 
-            "clock", "keyboard", "monitor", "bed", "sofa", "microwave", "refrigerator", 
-            "washing machine", "oven", "TV", "skyscraper", "snow", "desert", "cactus",
-            "rose", "sunflower", "butterfly", "spider", "frog", "shark", "whale",
-            "owl", "squirrel", "rabbit", "fox", "horse", "sheep", "cow", "chicken",
-            "pig", "duck", "goat", "monkey", "lion", "tiger", "elephant", "bear"
+            "dog",
+            "cat",
+            "car",
+            "flower",
+            "tree",
+            "building",
+            "person",
+            "bicycle",
+            "airplane",
+            "train",
+            "boat",
+            "mountain",
+            "beach",
+            "forest",
+            "lake",
+            "city",
+            "sunset",
+            "bird",
+            "fish",
+            "food",
+            "pizza",
+            "burger",
+            "pasta",
+            "cake",
+            "coffee",
+            "phone",
+            "laptop",
+            "book",
+            "pen",
+            "chair",
+            "table",
+            "shoe",
+            "bag",
+            "hat",
+            "watch",
+            "ball",
+            "trophy",
+            "guitar",
+            "piano",
+            "sunglasses",
+            "camera",
+            "tree",
+            "cloud",
+            "rainbow",
+            "fire",
+            "waterfall",
+            "cup",
+            "bottle",
+            "bridge",
+            "street",
+            "bus",
+            "truck",
+            "motorcycle",
+            "clock",
+            "keyboard",
+            "monitor",
+            "bed",
+            "sofa",
+            "microwave",
+            "refrigerator",
+            "washing machine",
+            "oven",
+            "TV",
+            "skyscraper",
+            "snow",
+            "desert",
+            "cactus",
+            "rose",
+            "sunflower",
+            "butterfly",
+            "spider",
+            "frog",
+            "shark",
+            "whale",
+            "owl",
+            "squirrel",
+            "rabbit",
+            "fox",
+            "horse",
+            "sheep",
+            "cow",
+            "chicken",
+            "pig",
+            "duck",
+            "goat",
+            "monkey",
+            "lion",
+            "tiger",
+            "elephant",
+            "bear",
         ]
 
         # Preparing the classes for the model
@@ -79,13 +157,14 @@ def classify_image(image):
     # Return the result
     return f"Detected class: {predicted_class}\n\nASCII art saved in: {output_path}\n\nASCII art:\n{ascii_art}"
 
+
 # Create the Gradio interface
 iface = gr.Interface(
     fn=classify_image,
     inputs=gr.Image(type="pil"),
     outputs="text",
     title="Image Classification with ASCII Art",
-    description="Detects the class of an image, generates an ASCII representation, and saves it in the current directory."
+    description="Detects the class of an image, generates an ASCII representation, and saves it in the current directory.",
 )
 
 iface.launch()
