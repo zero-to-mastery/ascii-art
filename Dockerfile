@@ -16,4 +16,3 @@ CMD ["bash"]
 # docker run -it --rm -v $(pwd):/app ascii-art
 # Windows
 # docker run -it --rm -v path:/app ascii-art
-

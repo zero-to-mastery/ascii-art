@@ -1,9 +1,10 @@
+from typing import List, Tuple
+
 import cv2
 import numpy as np
 from PIL import Image
-from typing import List, Tuple
 
-ASCII_CHARS: List[str] = ['.', ':', '>', '&', '%', '#', 'N', 'M', 'W', 'R', 'B']
+ASCII_CHARS: List[str] = [".", ":", ">", "&", "%", "#", "N", "M", "W", "R", "B"]
 
 
 def scale_image(image: Image.Image, new_width: int = 100) -> Image.Image:
@@ -15,7 +16,7 @@ def scale_image(image: Image.Image, new_width: int = 100) -> Image.Image:
 
 
 def convert_to_grayscale(image: Image.Image) -> Image.Image:
-    return image.convert('L')
+    return image.convert("L")
 
 
 def map_pixels_to_ascii_chars(image: Image.Image, range_width: int = 25) -> str:
@@ -29,13 +30,61 @@ def convert_image_to_ascii(image: Image.Image, new_width: int = 100) -> Tuple[st
     grayscale_image = convert_to_grayscale(image)
     pixels_to_chars: str = map_pixels_to_ascii_chars(grayscale_image)
     len_pixels_to_chars: int = len(pixels_to_chars)
-    image_ascii: List[str] = [pixels_to_chars[index:index + new_width] for index in range(0, len_pixels_to_chars, new_width)]
+    image_ascii: List[str] = [pixels_to_chars[index : index + new_width] for index in range(0, len_pixels_to_chars, new_width)]
     color_data: List[Tuple[int, int, int, int]] = list(image.convert("RGBA").getdata())
     return "\n".join(image_ascii), color_data
 
 
+def get_char_for_position(x, y, lines, column_states, column_lengths):
+    if x >= len(lines[y]):
+        return " "  # Pad shorter lines with spaces
+    if column_states[x] == -1 or column_states[x] < y:
+        return lines[y][x]
+    if column_states[x] - column_lengths[x] <= y:
+        if column_states[x] == y:
+            return " "
+        else:
+            return chr(np.random.choice(list(range(33, 127))))  # Random ASCII characters excluding space
+    return lines[y][x]
+
+
+def generate_new_frame(lines, column_states, column_lengths, height, width):
+    new_frame = []
+    for y in range(height):
+        new_line = "".join(get_char_for_position(x, y, lines, column_states, column_lengths) for x in range(width))
+        new_frame.append(new_line)
+    return new_frame
+
+
+def update_column_states(column_states, column_lengths, columns_covered, height, width):
+    # Move the flow down faster
+    column_states = [state + 2 if state != -1 else state for state in column_states]
+    # Reset the flow if it reaches the bottom and mark columns as covered
+    for i in range(width):
+        if column_states[i] >= height + column_lengths[i]:
+            column_states[i] = -1
+            columns_covered[i] = True  # Mark this column as covered
+    return column_states, columns_covered
+
+
+def start_new_flows(column_states, column_lengths, columns_covered, height, width, t, skip_frames):
+    if t >= skip_frames:
+        active_flows = sum(1 for state in column_states if state != -1)
+        if active_flows < width:
+            # Ensure all columns are eventually covered
+            uncovered_columns = [i for i, covered in enumerate(columns_covered) if not covered]
+            if uncovered_columns:
+                i = np.random.choice(uncovered_columns)
+            else:
+                i = np.random.randint(0, width)
+            if column_states[i] == -1:
+                column_states[i] = 0
+                column_lengths[i] = np.random.randint(int(0.2 * height), int(1.2 * height))  # Random length between 20-120% of height
+    return column_states, column_lengths
+
+
 def generate_matrix_effect(image_ascii: str) -> List[str]:
-    lines = image_ascii.split('\n')
+    lines = image_ascii.split("\n")
     height = len(lines)
     width = max(len(line) for line in lines)  # Ensure all lines have the same width
     frames = []
@@ -49,57 +98,22 @@ def generate_matrix_effect(image_ascii: str) -> List[str]:
     t = 0
 
     while not all(columns_covered):
-        new_frame = []
-        for y in range(height):
-            new_line = ""
-            for x in range(width):
-                if x >= len(lines[y]):
-                    new_line += ' '  # Pad shorter lines with spaces
-                elif column_states[x] == -1:
-                    new_line += lines[y][x]
-                elif column_states[x] < y:
-                    new_line += lines[y][x]
-                elif column_states[x] - column_lengths[x] <= y:
-                    if column_states[x] == y:
-                        new_line += " "
-                    else:
-                        new_line += chr(np.random.choice(list(range(33, 127))))  # Random ASCII characters excluding space
-                else:
-                    new_line += lines[y][x]
-            new_frame.append(new_line)
+        new_frame = generate_new_frame(lines, column_states, column_lengths, height, width)
         frames.append("\n".join(new_frame))
-        column_states = [state + 2 if state != -1 else state for state in column_states]  # Move the flow down faster
-        # Reset the flow if it reaches the bottom and generate new flows
-        for i in range(width):
-            if column_states[i] >= height + column_lengths[i]:
-                column_states[i] = -1
-                columns_covered[i] = True  # Mark this column as covered
-        # Randomly select columns to start new flows if the number of active flows is less than width
-        if t >= skip_frames:
-            active_flows = sum(1 for state in column_states if state != -1)
-            if active_flows < width:
-                # Ensure all columns are eventually covered
-                uncovered_columns = [i for i, covered in enumerate(columns_covered) if not covered]
-                if uncovered_columns:
-                    i = np.random.choice(uncovered_columns)
-                else:
-                    i = np.random.randint(0, width)
-                if column_states[i] == -1:
-                    column_states[i] = 0
-                    column_lengths[i] = np.random.randint(int(0.2 * height), int(1.2 * height))  # Random length between 20-120% of height
+        column_states, columns_covered = update_column_states(column_states, column_lengths, columns_covered, height, width)
+        column_states, column_lengths = start_new_flows(column_states, column_lengths, columns_covered, height, width, t, skip_frames)
         t += 1
 
     # Add 1 second of additional frames after all columns are covered
     additional_frames = 30
-    for _ in range(additional_frames):
-        frames.append(frames[-1])
+    frames.extend([frames[-1]] * additional_frames)
 
     return frames
 
 
 def create_video_from_frames(frames: List[str], color_data: List[Tuple[int, int, int, int]], width: int, output_path: str):
-    height = len(frames[0].split('\n'))
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    height = len(frames[0].split("\n"))
+    fourcc = cv2.VideoWriter_fourcc(*"mp4v")
     frame_rate = 30
     video = cv2.VideoWriter(output_path, fourcc, frame_rate, (width * 10, height * 10))
 
@@ -108,7 +122,7 @@ def create_video_from_frames(frames: List[str], color_data: List[Tuple[int, int,
 
     for frame in frames:
         img = np.zeros((height * 10, width * 10, 3), dtype=np.uint8)
-        for y, line in enumerate(frame.split('\n')):
+        for y, line in enumerate(frame.split("\n")):
             for x, char in enumerate(line):
                 color = color_data[y * width + x] if y * width + x < len(color_data) else (0, 255, 0, 255)
                 if color[3] == 0:  # Handle transparency
@@ -116,7 +130,7 @@ def create_video_from_frames(frames: List[str], color_data: List[Tuple[int, int,
 
                 if char in ASCII_CHARS:
                     color = (color[2], color[1], color[0])  # Convert RGBA to BGR
-                elif char == ' ':  # Head of the flow
+                elif char == " ":  # Head of the flow
                     char = chr(np.random.choice(list(range(33, 127))))  # Random ASCII characters excluding space
                     color = (200, 255, 200)  # Lighter color for the first character of the flow
                 else:
@@ -133,8 +147,9 @@ def create_video_from_frames(frames: List[str], color_data: List[Tuple[int, int,
     video.release()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import sys
+
     image_file_path: str = sys.argv[1]
     new_width = 100
 
@@ -143,7 +158,7 @@ if __name__ == '__main__':
     frames = generate_matrix_effect(image_ascii)
     create_video_from_frames(frames, color_data, new_width, "ascii-art-matrix-effect-color.mp4")
 """
-Feature: 
+Feature:
     Generate a MP4 video with matrix effect from ascii-art of an image file.
     Gradually turning the coloured characters green as the "flow" passes through them.
 

@@ -1,8 +1,9 @@
+import sys
+
+import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 from scipy.spatial import Delaunay
-import matplotlib.pyplot as plt
-import sys
 
 
 # Load and preprocess the image
@@ -30,7 +31,7 @@ def create_delaunay_triangulation(points):
 # Draw triangles on the image using the Delaunay triangulation
 def draw_geometric_art(image, points, triangulation, output_path=None):
     fig, ax = plt.subplots()
-    ax.set_aspect('equal')
+    ax.set_aspect("equal")
     ax.imshow(image)
 
     for triangle in triangulation.simplices:
@@ -45,7 +46,7 @@ def draw_geometric_art(image, points, triangulation, output_path=None):
 
     ax.set_axis_off()
     if output_path:
-        plt.savefig(output_path, bbox_inches='tight', pad_inches=0, facecolor=(0.5, 0.5, 0.5, 0.0))
+        plt.savefig(output_path, bbox_inches="tight", pad_inches=0, facecolor=(0.5, 0.5, 0.5, 0.0))
     else:
         plt.show()
 
@@ -61,8 +62,9 @@ def create_geometric_art(image_path, output_path=None, num_points=500, resize_fa
     draw_geometric_art(image, points, triangulation, output_path)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import sys
+
     if len(sys.argv) < 2:
         print("Usage: python3 geometric-art.py <input_image> [output_image] [num_points]")
         sys.exit(1)
