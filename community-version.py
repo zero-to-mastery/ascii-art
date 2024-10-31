@@ -3,8 +3,6 @@ import os
 from PIL import Image
 import numpy as np
 import streamlit as st
-from streamlit_drawable_canvas import st_canvas
-import cv2
 from typing import List
 
 # Check FEATURES.md for installation guide before running the code
