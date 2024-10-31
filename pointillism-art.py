@@ -1,13 +1,13 @@
-import numpy as np
 import matplotlib.pyplot as plt
-from skimage import filters, color
+import numpy as np
 from PIL import Image
+from skimage import color, filters
 
 
 # Load and resize image
 def load_image(image_path, size=(400, 400)):
     img = Image.open(image_path).resize(size)  # Resize for faster processing
-    img = img.convert('RGB')  # Ensure it's RGB format
+    img = img.convert("RGB")  # Ensure it's RGB format
     return np.array(img)
 
 
@@ -79,7 +79,7 @@ def compute_point_sizes(points, edges, min_size=1, max_size=50):
     else:
         normalized_edge_values = [0 for _ in edge_values]  # All values are the same
 
-    for i, point in enumerate(points):
+    for i, _ in enumerate(points):
         normalized_edge_value = normalized_edge_values[i]
 
         # Linearly interpolate between min and max size based on normalized edge value
@@ -108,21 +108,22 @@ def create_pointillism_art(image_path, output_path=None, num_points=50000, min_s
 
     # Plot the points with sampled colors and dynamic sizes
     plt.figure(figsize=(8, 8))
-    plt.scatter(points[:, 0], points[:, 1], c=colors / 255, s=point_sizes, edgecolor='none')
+    plt.scatter(points[:, 0], points[:, 1], c=colors / 255, s=point_sizes, edgecolor="none")
     plt.gca().invert_yaxis()  # Match the image's coordinate system
-    plt.axis('off')  # Hide axis
+    plt.axis("off")  # Hide axis
 
     if output_path:
         # Save the plot as an image file
-        plt.savefig(output_path, bbox_inches='tight', pad_inches=0, facecolor=(0.5, 0.5, 0.5, 0.0))
+        plt.savefig(output_path, bbox_inches="tight", pad_inches=0, facecolor=(0.5, 0.5, 0.5, 0.0))
         plt.close()
     else:
         # Show the plot
         plt.show()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import sys
+
     image_file_path: str = sys.argv[1]
     print(image_file_path)
 

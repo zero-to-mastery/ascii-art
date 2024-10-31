@@ -1,131 +1,135 @@
-# ASCII Art Generator - Usage Guide
+# ASCII Art Generator 
 
-Welcome to the **ASCII Art Generator**! This tool allows you to convert images into beautiful ASCII art. You can use the provided web interface powered by **Streamlit** or generate ASCII art directly from the command line with a variety of customization options.
-
----
-
-## Web Interface (Streamlit)
-
-You can interact with the ASCII Art Generator using an easy-to-use web interface. This is ideal for those who want to quickly generate ASCII art without using the command line.
-
-### Running the Web Interface
-
-To start the web interface, run the following command:
-
-```bash
-streamlit run community-version.py
-```
-
-Once executed, this will open the ASCII Art Generator web app in your browser, where you can upload an image and customize the output.
-
-### Features Available in the Web Interface:
-
-- **Choose ASCII Pattern**: Select from `basic`, `complex`, or `emoji` patterns.
-- **Image Filters**: Adjust the image's brightness, contrast, blur, or sharpen before converting.
-- **Color Themes**: Choose color themes like `neon`, `pastel`, or `grayscale` for colorized ASCII art.
-- **Download Options**: Download the generated ASCII art as a text file or an HTML file for colorized output.
-
-## Command Line Interface (CLI)
-
-For more flexibility and automation, you can use the command line interface (CLI) to generate ASCII art.
-
-### Running the CLI
-
-To run the tool from the command line, use the following syntax:
-
-```bash
-python community-version.py <input_image> --output <output_file> [OPTIONS]
-```
-
-### Required Arguments:
-
-1. **`<input_image>`**: The path to the input image file (JPEG or PNG).
-2. **`--output <output_file>`**: The name of the output file (either `.txt` for grayscale ASCII or `.html` for colorized ASCII).
+### Overview
+This ASCII Art Generator uses customizable patterns and filters to convert images into ASCII art. The script supports options for resizing, brightness/contrast adjustments, and even color themes to enhance your ASCII art.
 
 ---
 
-## Options and Arguments
+### Installation Requirements
 
-Here is a list of all available options and their descriptions:
-
-| Option                | Description                                                                                  | Default            |
-|-----------------------|----------------------------------------------------------------------------------------------|--------------------|
-| `--output`            | Specifies the output file path. (Required)                                                   | N/A                |
-| `--pattern {basic, complex, emoji}` | Selects the ASCII pattern to use.                                                | `basic`            |
-| `--width <int>`       | Sets the width of the ASCII art in characters.                                                | `100`              |
-| `--brightness <float>`| Adjusts the brightness of the image (range: 0.5 - 2.0).                                       | `1.0`              |
-| `--contrast <float>`  | Adjusts the contrast of the image (range: 0.5 - 2.0).                                         | `1.0`              |
-| `--blur`              | Applies a blur filter to the image.                                                           | Disabled           |
-| `--sharpen`           | Applies a sharpen filter to the image.                                                        | Disabled           |
-| `--colorize`          | Enables colorized ASCII art output.                                                           | Disabled (grayscale)|
-| `--theme {neon, pastel, grayscale}` | Specifies the color theme for colorized ASCII art. This requires `--colorize`.    | `grayscale`        |
+#### Prerequisites
+- Python 3.x installed on your system
+- Install necessary packages using the following command:
+  ```bash
+  pip install typer pillow numpy rich
+  ```
 
 ---
 
-## Examples
+### Command Line Options
 
-Here are some examples of how to use the tool:
+| Option           | Description                                                    | Example                                                                                   |
+|------------------|----------------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| `--width`        | Sets the width of the ASCII art. Default is 100.               | `--width 150`                                                                             |
+| `--pattern`      | Selects ASCII pattern type. Options: `basic`, `complex`, `emoji`, `numeric` | `--pattern emoji`                                                                         |
+| `--theme`        | Color theme for colorized ASCII. Options: `neon`, `pastel`, `grayscale` | `--theme neon`                                                                            |
+| `--brightness`   | Adjusts image brightness. Default is 1.0 (no change).          | `--brightness 1.2`                                                                        |
+| `--contrast`     | Adjusts image contrast. Default is 1.0 (no change).            | `--contrast 1.3`                                                                          |
+| `--blur`         | Applies blur effect to the image before ASCII conversion.      | `--blur`                                                                                  |
+| `--sharpen`      | Sharpens the image before ASCII conversion.                    | `--sharpen`                                                                               |
+| `--contours`     | Adds contour effect to enhance edges in ASCII output.          | `--contours`                                                                              |
+| `--invert`       | Inverts image colors before conversion.                        | `--invert`                                                                                |
+| `--output`       | Saves ASCII art to specified file.                             | `--output output.txt`                                                                     |
 
-### Example 1: Generate Grayscale ASCII Art
+1. Basic Usage:
 
-```bash
-python community-version.py example/ztm-logo.png --output ascii_art.txt
+```plaintext
+python community-version.py <input_image>
 ```
 
-This will create a grayscale ASCII art version of the image and save it as `ascii_art.txt`.
+Example: `python community-version.py example/ztm-logo.png`
 
-### Example 2: Generate Colorized ASCII Art with Neon Theme
 
-```bash
-python community-version.py example/ztm-logo.png --output ascii_art.html --colorize --theme neon
+2. Width Option:
+
+```plaintext
+python community-version.py <input_image> --width <value> or -w <value>
 ```
 
-This will generate a colorized ASCII art using the "neon" theme and save it as `ascii_art.html`.
+Example: `python community-version.py example/ztm-logo.png --width 150`
 
-### Example 3: Use Emoji Pattern with Custom Brightness and Contrast
 
-```bash
-python community-version.py example/ztm-logo.png --output ascii_art.html --pattern emoji --brightness 1.5 --contrast 1.8 --colorize --theme pastel
+3. Output File Option:
+
+```plaintext
+python community-version.py <input_image> --output <filename> or -o <filename>
 ```
 
-This command uses the emoji pattern, adjusts brightness and contrast, and outputs a pastel color-themed ASCII art in HTML format.
+Example: `python community-version.py example/ztm-logo.png --output ztm_ascii.txt`
 
----
 
-## Requirements
+4. ASCII Pattern Option:
 
-Ensure you have the following requirements installed:
-
-- Python 3.x
-- Pillow (`pip install pillow`)
-- Numpy (`pip install numpy`)
-- Streamlit (`pip install streamlit`)
-
-You can install all dependencies using the `requirements.txt` file (if provided):
-
-```bash
-pip install -r requirements.txt
+```plaintext
+python community-version.py <input_image> --pattern <pattern_type> or -p <pattern_type>
 ```
 
----
+Available patterns: 'basic', 'complex', 'emoji', 'numeric'
+Example: `python community-version.py example/ztm-logo.png --pattern complex`
 
-## Installation
 
-1. Clone this repository:
-   ```bash
-   git clone <repository-url>
-   cd ascii-art
-   ```
+5. Brightness Adjustment:
 
-2. Create a virtual environment (optional but recommended):
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # For Linux/macOS
-   venv\Scripts\activate     # For Windows
-   ```
+```plaintext
+python community-version.py <input_image> --brightness <value> or -b <value>
+```
 
-3. Install the required dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+Example: `python community-version.py example/ztm-logo.png --brightness 1.2`
 
+
+6. Contrast Adjustment:
+
+```plaintext
+python community-version.py <input_image> --contrast <value> or -c <value>
+```
+
+Example: `python community-version.py example/ztm-logo.png --contrast 1.1`
+
+
+7. Blur Effect:
+
+```plaintext
+python community-version.py <input_image> --blur
+```
+
+Example: `python community-version.py example/ztm-logo.png --blur`
+
+
+8. Sharpen Effect:
+
+```plaintext
+python community-version.py <input_image> --sharpen
+```
+
+Example: `python community-version.py example/ztm-logo.png --sharpen`
+
+
+9. Contour Effect:
+
+```plaintext
+python community-version.py <input_image> --contours
+```
+
+Example: `python community-version.py example/ztm-logo.png --contours`
+
+
+10. Help Command:
+
+```plaintext
+python community-version.py --help
+```
+
+This displays all available options with their descriptions.
+
+
+
+
+You can combine multiple options in a single command. For example:
+
+```plaintext
+python community-version.py example/ztm-logo.png --width 120 --pattern complex --brightness 1.1 --contrast 1.2 --colorize --theme pastel --output ztm_ascii_colored.txt
+```
+
+This command will generate a colorized ASCII art of the ZTM logo with a width of 120 characters, using the complex pattern, adjusted brightness and contrast, and the pastel color theme, saving the output to a file named 'ztm_ascii_colored.txt'.
+
+Remember to replace `example/ztm-logo.png` with the path to the image you want to convert to ASCII art.
