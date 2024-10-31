@@ -1,85 +1,69 @@
-# Features
+# ASCII Art Generator
 
-## Installation
-
-Before using the ASCII Art Generator, ensure you have the following dependencies installed in your Python environment:
-
-### Required Python Libraries
-
-1. **Pillow**: For image processing and manipulation.
-2. **Numpy**: For efficient numerical operations.
-3. **OpenCV**: For edge detection.
-4. **Streamlit**: To create the web-based interface.
-5. **Streamlit Drawable Canvas**: For drawing functionality in the web app.
-
-### Installation Command
-
-To install all the required libraries, run the following command:
-
-```bash
-pip install Pillow numpy opencv-python streamlit streamlit-drawable-canvas
-```
-
-If you are using a virtual environment, make sure to activate it before running the above command.
+Welcome to the **ASCII Art Generator**! This tool converts images into beautiful ASCII art, available via both a command-line interface and a web interface powered by **Streamlit**. 
 
 ---
 
-## ASCII Art Generator
+## Web Interface (Streamlit)
 
-The **ASCII Art Generator** is a Python-based project that converts images into text-based ASCII art. It includes both a command-line interface and a Streamlit-based web interface for generating and downloading ASCII art. The project supports various image manipulation features and customization options.
-
-### Key Features
-
-### 1. **Command-Line Interface (CLI)**
-   - Convert any image file (JPEG, PNG) to ASCII art via the command line.
-   - Example usage:
-     ```bash
-     python community-version.py <image_path> [output_path]
-     ```
-   - **Parameters**:
-     - `image_path`: The path to the input image file.
-     - `output_path` *(optional)*: The file path where the generated ASCII art will be saved as text. If not provided, the ASCII art will be printed to the console.
-
-### 2. **Streamlit Web App**
-   - Interactive web interface built with **Streamlit**.
-   - **Upload or Draw** your own image on a canvas and convert it into ASCII art.
-   - Adjustable parameters for **image width** and **custom ASCII characters**.
-   - Preview the original image and the generated ASCII art side by side.
-   - **Edge Detection** feature to apply an edge-detection filter before converting to ASCII art.
-   - **Download** generated ASCII art as a `.txt` file.
-
-### 3. **Customizable ASCII Characters**
-   - Users can provide custom ASCII characters to generate the art.
-   - By default, the following characters are used: `@`, `#`, `S`, `%`, `?`, `*`, `+`, `;`, `:`, `,`, `.`.
-
-### 4. **Edge Detection**
-   - Apply edge detection on the uploaded image using **OpenCV** before converting it to ASCII art.
-   - Enhances the outlines of the image for sharper ASCII art representations.
-
-### 5. **Image Processing**
-   - The image is **scaled** while preserving its aspect ratio before being converted to ASCII art.
-   - Converts the image to **grayscale** for effective mapping to ASCII characters.
-
-### 6. **Drawing Canvas**
-   - Integrated drawing feature where users can:
-     - **Freely draw**, or create shapes such as lines, rectangles, and circles.
-     - Customize **stroke color** and **background color**.
-   - Converts the drawn image into ASCII art directly from the canvas.
-
-### 7. **Fun Facts Sidebar**
-   - The web app includes fun facts about ASCII art, providing an educational component to the user interface.
-
-### 8. **Cross-Platform Compatibility**
-   - Works on Windows, Mac, and Linux systems with the appropriate Python environment.
-   - Easily installed using `pip` for all dependencies.
-
-### Example
-**CLI Example**:
-```bash
-python community-version.py example/ztm-logo.png
-```
-
-**Streamlit App**:
+### Running the Web Interface
+To start the web interface, run:
 ```bash
 streamlit run community-version.py
 ```
+This will open the ASCII Art Generator web app in your browser, where you can upload an image or draw your own, and customize the ASCII output.
+
+### Features Available in the Web Interface:
+1. **Upload or Draw Image**: Upload an image or use the drawing canvas to create custom artwork.
+2. **Customization Options**:
+   - **Width**: Set the ASCII art width in characters.
+   - **Brightness and Contrast**: Adjust brightness and contrast for desired effects.
+   - **Edge Detection**: Enhance outlines for sharper ASCII representations.
+3. **Preview & Download**: View and download generated ASCII art as a `.txt` file.
+4. **Fun Facts Sidebar**: Learn fun facts about ASCII art.
+
+---
+
+## Command-Line Interface (CLI)
+
+### Running the CLI
+To use the ASCII Art Generator from the command line:
+```bash
+python community-version.py <input_image> --output <output_file>
+```
+### CLI Options
+| Option                              | Description                                                                    | Default              |
+|-------------------------------------|--------------------------------------------------------------------------------|----------------------|
+| `<input_image>`                     | Path to the input image file (JPEG or PNG).                                    | Required             |
+| `--output <output_file>`            | Output file path (`.txt` for grayscale ASCII or `.html` for colorized).        | N/A                  |
+| `--pattern {basic, complex, emoji}` | Select ASCII pattern.                                                          | `basic`              |
+| `--width <int>`                     | Width of ASCII art in characters.                                              | `100`                |
+| `--brightness <float>`              | Adjust brightness (0.5 - 2.0).                                                 | `1.0`                |
+| `--contrast <float>`                | Adjust contrast (0.5 - 2.0).                                                   | `1.0`                |
+| `--blur`                            | Apply a blur filter.                                                           | Disabled             |
+| `--sharpen`                         | Apply a sharpen filter.                                                        | Disabled             |
+| `--colorize`                        | Enable colorized ASCII art.                                                    | Disabled (grayscale) |
+| `--theme {neon, pastel, grayscale}` | Color theme for colorized ASCII art; requires `--colorize`.                    | `grayscale`          |
+
+---
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd ascii-art
+   ```
+
+2. Create a virtual environment (optional but recommended):
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # Linux/macOS
+   venv\Scripts\activate     # Windows
+   ```
+
+3. Install required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
