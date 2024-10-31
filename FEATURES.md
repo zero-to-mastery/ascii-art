@@ -1,69 +1,135 @@
-# ASCII Art Generator
+# ASCII Art Generator 
 
-Welcome to the **ASCII Art Generator**! This tool converts images into beautiful ASCII art, available via both a command-line interface and a web interface powered by **Streamlit**. 
+### Overview
+This ASCII Art Generator uses customizable patterns and filters to convert images into ASCII art. The script supports options for resizing, brightness/contrast adjustments, and even color themes to enhance your ASCII art.
 
 ---
 
-## Web Interface (Streamlit)
+### Installation Requirements
 
-### Running the Web Interface
-To start the web interface, run:
-```bash
-streamlit run community-version.py
+#### Prerequisites
+- Python 3.x installed on your system
+- Install necessary packages using the following command:
+  ```bash
+  pip install typer pillow numpy rich
+  ```
+
+---
+
+### Command Line Options
+
+| Option           | Description                                                    | Example                                                                                   |
+|------------------|----------------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| `--width`        | Sets the width of the ASCII art. Default is 100.               | `--width 150`                                                                             |
+| `--pattern`      | Selects ASCII pattern type. Options: `basic`, `complex`, `emoji`, `numeric` | `--pattern emoji`                                                                         |
+| `--theme`        | Color theme for colorized ASCII. Options: `neon`, `pastel`, `grayscale` | `--theme neon`                                                                            |
+| `--brightness`   | Adjusts image brightness. Default is 1.0 (no change).          | `--brightness 1.2`                                                                        |
+| `--contrast`     | Adjusts image contrast. Default is 1.0 (no change).            | `--contrast 1.3`                                                                          |
+| `--blur`         | Applies blur effect to the image before ASCII conversion.      | `--blur`                                                                                  |
+| `--sharpen`      | Sharpens the image before ASCII conversion.                    | `--sharpen`                                                                               |
+| `--contours`     | Adds contour effect to enhance edges in ASCII output.          | `--contours`                                                                              |
+| `--invert`       | Inverts image colors before conversion.                        | `--invert`                                                                                |
+| `--output`       | Saves ASCII art to specified file.                             | `--output output.txt`                                                                     |
+
+1. Basic Usage:
+
+```plaintext
+python community-version.py <input_image>
 ```
-This will open the ASCII Art Generator web app in your browser, where you can upload an image or draw your own, and customize the ASCII output.
 
-### Features Available in the Web Interface:
-1. **Upload or Draw Image**: Upload an image or use the drawing canvas to create custom artwork.
-2. **Customization Options**:
-   - **Width**: Set the ASCII art width in characters.
-   - **Brightness and Contrast**: Adjust brightness and contrast for desired effects.
-   - **Edge Detection**: Enhance outlines for sharper ASCII representations.
-3. **Preview & Download**: View and download generated ASCII art as a `.txt` file.
-4. **Fun Facts Sidebar**: Learn fun facts about ASCII art.
+Example: `python community-version.py example/ztm-logo.png`
 
----
 
-## Command-Line Interface (CLI)
+2. Width Option:
 
-### Running the CLI
-To use the ASCII Art Generator from the command line:
-```bash
-python community-version.py <input_image> --output <output_file>
+```plaintext
+python community-version.py <input_image> --width <value> or -w <value>
 ```
-### CLI Options
-| Option                              | Description                                                                    | Default              |
-|-------------------------------------|--------------------------------------------------------------------------------|----------------------|
-| `<input_image>`                     | Path to the input image file (JPEG or PNG).                                    | Required             |
-| `--output <output_file>`            | Output file path (`.txt` for grayscale ASCII or `.html` for colorized).        | N/A                  |
-| `--pattern {basic, complex, emoji}` | Select ASCII pattern.                                                          | `basic`              |
-| `--width <int>`                     | Width of ASCII art in characters.                                              | `100`                |
-| `--brightness <float>`              | Adjust brightness (0.5 - 2.0).                                                 | `1.0`                |
-| `--contrast <float>`                | Adjust contrast (0.5 - 2.0).                                                   | `1.0`                |
-| `--blur`                            | Apply a blur filter.                                                           | Disabled             |
-| `--sharpen`                         | Apply a sharpen filter.                                                        | Disabled             |
-| `--colorize`                        | Enable colorized ASCII art.                                                    | Disabled (grayscale) |
-| `--theme {neon, pastel, grayscale}` | Color theme for colorized ASCII art; requires `--colorize`.                    | `grayscale`          |
 
----
+Example: `python community-version.py example/ztm-logo.png --width 150`
 
-## Installation
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd ascii-art
-   ```
+3. Output File Option:
 
-2. Create a virtual environment (optional but recommended):
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # Linux/macOS
-   venv\Scripts\activate     # Windows
-   ```
+```plaintext
+python community-version.py <input_image> --output <filename> or -o <filename>
+```
 
-3. Install required dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+Example: `python community-version.py example/ztm-logo.png --output ztm_ascii.txt`
 
+
+4. ASCII Pattern Option:
+
+```plaintext
+python community-version.py <input_image> --pattern <pattern_type> or -p <pattern_type>
+```
+
+Available patterns: 'basic', 'complex', 'emoji', 'numeric'
+Example: `python community-version.py example/ztm-logo.png --pattern complex`
+
+
+5. Brightness Adjustment:
+
+```plaintext
+python community-version.py <input_image> --brightness <value> or -b <value>
+```
+
+Example: `python community-version.py example/ztm-logo.png --brightness 1.2`
+
+
+6. Contrast Adjustment:
+
+```plaintext
+python community-version.py <input_image> --contrast <value> or -c <value>
+```
+
+Example: `python community-version.py example/ztm-logo.png --contrast 1.1`
+
+
+7. Blur Effect:
+
+```plaintext
+python community-version.py <input_image> --blur
+```
+
+Example: `python community-version.py example/ztm-logo.png --blur`
+
+
+8. Sharpen Effect:
+
+```plaintext
+python community-version.py <input_image> --sharpen
+```
+
+Example: `python community-version.py example/ztm-logo.png --sharpen`
+
+
+9. Contour Effect:
+
+```plaintext
+python community-version.py <input_image> --contours
+```
+
+Example: `python community-version.py example/ztm-logo.png --contours`
+
+
+10. Help Command:
+
+```plaintext
+python community-version.py --help
+```
+
+This displays all available options with their descriptions.
+
+
+
+
+You can combine multiple options in a single command. For example:
+
+```plaintext
+python community-version.py example/ztm-logo.png --width 120 --pattern complex --brightness 1.1 --contrast 1.2 --colorize --theme pastel --output ztm_ascii_colored.txt
+```
+
+This command will generate a colorized ASCII art of the ZTM logo with a width of 120 characters, using the complex pattern, adjusted brightness and contrast, and the pastel color theme, saving the output to a file named 'ztm_ascii_colored.txt'.
+
+Remember to replace `example/ztm-logo.png` with the path to the image you want to convert to ASCII art.

@@ -1,163 +1,121 @@
-import sys
-import os
-from PIL import Image
+import typer
+from PIL import Image, ImageEnhance, ImageFilter, ImageOps
 import numpy as np
-import streamlit as st
-from typing import List
+from rich.console import Console
+from rich.panel import Panel
+from rich.progress import Progress
+import colorsys
+import random
 
-# Check FEATURES.md for installation guide before running the code
+app = typer.Typer()
+console = Console()
 
-# ASCII characters for the command-line version and Streamlit app
-ASCII_CHARS: List[str] = ['@', '#', 'S', '%', '?', '*', '+', ';', ':', ',', '.']
+ASCII_PATTERNS = {
+    'basic': ['@', '#', 'S', '%', '?', '*', '+', ';', ':', ',', '.'],
+    'complex': ['▓', '▒', '░', '█', '▄', '▀', '▌', '▐', '▆', '▇', '▅', '▃', '▂'],
+    'emoji': ['😁', '😎', '🤔', '😱', '🤩', '😏', '😴', '😬', '😵', '😃'],
+    'numeric': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+}
 
-# Image Scaling - Resizes an image while maintaining the aspect ratio
-def scale_image(image: Image.Image, new_width: int = 100) -> Image.Image:
-    (original_width, original_height) = image.size
-    aspect_ratio: float = original_height / float(original_width)
-    new_height: int = int(aspect_ratio * new_width * 0.55)
-    new_image: Image.Image = image.resize((new_width, new_height))
-    return new_image
+COLOR_THEMES = {
+    'neon': [(57, 255, 20), (255, 20, 147), (0, 255, 255)],
+    'pastel': [(255, 179, 186), (255, 223, 186), (186, 255, 201), (186, 225, 255)],
+    'grayscale': [(i, i, i) for i in range(0, 255, 25)],
+}
 
-# Convert image to grayscale
-def convert_to_grayscale(image: Image.Image) -> Image.Image:
-    return image.convert('L')
 
-# Map pixels to ASCII characters
-def map_pixels_to_ascii_chars(image: Image.Image, ascii_chars=ASCII_CHARS, range_width: int = 25) -> str:
-    pixels_in_image: List[int] = list(image.getdata())
-    pixels_to_chars: List[int] = [ascii_chars[int(pixel_value / range_width)] for pixel_value in pixels_in_image]
-    return "".join(pixels_to_chars)
+def resize_image(image, new_width=100):
+    width, height = image.size
+    aspect_ratio = height / width
+    new_height = int(aspect_ratio * new_width * 0.55)
+    return image.resize((new_width, new_height))
 
-# Convert image to ASCII art
-def convert_image_to_ascii(image: Image.Image, new_width: int = 100, ascii_chars=ASCII_CHARS) -> str:
-    image = scale_image(image, new_width)
-    image = convert_to_grayscale(image)
-    pixels_to_chars = map_pixels_to_ascii_chars(image, ascii_chars)
-    len_pixels_to_chars: int = len(pixels_to_chars)
-    ascii_image: List[str] = [pixels_to_chars[index: index + new_width] for index in range(0, len_pixels_to_chars, new_width)]
-    return "\n".join(ascii_image)
 
-# Save ASCII art to a text file
-def saving_image_to_txt(image_ascii, image_path):
-    image_directory = os.path.dirname(image_path)
-    if image_directory and not os.path.exists(image_directory):
-        print(f"Directory '{image_directory}' does not exist. Attempting to create it...")
-        try:
-            os.makedirs(image_directory)
-            print(f"Directory '{image_directory}' created successfully.")
-        except Exception as e:
-            print(f"Failed to create directory '{image_directory}. Error: {e}")
-            return
-    try:
-        with open(image_path, "w") as f:
-            f.write(image_ascii)
-            print("ASCII art saved successfully.")
-    except Exception as e:
-        print(f"Failed to save ASCII art. Error: {e}")
+def apply_image_filters(image, brightness, contrast, blur, sharpen):
+    if brightness != 1.0:
+        image = ImageEnhance.Brightness(image).enhance(brightness)
+    if contrast != 1.0:
+        image = ImageEnhance.Contrast(image).enhance(contrast)
+    if blur:
+        image = image.filter(ImageFilter.BLUR)
+    if sharpen:
+        image = image.filter(ImageFilter.SHARPEN)
+    return image
 
-# Edge detection using OpenCV
-def apply_edge_detection(image: Image.Image) -> Image.Image:
-    img_array = np.array(image)
-    edges = cv2.Canny(img_array, 100, 200)
-    return Image.fromarray(edges)
 
-# Handle image conversion for CLI and Streamlit
-def handle_image_conversion(image_path, output_path=None):
-    try:
-        with Image.open(image_path) as img:
-            ascii_art = convert_image_to_ascii(img, 100, ASCII_CHARS)
-            if output_path:
-                saving_image_to_txt(ascii_art, output_path)
+def create_ascii_art(image, pattern, colorize=False, theme='grayscale'):
+    ascii_chars = ASCII_PATTERNS[pattern]
+    ascii_art = []
+    pixels = np.array(image)
+
+    for y in range(image.height):
+        line = []
+        for x in range(image.width):
+            pixel = pixels[y, x]
+            char_index = int(np.mean(pixel) / 255 * (len(ascii_chars) - 1))
+            char = ascii_chars[char_index]
+            if colorize:
+                color = random.choice(COLOR_THEMES[theme])
+                line.append(f"[color rgb({color[0]},{color[1]},{color[2]})]" + char + "[/color]")
             else:
-                print(ascii_art)
-    except Exception as e:
-        print(f"Error: {str(e)}")
+                line.append(char)
+        ascii_art.append("".join(line))
 
-# Streamlit main function for interactive ASCII art generation
-def main():
-    st.set_page_config(page_title="ASCII Art Generator", layout="wide")
-    st.title("🎨 ASCII Art Generator")
-    st.sidebar.header("Controls")
-    uploaded_image = st.sidebar.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"])
-    draw_image = st.sidebar.checkbox("Draw your own image")
+    return "\n".join(ascii_art)
 
-    if draw_image:
-        col1, col2 = st.columns(2)
 
-        with col1:
-            drawing_mode = st.selectbox("Drawing tool:", ("freedraw", "line", "rect", "circle", "transform"))
-            stroke_width = st.slider("Stroke width: ", 1, 25, 3)
-        with col2:
-            stroke_color = st.color_picker("Stroke color:")
-            bg_color = st.color_picker("Background color: ", "#eee")
+def create_contours(image):
+    return image.filter(ImageFilter.FIND_EDGES)
 
-        bg_image = st.file_uploader("Background image:", type=["png", "jpg"])
 
-        canvas_result = st_canvas(
-            fill_color="rgba(255, 165, 0, 0.3)",
-            stroke_width=stroke_width,
-            stroke_color=stroke_color,
-            background_color=bg_color,
-            background_image=Image.open(bg_image) if bg_image else None,
-            update_streamlit=True,
-            height=500,
-            width=700,
-            drawing_mode=drawing_mode,
-            key="canvas",
-        )
+@app.command()
+def generate(
+        image_path: str = typer.Argument(..., help="Path to the input image"),
+        width: int = typer.Option(100, help="Width of the ASCII art"),
+        pattern: str = typer.Option("basic", help="ASCII pattern to use"),
+        colorize: bool = typer.Option(False, help="Generate colorized ASCII art"),
+        theme: str = typer.Option("grayscale", help="Color theme for colorized output"),
+        brightness: float = typer.Option(1.0, help="Brightness adjustment"),
+        contrast: float = typer.Option(1.0, help="Contrast adjustment"),
+        blur: bool = typer.Option(False, help="Apply blur effect"),
+        sharpen: bool = typer.Option(False, help="Apply sharpen effect"),
+        contours: bool = typer.Option(False, help="Apply contour effect"),
+        invert: bool = typer.Option(False, help="Invert the image"),
+        output: str = typer.Option(None, help="Output file path")
+):
+    """Generate ASCII art from an image with various customization options."""
 
-        if canvas_result.image_data is not None:
-            image = Image.fromarray(canvas_result.image_data.astype('uint8'))
-        else:
-            image = None
-    elif uploaded_image is not None:
-        image = Image.open(uploaded_image)
+    with Progress() as progress:
+        task = progress.add_task("[green]Processing image...", total=100)
+
+        # Load and process the image
+        image = Image.open(image_path)
+        progress.update(task, advance=20)
+
+        image = resize_image(image, width)
+        progress.update(task, advance=20)
+
+        image = apply_image_filters(image, brightness, contrast, blur, sharpen)
+        progress.update(task, advance=20)
+
+        if contours:
+            image = create_contours(image)
+
+        if invert:
+            image = ImageOps.invert(image.convert('RGB'))
+        progress.update(task, advance=20)
+
+        ascii_art = create_ascii_art(image, pattern, colorize, theme)
+        progress.update(task, advance=20)
+
+    # Display or save the result
+    if output:
+        with open(output, 'w', encoding='utf-8') as f:
+            f.write(ascii_art)
+        console.print(f"ASCII art saved to {output}")
     else:
-        image = None
+        console.print(Panel(ascii_art, title="ASCII Art", expand=False))
 
-    if image is not None:
-        apply_edge = st.sidebar.checkbox("Apply Edge Detection")
-        if apply_edge:
-            image = apply_edge_detection(image)
 
-        new_width = st.sidebar.slider("Adjust ASCII art width", min_value=50, max_value=300, value=100)
-        ascii_chars = st.sidebar.text_input("Custom ASCII characters (optional)", value="".join(ASCII_CHARS))
-        ascii_chars = list(ascii_chars) if ascii_chars else ASCII_CHARS
-
-        if st.sidebar.button("Generate ASCII Art"):
-            st.write("Generating ASCII art...")
-
-            ascii_art = convert_image_to_ascii(image, new_width, ascii_chars)
-
-            st.subheader("Original Image")
-            st.image(image, caption='Original Image', use_column_width=True)
-
-            st.subheader("ASCII Art")
-            st.text(ascii_art)
-
-            st.markdown("### Download Options")
-            st.download_button(
-                label="Download ASCII Art as Text",
-                data=ascii_art,
-                file_name="ascii_art.txt",
-                mime="text/plain",
-            )
-
-    st.sidebar.markdown("---")
-    st.sidebar.markdown("### Fun Fact about ASCII Art")
-    fun_facts = [
-        "ASCII art began in the early days of computers when graphical interfaces weren’t available, using characters to create images.",
-        "Artists use a set of 128 ASCII characters to form images, making creativity essential due to these constraints.",
-        "ASCII art is not just for visual pleasure; it has been used in early computer games and even for data compression!",
-        "ASCII art inspired modern emoticons and eventually evolved into emojis and kaomoji.",
-    ]
-    st.sidebar.write(np.random.choice(fun_facts))
-
-# Command-line execution and Streamlit app start
-if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        image_path = sys.argv[1]
-        output_path = sys.argv[2] if len(sys.argv) > 2 else None
-        handle_image_conversion(image_path, output_path)
-    else:
-        main()
+if __name__ == "__main__":
+    app()
