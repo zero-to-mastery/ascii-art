@@ -51,7 +51,7 @@ def apply_image_filters(
     """Applies brightness, contrast, blur, and sharpen filters to the image."""
 
 # Function to apply filters to the image
-def apply_image_filters(image: Image.Image, brightness: float, contrast: float, blur: bool, sharpen: bool, gaussBlur: float, sharpRange: float) -> Image.Image:
+def apply_image_filters(image: Image.Image, brightness: float, contrast: float, blur: bool, sharpen: bool, gaussBlur: float, sharpRange: float, medFilter: int) -> Image.Image:
 
     if brightness != 1.0:
         image = ImageEnhance.Brightness(image).enhance(brightness)
@@ -74,6 +74,10 @@ def apply_image_filters(image: Image.Image, brightness: float, contrast: float, 
 
     if sharpen:
         image = image.filter(ImageFilter.SHARPEN)
+
+    if medFilter != 1 :
+        image = image.filter(ImageFilter.MedianFilter(size=medFilter))
+                            
     return image
 
 
@@ -330,6 +334,7 @@ def run_streamlit_app():
     contrast = st.sidebar.slider("Contrast", 0.5, 2.0, 1.0)
     gauss_blur = st.sidebar.slider("Gaussian Blur Radius", min_value=1.0, max_value=20.0, value=1.0, step=1.0)
     sharpRange = st.sidebar.slider("Sharpness", min_value=-2.0, max_value=10.0, value=1.0, step=1.0)
+    medFilter = st.sidebar.slider("Median Filter", min_value=1, max_value=10, value=1, step=1)
     apply_blur = st.sidebar.checkbox("Apply Blur")
     apply_sharpen = st.sidebar.checkbox("Apply Sharpen")
     
@@ -361,7 +366,7 @@ def run_streamlit_app():
             )
 
         # Apply filters to the image
-        image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen, gauss_blur, sharpRange)
+        image = apply_image_filters(image, brightness, contrast, apply_blur, apply_sharpen, gauss_blur, sharpRange, medFilter)
 
 def get_sidebar_options():
     """Gets options from the sidebar."""
