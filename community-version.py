@@ -6,7 +6,7 @@ import numpy as np
 from rich.console import Console
 from rich.panel import Panel
 from rich.progress import Progress
-import colorsys
+import sys
 import random
 
 app = typer.Typer()
@@ -115,6 +115,10 @@ def create_contours(image):
 
 # Streamlit app for the ASCII art generator
 def run_streamlit_app():
+    if not st.runtime.exists():
+        console.print(f"[yellow]Make sure you run this streamlit app from the streamlit command not python")
+        return False
+        
     st.title("🌟 Customizable ASCII Art Generator")
     page = st.sidebar.selectbox('ASCII Art', ['Image', 'Live'])
     if page == "Image":
@@ -252,6 +256,8 @@ def generate(
     else:
         console.print(Panel(ascii_art, title="ASCII Art", expand=False))
 
-
 if __name__ == "__main__":
-    app()
+    if (len(sys.argv) > 1):
+        app()
+    else:
+        run_streamlit_app()
