@@ -1,0 +1,1358 @@
+[
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "ImageDraw",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "ImageEnhance",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "ImageFilter",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "ImageOps",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "ImageDraw",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "ImageFont",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "ImageOps",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "ImageDraw",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "io,",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "io.",
+        "description": "io.",
+        "detail": "io.",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "io",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "io",
+        "description": "io",
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "StreamingResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "UploadFile",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "File",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Query",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "fastapi_source.core.config",
+        "description": "fastapi_source.core.config",
+        "isExtraImport": true,
+        "detail": "fastapi_source.core.config",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "fastapi_source.core.config",
+        "description": "fastapi_source.core.config",
+        "isExtraImport": true,
+        "detail": "fastapi_source.core.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_mosaic_image",
+        "importPath": "fastapi_source.application.ascii.ascii_service",
+        "description": "fastapi_source.application.ascii.ascii_service",
+        "isExtraImport": true,
+        "detail": "fastapi_source.application.ascii.ascii_service",
+        "documentation": {}
+    },
+    {
+        "label": "cv2",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "cv2",
+        "description": "cv2",
+        "detail": "cv2",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "typer",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "typer",
+        "description": "typer",
+        "detail": "typer",
+        "documentation": {}
+    },
+    {
+        "label": "streamlit",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "streamlit",
+        "description": "streamlit",
+        "detail": "streamlit",
+        "documentation": {}
+    },
+    {
+        "label": "webrtc_streamer",
+        "importPath": "streamlit_webrtc",
+        "description": "streamlit_webrtc",
+        "isExtraImport": true,
+        "detail": "streamlit_webrtc",
+        "documentation": {}
+    },
+    {
+        "label": "WebRtcMode",
+        "importPath": "streamlit_webrtc",
+        "description": "streamlit_webrtc",
+        "isExtraImport": true,
+        "detail": "streamlit_webrtc",
+        "documentation": {}
+    },
+    {
+        "label": "Console",
+        "importPath": "rich.console",
+        "description": "rich.console",
+        "isExtraImport": true,
+        "detail": "rich.console",
+        "documentation": {}
+    },
+    {
+        "label": "Panel",
+        "importPath": "rich.panel",
+        "description": "rich.panel",
+        "isExtraImport": true,
+        "detail": "rich.panel",
+        "documentation": {}
+    },
+    {
+        "label": "Progress",
+        "importPath": "rich.progress",
+        "description": "rich.progress",
+        "isExtraImport": true,
+        "detail": "rich.progress",
+        "documentation": {}
+    },
+    {
+        "label": "random",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
+        "documentation": {}
+    },
+    {
+        "label": "uvicorn",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uvicorn",
+        "description": "uvicorn",
+        "detail": "uvicorn",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "webbrowser",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "webbrowser",
+        "description": "webbrowser",
+        "detail": "webbrowser",
+        "documentation": {}
+    },
+    {
+        "label": "threading",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "threading",
+        "description": "threading",
+        "detail": "threading",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "importPath": "fastapi_source.host.ascii_art_routes",
+        "description": "fastapi_source.host.ascii_art_routes",
+        "isExtraImport": true,
+        "detail": "fastapi_source.host.ascii_art_routes",
+        "documentation": {}
+    },
+    {
+        "label": "Route",
+        "importPath": "starlette.routing",
+        "description": "starlette.routing",
+        "isExtraImport": true,
+        "detail": "starlette.routing",
+        "documentation": {}
+    },
+    {
+        "label": "matplotlib.pyplot",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib.pyplot",
+        "description": "matplotlib.pyplot",
+        "detail": "matplotlib.pyplot",
+        "documentation": {}
+    },
+    {
+        "label": "Delaunay",
+        "importPath": "scipy.spatial",
+        "description": "scipy.spatial",
+        "isExtraImport": true,
+        "detail": "scipy.spatial",
+        "documentation": {}
+    },
+    {
+        "label": "importlib.util",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "importlib.util",
+        "description": "importlib.util",
+        "detail": "importlib.util",
+        "documentation": {}
+    },
+    {
+        "label": "Menu",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "Scrollbar",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "StringVar",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "Text",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "Tk",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "Toplevel",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "filedialog",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "ttk",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "END",
+        "importPath": "tkinter.constants",
+        "description": "tkinter.constants",
+        "isExtraImport": true,
+        "detail": "tkinter.constants",
+        "documentation": {}
+    },
+    {
+        "label": "FALSE",
+        "importPath": "tkinter.constants",
+        "description": "tkinter.constants",
+        "isExtraImport": true,
+        "detail": "tkinter.constants",
+        "documentation": {}
+    },
+    {
+        "label": "NORMAL",
+        "importPath": "tkinter.constants",
+        "description": "tkinter.constants",
+        "isExtraImport": true,
+        "detail": "tkinter.constants",
+        "documentation": {}
+    },
+    {
+        "label": "E",
+        "importPath": "tkinter.constants",
+        "description": "tkinter.constants",
+        "isExtraImport": true,
+        "detail": "tkinter.constants",
+        "documentation": {}
+    },
+    {
+        "label": "N",
+        "importPath": "tkinter.constants",
+        "description": "tkinter.constants",
+        "isExtraImport": true,
+        "detail": "tkinter.constants",
+        "documentation": {}
+    },
+    {
+        "label": "S",
+        "importPath": "tkinter.constants",
+        "description": "tkinter.constants",
+        "isExtraImport": true,
+        "detail": "tkinter.constants",
+        "documentation": {}
+    },
+    {
+        "label": "W",
+        "importPath": "tkinter.constants",
+        "description": "tkinter.constants",
+        "isExtraImport": true,
+        "detail": "tkinter.constants",
+        "documentation": {}
+    },
+    {
+        "label": "argparse",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "argparse",
+        "description": "argparse",
+        "detail": "argparse",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "color",
+        "importPath": "skimage",
+        "description": "skimage",
+        "isExtraImport": true,
+        "detail": "skimage",
+        "documentation": {}
+    },
+    {
+        "label": "filters",
+        "importPath": "skimage",
+        "description": "skimage",
+        "isExtraImport": true,
+        "detail": "skimage",
+        "documentation": {}
+    },
+    {
+        "label": "scale_image",
+        "kind": 2,
+        "importPath": "example.makeArtPython3",
+        "description": "example.makeArtPython3",
+        "peekOfCode": "def scale_image(image, new_width=100):\n    \"\"\"Resizes an image preserving the aspect ratio.\"\"\"\n    (original_width, original_height) = image.size\n    aspect_ratio = original_height / float(original_width)\n    new_height = int(aspect_ratio * new_width)\n    new_image = image.resize((new_width, new_height))\n    return new_image\ndef convert_to_grayscale(image):\n    return image.convert(\"L\")\ndef map_pixels_to_ascii_chars(image, range_width=25):",
+        "detail": "example.makeArtPython3",
+        "documentation": {}
+    },
+    {
+        "label": "convert_to_grayscale",
+        "kind": 2,
+        "importPath": "example.makeArtPython3",
+        "description": "example.makeArtPython3",
+        "peekOfCode": "def convert_to_grayscale(image):\n    return image.convert(\"L\")\ndef map_pixels_to_ascii_chars(image, range_width=25):\n    \"\"\"Maps each pixel to an ascii char based on the range\n    in which it lies.\n    0-255 is divided into 11 ranges of 25 pixels each.\n    \"\"\"\n    pixels_in_image = list(image.getdata())\n    pixels_to_chars = [ASCII_CHARS[pixel_value // range_width] for pixel_value in pixels_in_image]\n    return \"\".join(pixels_to_chars)",
+        "detail": "example.makeArtPython3",
+        "documentation": {}
+    },
+    {
+        "label": "map_pixels_to_ascii_chars",
+        "kind": 2,
+        "importPath": "example.makeArtPython3",
+        "description": "example.makeArtPython3",
+        "peekOfCode": "def map_pixels_to_ascii_chars(image, range_width=25):\n    \"\"\"Maps each pixel to an ascii char based on the range\n    in which it lies.\n    0-255 is divided into 11 ranges of 25 pixels each.\n    \"\"\"\n    pixels_in_image = list(image.getdata())\n    pixels_to_chars = [ASCII_CHARS[pixel_value // range_width] for pixel_value in pixels_in_image]\n    return \"\".join(pixels_to_chars)\ndef convert_image_to_ascii(image, new_width=100):\n    image = scale_image(image)",
+        "detail": "example.makeArtPython3",
+        "documentation": {}
+    },
+    {
+        "label": "convert_image_to_ascii",
+        "kind": 2,
+        "importPath": "example.makeArtPython3",
+        "description": "example.makeArtPython3",
+        "peekOfCode": "def convert_image_to_ascii(image, new_width=100):\n    image = scale_image(image)\n    image = convert_to_grayscale(image)\n    pixels_to_chars = map_pixels_to_ascii_chars(image)\n    len_pixels_to_chars = len(pixels_to_chars)\n    image_ascii = [pixels_to_chars[index : index + new_width] for index in range(0, len_pixels_to_chars, new_width)]\n    return \"\\n\".join(image_ascii)\ndef handle_image_conversion(image_filepath):\n    image = None\n    try:",
+        "detail": "example.makeArtPython3",
+        "documentation": {}
+    },
+    {
+        "label": "handle_image_conversion",
+        "kind": 2,
+        "importPath": "example.makeArtPython3",
+        "description": "example.makeArtPython3",
+        "peekOfCode": "def handle_image_conversion(image_filepath):\n    image = None\n    try:\n        image = Image.open(image_filepath)\n    except Exception as e:\n        print(\"Unable to open image file {image_filepath}.\".format(image_filepath=image_filepath))\n        print(f\"Error: {e}\")\n        return\n    image_ascii = convert_image_to_ascii(image)\n    print(image_ascii)",
+        "detail": "example.makeArtPython3",
+        "documentation": {}
+    },
+    {
+        "label": "ASCII_CHARS",
+        "kind": 5,
+        "importPath": "example.makeArtPython3",
+        "description": "example.makeArtPython3",
+        "peekOfCode": "ASCII_CHARS = [\"#\", \"?\", \"%\", \".\", \"S\", \"+\", \".\", \"*\", \":\", \",\", \"@\"]\ndef scale_image(image, new_width=100):\n    \"\"\"Resizes an image preserving the aspect ratio.\"\"\"\n    (original_width, original_height) = image.size\n    aspect_ratio = original_height / float(original_width)\n    new_height = int(aspect_ratio * new_width)\n    new_image = image.resize((new_width, new_height))\n    return new_image\ndef convert_to_grayscale(image):\n    return image.convert(\"L\")",
+        "detail": "example.makeArtPython3",
+        "documentation": {}
+    },
+    {
+        "label": "scale_image",
+        "kind": 2,
+        "importPath": "example.make_art",
+        "description": "example.make_art",
+        "peekOfCode": "def scale_image(image, new_width=100):\n    \"\"\"Resizes an image preserving the aspect ratio.\"\"\"\n    (original_width, original_height) = image.size\n    aspect_ratio = original_height / float(original_width)\n    new_height = int(aspect_ratio * new_width)\n    new_image = image.resize((new_width, new_height))\n    return new_image\ndef convert_to_grayscale(image):\n    return image.convert(\"L\")\ndef map_pixels_to_ascii_chars(image, range_width=25):",
+        "detail": "example.make_art",
+        "documentation": {}
+    },
+    {
+        "label": "convert_to_grayscale",
+        "kind": 2,
+        "importPath": "example.make_art",
+        "description": "example.make_art",
+        "peekOfCode": "def convert_to_grayscale(image):\n    return image.convert(\"L\")\ndef map_pixels_to_ascii_chars(image, range_width=25):\n    \"\"\"Maps each pixel to an ascii char based on the range\n    in which it lies.\n    0-255 is divided into 11 ranges of 25 pixels each.\n    \"\"\"\n    pixels_in_image = list(image.getdata())\n    pixels_to_chars = [ASCII_CHARS[int(pixel_value / range_width)] for pixel_value in pixels_in_image]\n    return \"\".join(pixels_to_chars)",
+        "detail": "example.make_art",
+        "documentation": {}
+    },
+    {
+        "label": "map_pixels_to_ascii_chars",
+        "kind": 2,
+        "importPath": "example.make_art",
+        "description": "example.make_art",
+        "peekOfCode": "def map_pixels_to_ascii_chars(image, range_width=25):\n    \"\"\"Maps each pixel to an ascii char based on the range\n    in which it lies.\n    0-255 is divided into 11 ranges of 25 pixels each.\n    \"\"\"\n    pixels_in_image = list(image.getdata())\n    pixels_to_chars = [ASCII_CHARS[int(pixel_value / range_width)] for pixel_value in pixels_in_image]\n    return \"\".join(pixels_to_chars)\ndef convert_image_to_ascii(image, new_width=100):\n    image = scale_image(image)",
+        "detail": "example.make_art",
+        "documentation": {}
+    },
+    {
+        "label": "convert_image_to_ascii",
+        "kind": 2,
+        "importPath": "example.make_art",
+        "description": "example.make_art",
+        "peekOfCode": "def convert_image_to_ascii(image, new_width=100):\n    image = scale_image(image)\n    image = convert_to_grayscale(image)\n    pixels_to_chars = map_pixels_to_ascii_chars(image)\n    len_pixels_to_chars = len(pixels_to_chars)\n    image_ascii = [pixels_to_chars[index : index + new_width] for index in range(0, len_pixels_to_chars, new_width)]\n    return \"\\n\".join(image_ascii)\ndef handle_image_conversion(image_filepath):\n    image = None\n    try:",
+        "detail": "example.make_art",
+        "documentation": {}
+    },
+    {
+        "label": "handle_image_conversion",
+        "kind": 2,
+        "importPath": "example.make_art",
+        "description": "example.make_art",
+        "peekOfCode": "def handle_image_conversion(image_filepath):\n    image = None\n    try:\n        image = Image.open(image_filepath)\n    except Exception as e:\n        print(f\"Unable to open image file {image_filepath}.\")\n        print(e)\n        return\n    image_ascii = convert_image_to_ascii(image)\n    print(image_ascii)",
+        "detail": "example.make_art",
+        "documentation": {}
+    },
+    {
+        "label": "ASCII_CHARS",
+        "kind": 5,
+        "importPath": "example.make_art",
+        "description": "example.make_art",
+        "peekOfCode": "ASCII_CHARS = [\"#\", \"?\", \"%\", \".\", \"S\", \"+\", \".\", \"*\", \":\", \",\", \"@\"]\ndef scale_image(image, new_width=100):\n    \"\"\"Resizes an image preserving the aspect ratio.\"\"\"\n    (original_width, original_height) = image.size\n    aspect_ratio = original_height / float(original_width)\n    new_height = int(aspect_ratio * new_width)\n    new_image = image.resize((new_width, new_height))\n    return new_image\ndef convert_to_grayscale(image):\n    return image.convert(\"L\")",
+        "detail": "example.make_art",
+        "documentation": {}
+    },
+    {
+        "label": "get_mosaic_image",
+        "kind": 2,
+        "importPath": "fastapi_source.application.ascii.ascii_service",
+        "description": "fastapi_source.application.ascii.ascii_service",
+        "peekOfCode": "def get_mosaic_image(contents: bytes, block_size:int=10) -> Image:\n    \"\"\"_summary_\n    Args:\n        contents (bytes): Input image bytes.\n        block_size (int, optional): Sidelength of a mosaic block. Defaults to 10.\n    Returns:\n        Image: Output image.\n    \"\"\" \n    image = __get_image_from_bytes(contents)\n    img = np.array(image)",
+        "detail": "fastapi_source.application.ascii.ascii_service",
+        "documentation": {}
+    },
+    {
+        "label": "Settings",
+        "kind": 6,
+        "importPath": "fastapi_source.core.config",
+        "description": "fastapi_source.core.config",
+        "peekOfCode": "class Settings:\n    PROJECT_NAME_EN_US: str = \"Ascii-Art Api\"\n    VERSION: str = \"1.0.0\"\n    #router setting\n    ROUTER_NAME_Object_Detection, ROUTER_Description_Object_Detection = (\"AsciiArt\", \"Enjoy 😎😎😎\")\nsettings = Settings()",
+        "detail": "fastapi_source.core.config",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "kind": 5,
+        "importPath": "fastapi_source.core.config",
+        "description": "fastapi_source.core.config",
+        "peekOfCode": "settings = Settings()",
+        "detail": "fastapi_source.core.config",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "fastapi_source.host.ascii_art_routes",
+        "description": "fastapi_source.host.ascii_art_routes",
+        "peekOfCode": "router = APIRouter(prefix=f'/{settings.ROUTER_NAME_Object_Detection}', \n                   tags=[settings.ROUTER_NAME_Object_Detection])\n@router.put(\"/Mosaic\", summary = \"Make your image mosaic! 😁\", \n            description = 'Upload your image file, and make it mosaic. 😃',\n            response_class = StreamingResponse,\n            responses = {200: {\"content\": {\"image/png\": {}}}})\nasync def detect(image_file: UploadFile = File(..., description=\"upload image file\"),\n                 block_size: int=Query(description=\"Sidelength of a mosaic block. Default value=10\", default=10)):\n    contents = await image_file.read()\n    result_image = get_mosaic_image(contents, block_size)",
+        "detail": "fastapi_source.host.ascii_art_routes",
+        "documentation": {}
+    },
+    {
+        "label": "scale_image",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect-color",
+        "description": "ascii-art-matrix-effect-color",
+        "peekOfCode": "def scale_image(image: Image.Image, new_width: int = 100) -> Image.Image:\n    (original_width, original_height) = image.size\n    aspect_ratio: float = original_height / float(original_width)\n    new_height: int = int(aspect_ratio * new_width)\n    new_image: Image.Image = image.resize((new_width, new_height))\n    return new_image\ndef convert_to_grayscale(image: Image.Image) -> Image.Image:\n    return image.convert(\"L\")\ndef map_pixels_to_ascii_chars(image: Image.Image, range_width: int = 25) -> str:\n    pixels_in_image: List[int] = list(image.getdata())",
+        "detail": "ascii-art-matrix-effect-color",
+        "documentation": {}
+    },
+    {
+        "label": "convert_to_grayscale",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect-color",
+        "description": "ascii-art-matrix-effect-color",
+        "peekOfCode": "def convert_to_grayscale(image: Image.Image) -> Image.Image:\n    return image.convert(\"L\")\ndef map_pixels_to_ascii_chars(image: Image.Image, range_width: int = 25) -> str:\n    pixels_in_image: List[int] = list(image.getdata())\n    pixels_to_chars: List[int] = [ASCII_CHARS[int(pixel_value / range_width)] for pixel_value in pixels_in_image]\n    return \"\".join(pixels_to_chars)\ndef convert_image_to_ascii(image: Image.Image, new_width: int = 100) -> Tuple[str, List[Tuple[int, int, int, int]]]:\n    image = scale_image(image, new_width)\n    grayscale_image = convert_to_grayscale(image)\n    pixels_to_chars: str = map_pixels_to_ascii_chars(grayscale_image)",
+        "detail": "ascii-art-matrix-effect-color",
+        "documentation": {}
+    },
+    {
+        "label": "map_pixels_to_ascii_chars",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect-color",
+        "description": "ascii-art-matrix-effect-color",
+        "peekOfCode": "def map_pixels_to_ascii_chars(image: Image.Image, range_width: int = 25) -> str:\n    pixels_in_image: List[int] = list(image.getdata())\n    pixels_to_chars: List[int] = [ASCII_CHARS[int(pixel_value / range_width)] for pixel_value in pixels_in_image]\n    return \"\".join(pixels_to_chars)\ndef convert_image_to_ascii(image: Image.Image, new_width: int = 100) -> Tuple[str, List[Tuple[int, int, int, int]]]:\n    image = scale_image(image, new_width)\n    grayscale_image = convert_to_grayscale(image)\n    pixels_to_chars: str = map_pixels_to_ascii_chars(grayscale_image)\n    len_pixels_to_chars: int = len(pixels_to_chars)\n    image_ascii: List[str] = [pixels_to_chars[index : index + new_width] for index in range(0, len_pixels_to_chars, new_width)]",
+        "detail": "ascii-art-matrix-effect-color",
+        "documentation": {}
+    },
+    {
+        "label": "convert_image_to_ascii",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect-color",
+        "description": "ascii-art-matrix-effect-color",
+        "peekOfCode": "def convert_image_to_ascii(image: Image.Image, new_width: int = 100) -> Tuple[str, List[Tuple[int, int, int, int]]]:\n    image = scale_image(image, new_width)\n    grayscale_image = convert_to_grayscale(image)\n    pixels_to_chars: str = map_pixels_to_ascii_chars(grayscale_image)\n    len_pixels_to_chars: int = len(pixels_to_chars)\n    image_ascii: List[str] = [pixels_to_chars[index : index + new_width] for index in range(0, len_pixels_to_chars, new_width)]\n    color_data: List[Tuple[int, int, int, int]] = list(image.convert(\"RGBA\").getdata())\n    return \"\\n\".join(image_ascii), color_data\ndef get_char_for_position(x, y, lines, column_states, column_lengths):\n    if x >= len(lines[y]):",
+        "detail": "ascii-art-matrix-effect-color",
+        "documentation": {}
+    },
+    {
+        "label": "get_char_for_position",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect-color",
+        "description": "ascii-art-matrix-effect-color",
+        "peekOfCode": "def get_char_for_position(x, y, lines, column_states, column_lengths):\n    if x >= len(lines[y]):\n        return \" \"  # Pad shorter lines with spaces\n    if column_states[x] == -1 or column_states[x] < y:\n        return lines[y][x]\n    if column_states[x] - column_lengths[x] <= y:\n        if column_states[x] == y:\n            return \" \"\n        else:\n            return chr(np.random.choice(list(range(33, 127))))  # Random ASCII characters excluding space",
+        "detail": "ascii-art-matrix-effect-color",
+        "documentation": {}
+    },
+    {
+        "label": "generate_new_frame",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect-color",
+        "description": "ascii-art-matrix-effect-color",
+        "peekOfCode": "def generate_new_frame(lines, column_states, column_lengths, height, width):\n    new_frame = []\n    for y in range(height):\n        new_line = \"\".join(get_char_for_position(x, y, lines, column_states, column_lengths) for x in range(width))\n        new_frame.append(new_line)\n    return new_frame\ndef update_column_states(column_states, column_lengths, columns_covered, height, width):\n    # Move the flow down faster\n    column_states = [state + 2 if state != -1 else state for state in column_states]\n    # Reset the flow if it reaches the bottom and mark columns as covered",
+        "detail": "ascii-art-matrix-effect-color",
+        "documentation": {}
+    },
+    {
+        "label": "update_column_states",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect-color",
+        "description": "ascii-art-matrix-effect-color",
+        "peekOfCode": "def update_column_states(column_states, column_lengths, columns_covered, height, width):\n    # Move the flow down faster\n    column_states = [state + 2 if state != -1 else state for state in column_states]\n    # Reset the flow if it reaches the bottom and mark columns as covered\n    for i in range(width):\n        if column_states[i] >= height + column_lengths[i]:\n            column_states[i] = -1\n            columns_covered[i] = True  # Mark this column as covered\n    return column_states, columns_covered\ndef start_new_flows(column_states, column_lengths, columns_covered, height, width, t, skip_frames):",
+        "detail": "ascii-art-matrix-effect-color",
+        "documentation": {}
+    },
+    {
+        "label": "start_new_flows",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect-color",
+        "description": "ascii-art-matrix-effect-color",
+        "peekOfCode": "def start_new_flows(column_states, column_lengths, columns_covered, height, width, t, skip_frames):\n    if t >= skip_frames:\n        active_flows = sum(1 for state in column_states if state != -1)\n        if active_flows < width:\n            # Ensure all columns are eventually covered\n            uncovered_columns = [i for i, covered in enumerate(columns_covered) if not covered]\n            if uncovered_columns:\n                i = np.random.choice(uncovered_columns)\n            else:\n                i = np.random.randint(0, width)",
+        "detail": "ascii-art-matrix-effect-color",
+        "documentation": {}
+    },
+    {
+        "label": "generate_matrix_effect",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect-color",
+        "description": "ascii-art-matrix-effect-color",
+        "peekOfCode": "def generate_matrix_effect(image_ascii: str) -> List[str]:\n    lines = image_ascii.split(\"\\n\")\n    height = len(lines)\n    width = max(len(line) for line in lines)  # Ensure all lines have the same width\n    frames = []\n    column_states = [-1] * width  # -1 means no flow\n    column_lengths = [0] * width\n    columns_covered = [False] * width  # Track which columns have been covered by the flow\n    # Skip the first second (assuming 30 FPS, skip the first 30 frames)\n    skip_frames = 30",
+        "detail": "ascii-art-matrix-effect-color",
+        "documentation": {}
+    },
+    {
+        "label": "create_video_from_frames",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect-color",
+        "description": "ascii-art-matrix-effect-color",
+        "peekOfCode": "def create_video_from_frames(frames: List[str], color_data: List[Tuple[int, int, int, int]], width: int, output_path: str):\n    height = len(frames[0].split(\"\\n\"))\n    fourcc = cv2.VideoWriter_fourcc(*\"mp4v\")\n    frame_rate = 30\n    video = cv2.VideoWriter(output_path, fourcc, frame_rate, (width * 10, height * 10))\n    # Track which characters have been part of the flow\n    flow_passed = [[False] * width for _ in range(height)]\n    for frame in frames:\n        img = np.zeros((height * 10, width * 10, 3), dtype=np.uint8)\n        for y, line in enumerate(frame.split(\"\\n\")):",
+        "detail": "ascii-art-matrix-effect-color",
+        "documentation": {}
+    },
+    {
+        "label": "scale_image",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect",
+        "description": "ascii-art-matrix-effect",
+        "peekOfCode": "def scale_image(image: Image.Image, new_width: int = 100) -> Image.Image:\n    (original_width, original_height) = image.size\n    aspect_ratio: float = original_height / float(original_width)\n    new_height: int = int(aspect_ratio * new_width)\n    return image.resize((new_width, new_height))\ndef convert_to_grayscale(image: Image.Image) -> Image.Image:\n    return image.convert(\"L\")\ndef map_pixels_to_ascii_chars(image: Image.Image, range_width: int = 25) -> str:\n    pixels_in_image: List[int] = list(image.getdata())\n    pixels_to_chars: List[int] = [ASCII_CHARS[int(pixel_value / range_width)] for pixel_value in pixels_in_image]",
+        "detail": "ascii-art-matrix-effect",
+        "documentation": {}
+    },
+    {
+        "label": "convert_to_grayscale",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect",
+        "description": "ascii-art-matrix-effect",
+        "peekOfCode": "def convert_to_grayscale(image: Image.Image) -> Image.Image:\n    return image.convert(\"L\")\ndef map_pixels_to_ascii_chars(image: Image.Image, range_width: int = 25) -> str:\n    pixels_in_image: List[int] = list(image.getdata())\n    pixels_to_chars: List[int] = [ASCII_CHARS[int(pixel_value / range_width)] for pixel_value in pixels_in_image]\n    return \"\".join(pixels_to_chars)\ndef convert_image_to_ascii(image: Image.Image, new_width: int = 100) -> str:\n    image = scale_image(image, new_width)\n    image = convert_to_grayscale(image)\n    pixels_to_chars: str = map_pixels_to_ascii_chars(image)",
+        "detail": "ascii-art-matrix-effect",
+        "documentation": {}
+    },
+    {
+        "label": "map_pixels_to_ascii_chars",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect",
+        "description": "ascii-art-matrix-effect",
+        "peekOfCode": "def map_pixels_to_ascii_chars(image: Image.Image, range_width: int = 25) -> str:\n    pixels_in_image: List[int] = list(image.getdata())\n    pixels_to_chars: List[int] = [ASCII_CHARS[int(pixel_value / range_width)] for pixel_value in pixels_in_image]\n    return \"\".join(pixels_to_chars)\ndef convert_image_to_ascii(image: Image.Image, new_width: int = 100) -> str:\n    image = scale_image(image, new_width)\n    image = convert_to_grayscale(image)\n    pixels_to_chars: str = map_pixels_to_ascii_chars(image)\n    len_pixels_to_chars: int = len(pixels_to_chars)\n    return \"\\n\".join([pixels_to_chars[index : index + new_width] for index in range(0, len_pixels_to_chars, new_width)])",
+        "detail": "ascii-art-matrix-effect",
+        "documentation": {}
+    },
+    {
+        "label": "convert_image_to_ascii",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect",
+        "description": "ascii-art-matrix-effect",
+        "peekOfCode": "def convert_image_to_ascii(image: Image.Image, new_width: int = 100) -> str:\n    image = scale_image(image, new_width)\n    image = convert_to_grayscale(image)\n    pixels_to_chars: str = map_pixels_to_ascii_chars(image)\n    len_pixels_to_chars: int = len(pixels_to_chars)\n    return \"\\n\".join([pixels_to_chars[index : index + new_width] for index in range(0, len_pixels_to_chars, new_width)])\ndef generate_new_frame(image_ascii: str, column_states: List[int], height: int, width: int) -> str:\n    \"\"\"Generates a new frame based on the current column states.\"\"\"\n    new_frame = []\n    lines = image_ascii.split(\"\\n\")",
+        "detail": "ascii-art-matrix-effect",
+        "documentation": {}
+    },
+    {
+        "label": "generate_new_frame",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect",
+        "description": "ascii-art-matrix-effect",
+        "peekOfCode": "def generate_new_frame(image_ascii: str, column_states: List[int], height: int, width: int) -> str:\n    \"\"\"Generates a new frame based on the current column states.\"\"\"\n    new_frame = []\n    lines = image_ascii.split(\"\\n\")\n    for y in range(height):\n        new_line = \"\"\n        for x in range(width):\n            if x >= len(lines[y]):\n                new_line += \" \"  # Pad shorter lines with spaces\n            elif column_states[x] == -1:",
+        "detail": "ascii-art-matrix-effect",
+        "documentation": {}
+    },
+    {
+        "label": "update_column_states",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect",
+        "description": "ascii-art-matrix-effect",
+        "peekOfCode": "def update_column_states(column_states: List[int], height: int, column_lengths: List[int]):\n    \"\"\"Updates the column states and resets them if they reach the bottom.\"\"\"\n    for i in range(len(column_states)):\n        if column_states[i] >= height + column_lengths[i]:\n            column_states[i] = -1\n    return column_states\ndef generate_matrix_effect(image_ascii: str, frame_count: int) -> List[str]:\n    \"\"\"Generates frames for the matrix effect.\"\"\"\n    lines = image_ascii.split(\"\\n\")\n    height = len(lines)",
+        "detail": "ascii-art-matrix-effect",
+        "documentation": {}
+    },
+    {
+        "label": "generate_matrix_effect",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect",
+        "description": "ascii-art-matrix-effect",
+        "peekOfCode": "def generate_matrix_effect(image_ascii: str, frame_count: int) -> List[str]:\n    \"\"\"Generates frames for the matrix effect.\"\"\"\n    lines = image_ascii.split(\"\\n\")\n    height = len(lines)\n    width = max(len(line) for line in lines)\n    frames = []\n    flow_count = width\n    column_states = [-1] * width  # -1 means no flow\n    column_lengths = [0] * width\n    # Skip the first second (assuming 30 FPS, skip the first 30 frames)",
+        "detail": "ascii-art-matrix-effect",
+        "documentation": {}
+    },
+    {
+        "label": "create_video_from_frames",
+        "kind": 2,
+        "importPath": "ascii-art-matrix-effect",
+        "description": "ascii-art-matrix-effect",
+        "peekOfCode": "def create_video_from_frames(frames: List[str], output_path: str):\n    \"\"\"Creates a video from ASCII frames.\"\"\"\n    height = len(frames[0].split(\"\\n\"))\n    width = len(frames[0].split(\"\\n\")[0])\n    fourcc = cv2.VideoWriter_fourcc(*\"mp4v\")\n    frame_rate = 30\n    video = cv2.VideoWriter(output_path, fourcc, frame_rate, (width * 10, height * 10))\n    for frame in frames:\n        img = np.zeros((height * 10, width * 10, 3), dtype=np.uint8)\n        for y, line in enumerate(frame.split(\"\\n\")):",
+        "detail": "ascii-art-matrix-effect",
+        "documentation": {}
+    },
+    {
+        "label": "resize_image",
+        "kind": 2,
+        "importPath": "community-version",
+        "description": "community-version",
+        "peekOfCode": "def resize_image(image, new_width=100):\n    width, height = image.size\n    aspect_ratio = height / width\n    new_height = int(aspect_ratio * new_width * 0.55)\n    return image.resize((new_width, new_height))\ndef apply_image_filters(image, brightness, contrast, blur, sharpen):\n    if brightness != 1.0:\n        image = ImageEnhance.Brightness(image).enhance(brightness)\n    if contrast != 1.0:\n        image = ImageEnhance.Contrast(image).enhance(contrast)",
+        "detail": "community-version",
+        "documentation": {}
+    },
+    {
+        "label": "apply_image_filters",
+        "kind": 2,
+        "importPath": "community-version",
+        "description": "community-version",
+        "peekOfCode": "def apply_image_filters(image, brightness, contrast, blur, sharpen):\n    if brightness != 1.0:\n        image = ImageEnhance.Brightness(image).enhance(brightness)\n    if contrast != 1.0:\n        image = ImageEnhance.Contrast(image).enhance(contrast)\n    if blur:\n        image = image.filter(ImageFilter.BLUR)\n    if sharpen:\n        image = image.filter(ImageFilter.SHARPEN)\n    return image",
+        "detail": "community-version",
+        "documentation": {}
+    },
+    {
+        "label": "text_to_image",
+        "kind": 2,
+        "importPath": "community-version",
+        "description": "community-version",
+        "peekOfCode": "def text_to_image(text, canvas_width, canvas_height):\n    image = Image.new('RGB', (canvas_width, canvas_height), color='white')\n    draw = ImageDraw.Draw(image)\n    font = ImageFont.load_default()\n    text_width, text_height = draw.textsize(text, font=font)\n    position = ((canvas_width - text_width) / 2,\n                (canvas_height - text_height) / 2)\n    draw.text(position, text, fill='black', font=font)\n    return image\n# Function to flip image",
+        "detail": "community-version",
+        "documentation": {}
+    },
+    {
+        "label": "flip_image",
+        "kind": 2,
+        "importPath": "community-version",
+        "description": "community-version",
+        "peekOfCode": "def flip_image(image: Image.Image, flip_horizontal: bool, flip_vertical: bool) -> Image.Image:\n    if flip_horizontal:\n        image = ImageOps.mirror(image)  # Flip horizontally\n    if flip_vertical:\n        image = ImageOps.flip(image)  # Flip vertically\n    return image\ndef create_ascii_art(image, pattern, colorize=False, theme='grayscale'):\n    ascii_chars = ASCII_PATTERNS[pattern]\n    ascii_art = []\n    pixels = np.array(image)",
+        "detail": "community-version",
+        "documentation": {}
+    },
+    {
+        "label": "create_ascii_art",
+        "kind": 2,
+        "importPath": "community-version",
+        "description": "community-version",
+        "peekOfCode": "def create_ascii_art(image, pattern, colorize=False, theme='grayscale'):\n    ascii_chars = ASCII_PATTERNS[pattern]\n    ascii_art = []\n    pixels = np.array(image)\n    for y in range(image.height):\n        line = []\n        for x in range(image.width):\n            pixel = pixels[y, x]\n            char_index = int(np.mean(pixel) / 255 * (len(ascii_chars) - 1))\n            char = ascii_chars[char_index]",
+        "detail": "community-version",
+        "documentation": {}
+    },
+    {
+        "label": "map_pixels_to_ascii",
+        "kind": 2,
+        "importPath": "community-version",
+        "description": "community-version",
+        "peekOfCode": "def map_pixels_to_ascii(image: Image.Image, pattern: list) -> str:\n    grayscale_image = image.convert('L')\n    pixels = np.array(grayscale_image)\n    ascii_chars = np.vectorize(lambda pixel: pattern[min(pixel // (256 // len(pattern)), len(pattern) - 1)])(pixels)\n    ascii_image = \"\\n\".join([\"\".join(row) for row in ascii_chars])\n    return ascii_image\n# Function to create colorized ASCII art in HTML format\ndef create_colorized_ascii_html(image: Image.Image, pattern: list, theme: str) -> str:\n    image = resize_image(image, 80, 'basic')\n    pixels = np.array(image)",
+        "detail": "community-version",
+        "documentation": {}
+    },
+    {
+        "label": "create_colorized_ascii_html",
+        "kind": 2,
+        "importPath": "community-version",
+        "description": "community-version",
+        "peekOfCode": "def create_colorized_ascii_html(image: Image.Image, pattern: list, theme: str) -> str:\n    image = resize_image(image, 80, 'basic')\n    pixels = np.array(image)\n    ascii_image_html = \"\"\"\n    <div style='font-family: monospace; white-space: pre;'>\n    \"\"\"\n    color_palette = COLOR_THEMES.get(theme, COLOR_THEMES['grayscale'])\n    for row in pixels:\n        for pixel in row:\n            ascii_char = pattern[int(np.mean(pixel) / 255 * (len(pattern) - 1))]",
+        "detail": "community-version",
+        "documentation": {}
+    },
+    {
+        "label": "create_contours",
+        "kind": 2,
+        "importPath": "community-version",
+        "description": "community-version",
+        "peekOfCode": "def create_contours(image):\n    return image.filter(ImageFilter.FIND_EDGES)\n# Streamlit app for the ASCII art generator\ndef run_streamlit_app():\n    if not st.runtime.exists():\n        console.print(f\"[yellow]Make sure you run this streamlit app from the streamlit command not python\")\n        return False\n    st.title(\"🌟 Customizable ASCII Art Generator\")\n    page = st.sidebar.selectbox('ASCII Art', ['Image', 'Live'])\n    if page == \"Image\":",
+        "detail": "community-version",
+        "documentation": {}
+    },
+    {
+        "label": "run_streamlit_app",
+        "kind": 2,
+        "importPath": "community-version",
+        "description": "community-version",
+        "peekOfCode": "def run_streamlit_app():\n    if not st.runtime.exists():\n        console.print(f\"[yellow]Make sure you run this streamlit app from the streamlit command not python\")\n        return False\n    st.title(\"🌟 Customizable ASCII Art Generator\")\n    page = st.sidebar.selectbox('ASCII Art', ['Image', 'Live'])\n    if page == \"Image\":\n        # Sidebar for options and settings\n        st.sidebar.title(\"Settings\")\n        pattern_type = st.sidebar.selectbox(\"Choose ASCII Pattern\", options=[",
+        "detail": "community-version",
+        "documentation": {}
+    },
+    {
+        "label": "generate",
+        "kind": 2,
+        "importPath": "community-version",
+        "description": "community-version",
+        "peekOfCode": "def generate(\n        image_path: str = typer.Argument(..., help=\"Path to the input image\"),\n        width: int = typer.Option(100, help=\"Width of the ASCII art\"),\n        pattern: str = typer.Option(\"basic\", help=\"ASCII pattern to use\"),\n        colorize: bool = typer.Option(False, help=\"Generate colorized ASCII art\"),\n        theme: str = typer.Option(\"grayscale\", help=\"Color theme for colorized output\"),\n        brightness: float = typer.Option(1.0, help=\"Brightness adjustment\"),\n        contrast: float = typer.Option(1.0, help=\"Contrast adjustment\"),\n        blur: bool = typer.Option(False, help=\"Apply blur effect\"),\n        sharpen: bool = typer.Option(False, help=\"Apply sharpen effect\"),",
+        "detail": "community-version",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "community-version",
+        "description": "community-version",
+        "peekOfCode": "app = typer.Typer()\nconsole = Console()\nASCII_PATTERNS = {\n    'basic': ['@', '#', 'S', '%', '?', '*', '+', ';', ':', ',', '.'],\n    'complex': ['▓', '▒', '░', '█', '▄', '▀', '▌', '▐', '▆', '▇', '▅', '▃', '▂'],\n    'emoji': ['😁', '😎', '🤔', '😱', '🤩', '😏', '😴', '😬', '😵', '😃'],\n    'numeric': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],\n}\nCOLOR_THEMES = {\n    'neon': [(57, 255, 20), (255, 20, 147), (0, 255, 255)],",
+        "detail": "community-version",
+        "documentation": {}
+    },
+    {
+        "label": "console",
+        "kind": 5,
+        "importPath": "community-version",
+        "description": "community-version",
+        "peekOfCode": "console = Console()\nASCII_PATTERNS = {\n    'basic': ['@', '#', 'S', '%', '?', '*', '+', ';', ':', ',', '.'],\n    'complex': ['▓', '▒', '░', '█', '▄', '▀', '▌', '▐', '▆', '▇', '▅', '▃', '▂'],\n    'emoji': ['😁', '😎', '🤔', '😱', '🤩', '😏', '😴', '😬', '😵', '😃'],\n    'numeric': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],\n}\nCOLOR_THEMES = {\n    'neon': [(57, 255, 20), (255, 20, 147), (0, 255, 255)],\n    'pastel': [(255, 179, 186), (255, 223, 186), (186, 255, 201), (186, 225, 255)],",
+        "detail": "community-version",
+        "documentation": {}
+    },
+    {
+        "label": "ASCII_PATTERNS",
+        "kind": 5,
+        "importPath": "community-version",
+        "description": "community-version",
+        "peekOfCode": "ASCII_PATTERNS = {\n    'basic': ['@', '#', 'S', '%', '?', '*', '+', ';', ':', ',', '.'],\n    'complex': ['▓', '▒', '░', '█', '▄', '▀', '▌', '▐', '▆', '▇', '▅', '▃', '▂'],\n    'emoji': ['😁', '😎', '🤔', '😱', '🤩', '😏', '😴', '😬', '😵', '😃'],\n    'numeric': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],\n}\nCOLOR_THEMES = {\n    'neon': [(57, 255, 20), (255, 20, 147), (0, 255, 255)],\n    'pastel': [(255, 179, 186), (255, 223, 186), (186, 255, 201), (186, 225, 255)],\n    'grayscale': [(i, i, i) for i in range(0, 255, 25)],",
+        "detail": "community-version",
+        "documentation": {}
+    },
+    {
+        "label": "COLOR_THEMES",
+        "kind": 5,
+        "importPath": "community-version",
+        "description": "community-version",
+        "peekOfCode": "COLOR_THEMES = {\n    'neon': [(57, 255, 20), (255, 20, 147), (0, 255, 255)],\n    'pastel': [(255, 179, 186), (255, 223, 186), (186, 255, 201), (186, 225, 255)],\n    'grayscale': [(i, i, i) for i in range(0, 255, 25)],\n}\ndef resize_image(image, new_width=100):\n    width, height = image.size\n    aspect_ratio = height / width\n    new_height = int(aspect_ratio * new_width * 0.55)\n    return image.resize((new_width, new_height))",
+        "detail": "community-version",
+        "documentation": {}
+    },
+    {
+        "label": "open_browser",
+        "kind": 2,
+        "importPath": "fast-api-main",
+        "description": "fast-api-main",
+        "peekOfCode": "def open_browser():\n    \"\"\"Open the API documentation in the default browser after a delay.\"\"\"\n    time.sleep(2)  # wait for server to start\n    webbrowser.open(\"http://127.0.0.1:8000/docs\")\n# Start the API with live reloading and auto browser open\nif __name__ == \"__main__\":\n    print(\"Starting server and waiting to open the browser...\")\n    threading.Thread(target=open_browser).start()\n    uvicorn.run(\"fast-api-main:app\", host=\"0.0.0.0\", port=8000, reload=True)\n# Example usage:",
+        "detail": "fast-api-main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "fast-api-main",
+        "description": "fast-api-main",
+        "peekOfCode": "app = FastAPI(\n    title=settings.PROJECT_NAME_EN_US,\n    version=settings.VERSION,\n    openapi_tags=[\n        {\n            \"name\": settings.ROUTER_NAME_Object_Detection,\n        }\n    ]\n)\n# Register the ASCII art router",
+        "detail": "fast-api-main",
+        "documentation": {}
+    },
+    {
+        "label": "load_image",
+        "kind": 2,
+        "importPath": "geometric-art",
+        "description": "geometric-art",
+        "peekOfCode": "def load_image(image_path, resize_factor=1):\n    img = Image.open(image_path)\n    img = img.resize((int(img.width * resize_factor), int(img.height * resize_factor)))\n    return np.array(img)\n# Generate random points over the image\ndef generate_points(image, num_points=500):\n    height, width, _ = image.shape\n    # Random points across the image dimensions\n    points = np.vstack((np.random.randint(0, width, num_points), np.random.randint(0, height, num_points))).T\n    # Add corners to ensure triangulation covers the entire image",
+        "detail": "geometric-art",
+        "documentation": {}
+    },
+    {
+        "label": "generate_points",
+        "kind": 2,
+        "importPath": "geometric-art",
+        "description": "geometric-art",
+        "peekOfCode": "def generate_points(image, num_points=500):\n    height, width, _ = image.shape\n    # Random points across the image dimensions\n    points = np.vstack((np.random.randint(0, width, num_points), np.random.randint(0, height, num_points))).T\n    # Add corners to ensure triangulation covers the entire image\n    points = np.vstack([points, [[0, 0], [0, height], [width, 0], [width, height]]])\n    return points\n# Create Delaunay triangulation from points\ndef create_delaunay_triangulation(points):\n    return Delaunay(points)",
+        "detail": "geometric-art",
+        "documentation": {}
+    },
+    {
+        "label": "create_delaunay_triangulation",
+        "kind": 2,
+        "importPath": "geometric-art",
+        "description": "geometric-art",
+        "peekOfCode": "def create_delaunay_triangulation(points):\n    return Delaunay(points)\n# Draw triangles on the image using the Delaunay triangulation\ndef draw_geometric_art(image, points, triangulation, output_path=None):\n    fig, ax = plt.subplots()\n    ax.set_aspect(\"equal\")\n    ax.imshow(image)\n    for triangle in triangulation.simplices:\n        vertices = points[triangle]\n        # Get the color of the center of the triangle",
+        "detail": "geometric-art",
+        "documentation": {}
+    },
+    {
+        "label": "draw_geometric_art",
+        "kind": 2,
+        "importPath": "geometric-art",
+        "description": "geometric-art",
+        "peekOfCode": "def draw_geometric_art(image, points, triangulation, output_path=None):\n    fig, ax = plt.subplots()\n    ax.set_aspect(\"equal\")\n    ax.imshow(image)\n    for triangle in triangulation.simplices:\n        vertices = points[triangle]\n        # Get the color of the center of the triangle\n        center = np.mean(vertices, axis=0).astype(int)\n        color = image[center[1], center[0], :] / 255\n        # Draw the triangle with the calculated color",
+        "detail": "geometric-art",
+        "documentation": {}
+    },
+    {
+        "label": "create_geometric_art",
+        "kind": 2,
+        "importPath": "geometric-art",
+        "description": "geometric-art",
+        "peekOfCode": "def create_geometric_art(image_path, output_path=None, num_points=500, resize_factor=1):\n    # Load image and generate points\n    image = load_image(image_path, resize_factor)\n    points = generate_points(image, num_points)\n    # Create triangulation and draw art\n    triangulation = create_delaunay_triangulation(points)\n    draw_geometric_art(image, points, triangulation, output_path)\nif __name__ == \"__main__\":\n    import sys\n    if len(sys.argv) < 2:",
+        "detail": "geometric-art",
+        "documentation": {}
+    },
+    {
+        "label": "browse_image",
+        "kind": 2,
+        "importPath": "gui",
+        "description": "gui",
+        "peekOfCode": "def browse_image():\n    file_path = filedialog.askopenfilename(filetypes=[(\"JPEG\", \"*.jpg *.jpeg\"), (\"PNG\", \"*.png\"), (\"BMP\", \"*.bmp\"), (\"TIFF\", \"*.tiff\")])\n    if file_path:\n        image_path.set(file_path)\ndef convert_image():\n    image = image_path.get()\n    if image:\n        ascii_art = community_version.handle_image_conversion(image)\n        display_ascii_art(ascii_art)\ndef save_file(ascii_art):",
+        "detail": "gui",
+        "documentation": {}
+    },
+    {
+        "label": "convert_image",
+        "kind": 2,
+        "importPath": "gui",
+        "description": "gui",
+        "peekOfCode": "def convert_image():\n    image = image_path.get()\n    if image:\n        ascii_art = community_version.handle_image_conversion(image)\n        display_ascii_art(ascii_art)\ndef save_file(ascii_art):\n    file_path = filedialog.asksaveasfilename(defaultextension=\".txt\", filetypes=[(\"Text file\", \"*.txt\")])\n    if file_path:\n        with open(file_path, \"w\") as file:\n            file.write(ascii_art)",
+        "detail": "gui",
+        "documentation": {}
+    },
+    {
+        "label": "save_file",
+        "kind": 2,
+        "importPath": "gui",
+        "description": "gui",
+        "peekOfCode": "def save_file(ascii_art):\n    file_path = filedialog.asksaveasfilename(defaultextension=\".txt\", filetypes=[(\"Text file\", \"*.txt\")])\n    if file_path:\n        with open(file_path, \"w\") as file:\n            file.write(ascii_art)\ndef display_ascii_art(ascii_art):\n    # Create ascii art preview window\n    preview_window = Toplevel(root)\n    preview_window.title(\"ZTM - Ascii Preview\")\n    preview_window.iconbitmap(\"ztm-icon.ico\")",
+        "detail": "gui",
+        "documentation": {}
+    },
+    {
+        "label": "display_ascii_art",
+        "kind": 2,
+        "importPath": "gui",
+        "description": "gui",
+        "peekOfCode": "def display_ascii_art(ascii_art):\n    # Create ascii art preview window\n    preview_window = Toplevel(root)\n    preview_window.title(\"ZTM - Ascii Preview\")\n    preview_window.iconbitmap(\"ztm-icon.ico\")\n    preview_window.columnconfigure(0, weight=1)\n    preview_window.rowconfigure(0, weight=1)\n    # Create Preview Window Frame\n    preview_frame = ttk.Frame(preview_window, padding=\"3 3 12 12\")\n    preview_frame.grid(column=0, row=0, sticky=(N, W, E, S))",
+        "detail": "gui",
+        "documentation": {}
+    },
+    {
+        "label": "module_name",
+        "kind": 5,
+        "importPath": "gui",
+        "description": "gui",
+        "peekOfCode": "module_name = \"community-version\"\nfile_path = \"./community-version.py\"\nspec = importlib.util.spec_from_file_location(module_name, file_path)\ncommunity_version = importlib.util.module_from_spec(spec)\nspec.loader.exec_module(community_version)\ndef browse_image():\n    file_path = filedialog.askopenfilename(filetypes=[(\"JPEG\", \"*.jpg *.jpeg\"), (\"PNG\", \"*.png\"), (\"BMP\", \"*.bmp\"), (\"TIFF\", \"*.tiff\")])\n    if file_path:\n        image_path.set(file_path)\ndef convert_image():",
+        "detail": "gui",
+        "documentation": {}
+    },
+    {
+        "label": "file_path",
+        "kind": 5,
+        "importPath": "gui",
+        "description": "gui",
+        "peekOfCode": "file_path = \"./community-version.py\"\nspec = importlib.util.spec_from_file_location(module_name, file_path)\ncommunity_version = importlib.util.module_from_spec(spec)\nspec.loader.exec_module(community_version)\ndef browse_image():\n    file_path = filedialog.askopenfilename(filetypes=[(\"JPEG\", \"*.jpg *.jpeg\"), (\"PNG\", \"*.png\"), (\"BMP\", \"*.bmp\"), (\"TIFF\", \"*.tiff\")])\n    if file_path:\n        image_path.set(file_path)\ndef convert_image():\n    image = image_path.get()",
+        "detail": "gui",
+        "documentation": {}
+    },
+    {
+        "label": "spec",
+        "kind": 5,
+        "importPath": "gui",
+        "description": "gui",
+        "peekOfCode": "spec = importlib.util.spec_from_file_location(module_name, file_path)\ncommunity_version = importlib.util.module_from_spec(spec)\nspec.loader.exec_module(community_version)\ndef browse_image():\n    file_path = filedialog.askopenfilename(filetypes=[(\"JPEG\", \"*.jpg *.jpeg\"), (\"PNG\", \"*.png\"), (\"BMP\", \"*.bmp\"), (\"TIFF\", \"*.tiff\")])\n    if file_path:\n        image_path.set(file_path)\ndef convert_image():\n    image = image_path.get()\n    if image:",
+        "detail": "gui",
+        "documentation": {}
+    },
+    {
+        "label": "community_version",
+        "kind": 5,
+        "importPath": "gui",
+        "description": "gui",
+        "peekOfCode": "community_version = importlib.util.module_from_spec(spec)\nspec.loader.exec_module(community_version)\ndef browse_image():\n    file_path = filedialog.askopenfilename(filetypes=[(\"JPEG\", \"*.jpg *.jpeg\"), (\"PNG\", \"*.png\"), (\"BMP\", \"*.bmp\"), (\"TIFF\", \"*.tiff\")])\n    if file_path:\n        image_path.set(file_path)\ndef convert_image():\n    image = image_path.get()\n    if image:\n        ascii_art = community_version.handle_image_conversion(image)",
+        "detail": "gui",
+        "documentation": {}
+    },
+    {
+        "label": "root",
+        "kind": 5,
+        "importPath": "gui",
+        "description": "gui",
+        "peekOfCode": "root = Tk()\nroot.title(\"ZTM - Ascii Art\")\nroot.iconbitmap(\"ztm-icon.ico\")\n# Main Window Frame\nmainframe = ttk.Frame(root, padding=\"3 3 12 12\")\nmainframe.grid(column=0, row=0, sticky=(N, W, E, S))\nroot.columnconfigure(0, weight=1)\nroot.rowconfigure(0, weight=1)\n# Labels\nttk.Label(mainframe, text=\"Select an image:\").grid(column=0, row=0, sticky=(W))",
+        "detail": "gui",
+        "documentation": {}
+    },
+    {
+        "label": "mainframe",
+        "kind": 5,
+        "importPath": "gui",
+        "description": "gui",
+        "peekOfCode": "mainframe = ttk.Frame(root, padding=\"3 3 12 12\")\nmainframe.grid(column=0, row=0, sticky=(N, W, E, S))\nroot.columnconfigure(0, weight=1)\nroot.rowconfigure(0, weight=1)\n# Labels\nttk.Label(mainframe, text=\"Select an image:\").grid(column=0, row=0, sticky=(W))\n# Image path field\nimage_path = StringVar()\nimage_entry = ttk.Entry(mainframe, width=50, textvariable=image_path).grid(column=1, row=1, sticky=(W, E), padx=0)\n# Buttons",
+        "detail": "gui",
+        "documentation": {}
+    },
+    {
+        "label": "image_path",
+        "kind": 5,
+        "importPath": "gui",
+        "description": "gui",
+        "peekOfCode": "image_path = StringVar()\nimage_entry = ttk.Entry(mainframe, width=50, textvariable=image_path).grid(column=1, row=1, sticky=(W, E), padx=0)\n# Buttons\nttk.Button(mainframe, text=\"Browse\", command=browse_image).grid(column=0, row=1, sticky=(W))\nttk.Button(mainframe, text=\"Convert\", command=convert_image).grid(column=0, row=2, sticky=(W))\n# Add padding\nfor child in mainframe.winfo_children():\n    child.grid_configure(padx=0, pady=5)\n# Run mainloop\nroot.mainloop()",
+        "detail": "gui",
+        "documentation": {}
+    },
+    {
+        "label": "image_entry",
+        "kind": 5,
+        "importPath": "gui",
+        "description": "gui",
+        "peekOfCode": "image_entry = ttk.Entry(mainframe, width=50, textvariable=image_path).grid(column=1, row=1, sticky=(W, E), padx=0)\n# Buttons\nttk.Button(mainframe, text=\"Browse\", command=browse_image).grid(column=0, row=1, sticky=(W))\nttk.Button(mainframe, text=\"Convert\", command=convert_image).grid(column=0, row=2, sticky=(W))\n# Add padding\nfor child in mainframe.winfo_children():\n    child.grid_configure(padx=0, pady=5)\n# Run mainloop\nroot.mainloop()",
+        "detail": "gui",
+        "documentation": {}
+    },
+    {
+        "label": "get_image_from_bytes",
+        "kind": 2,
+        "importPath": "invert-color-art",
+        "description": "invert-color-art",
+        "peekOfCode": "def get_image_from_bytes(byte_contents: bytes) -> Image:\n    \"\"\"_summary_\n    Args:\n        byte_contents (bytes): Input image bytes.\n    Returns:\n        Image: Output image.\n    \"\"\"\n    return Image.open(io.BytesIO(byte_contents)).convert('RGBA')\ndef get_image_from_path(image_path: str) -> Image:\n    \"\"\"_summary_",
+        "detail": "invert-color-art",
+        "documentation": {}
+    },
+    {
+        "label": "get_image_from_path",
+        "kind": 2,
+        "importPath": "invert-color-art",
+        "description": "invert-color-art",
+        "peekOfCode": "def get_image_from_path(image_path: str) -> Image:\n    \"\"\"_summary_\n    Args:\n        image_path (str): Input image path.\n    Returns:\n        Image: Output image.\n    \"\"\"\n    return Image.open(image_path).convert('RGBA')\ndef get_invert_colors_image(input_image: Image) -> Image:\n    \"\"\"_summary_",
+        "detail": "invert-color-art",
+        "documentation": {}
+    },
+    {
+        "label": "get_invert_colors_image",
+        "kind": 2,
+        "importPath": "invert-color-art",
+        "description": "invert-color-art",
+        "peekOfCode": "def get_invert_colors_image(input_image: Image) -> Image:\n    \"\"\"_summary_\n    Args:\n        input_image (Image): Input image.\n    Returns:\n        Image: Output image.\n    \"\"\"\n    # Apply invert effect\n    inverted_img = ImageOps.invert(input_image.convert(\"RGB\"))  # Invert RGB channels\n    inverted_img = Image.merge(\"RGBA\", (*inverted_img.split()[:3], input_image.split()[3]))  # Restore the alpha channel",
+        "detail": "invert-color-art",
+        "documentation": {}
+    },
+    {
+        "label": "get_image_from_bytes",
+        "kind": 2,
+        "importPath": "mosaic-art",
+        "description": "mosaic-art",
+        "peekOfCode": "def get_image_from_bytes(byte_contents: bytes) -> Image:\n    \"\"\"_summary_\n    Args:\n        byte_contents (bytes): Input image bytes.\n    Returns:\n        Image: Output image.\n    \"\"\"\n    return Image.open(io.BytesIO(byte_contents)).convert(\"RGBA\")\ndef get_image_from_path(image_path: str) -> Image:\n    \"\"\"_summary_",
+        "detail": "mosaic-art",
+        "documentation": {}
+    },
+    {
+        "label": "get_image_from_path",
+        "kind": 2,
+        "importPath": "mosaic-art",
+        "description": "mosaic-art",
+        "peekOfCode": "def get_image_from_path(image_path: str) -> Image:\n    \"\"\"_summary_\n    Args:\n        image_path (str): Input image path.\n    Returns:\n        Image: Output image.\n    \"\"\"\n    return Image.open(image_path).convert(\"RGBA\")\ndef get_mosaic_image(input_image: Image, block_size: int = 5) -> Image:\n    \"\"\"_summary_",
+        "detail": "mosaic-art",
+        "documentation": {}
+    },
+    {
+        "label": "get_mosaic_image",
+        "kind": 2,
+        "importPath": "mosaic-art",
+        "description": "mosaic-art",
+        "peekOfCode": "def get_mosaic_image(input_image: Image, block_size: int = 5) -> Image:\n    \"\"\"_summary_\n    Args:\n        input_image (Image): Input image.\n        block_size (int, optional): Sidelength of a mosaic block. Defaults to 5.\n    Returns:\n        Image: Output image.\n    \"\"\"\n    # read image in RGBA\n    img = np.array(input_image)",
+        "detail": "mosaic-art",
+        "documentation": {}
+    },
+    {
+        "label": "load_image",
+        "kind": 2,
+        "importPath": "pointillism-art",
+        "description": "pointillism-art",
+        "peekOfCode": "def load_image(image_path, size=(400, 400)):\n    img = Image.open(image_path).resize(size)  # Resize for faster processing\n    img = img.convert(\"RGB\")  # Ensure it's RGB format\n    return np.array(img)\n# Generate random points across the image\ndef generate_random_points(image, num_points):\n    height, width, _ = image.shape\n    points = np.random.rand(num_points, 2)\n    points[:, 0] *= width  # Scale x-coordinates\n    points[:, 1] *= height  # Scale y-coordinates",
+        "detail": "pointillism-art",
+        "documentation": {}
+    },
+    {
+        "label": "generate_random_points",
+        "kind": 2,
+        "importPath": "pointillism-art",
+        "description": "pointillism-art",
+        "peekOfCode": "def generate_random_points(image, num_points):\n    height, width, _ = image.shape\n    points = np.random.rand(num_points, 2)\n    points[:, 0] *= width  # Scale x-coordinates\n    points[:, 1] *= height  # Scale y-coordinates\n    return points\n# Sample color from the image at each point with random perturbation and subtle sepia tone\ndef sample_colors(image, points):\n    height, width, _ = image.shape\n    colors = []",
+        "detail": "pointillism-art",
+        "documentation": {}
+    },
+    {
+        "label": "sample_colors",
+        "kind": 2,
+        "importPath": "pointillism-art",
+        "description": "pointillism-art",
+        "peekOfCode": "def sample_colors(image, points):\n    height, width, _ = image.shape\n    colors = []\n    for point in points:\n        x, y = int(point[0]), int(point[1])\n        x = min(x, width - 1)  # Ensure index within bounds\n        y = min(y, height - 1)\n        color = image[y, x]  # Note that the y-axis comes first in image indexing\n        # Add random perturbation to the color\n        perturbation = np.random.randint(-20, 21, size=3)  # Random values between -20 and 20",
+        "detail": "pointillism-art",
+        "documentation": {}
+    },
+    {
+        "label": "detect_edges",
+        "kind": 2,
+        "importPath": "pointillism-art",
+        "description": "pointillism-art",
+        "peekOfCode": "def detect_edges(image):\n    grayscale_image = color.rgb2gray(image)\n    edges = filters.sobel(grayscale_image)\n    return edges\n# Compute point sizes based on edge proximity\ndef compute_point_sizes(points, edges, min_size=1, max_size=50):\n    height, width = edges.shape\n    point_sizes = []\n    edge_values = []  # List to collect edge values\n    for point in points:",
+        "detail": "pointillism-art",
+        "documentation": {}
+    },
+    {
+        "label": "compute_point_sizes",
+        "kind": 2,
+        "importPath": "pointillism-art",
+        "description": "pointillism-art",
+        "peekOfCode": "def compute_point_sizes(points, edges, min_size=1, max_size=50):\n    height, width = edges.shape\n    point_sizes = []\n    edge_values = []  # List to collect edge values\n    for point in points:\n        x, y = int(point[0]), int(point[1])\n        x = min(x, width - 1)  # Ensure index within bounds\n        y = min(y, height - 1)\n        # Higher edge value means the point is near an edge (smaller point size)\n        edge_value = edges[y, x]",
+        "detail": "pointillism-art",
+        "documentation": {}
+    },
+    {
+        "label": "create_pointillism_art",
+        "kind": 2,
+        "importPath": "pointillism-art",
+        "description": "pointillism-art",
+        "peekOfCode": "def create_pointillism_art(image_path, output_path=None, num_points=50000, min_size=1, max_size=50):\n    # Load image\n    img = load_image(image_path)\n    # Generate random points\n    points = generate_random_points(img, num_points)\n    # Sample colors from the image based on points\n    colors = sample_colors(img, points)\n    # Detect edges in the image\n    edges = detect_edges(img)\n    # Compute point sizes based on proximity to edges",
+        "detail": "pointillism-art",
+        "documentation": {}
+    },
+    {
+        "label": "get_image_from_bytes",
+        "kind": 2,
+        "importPath": "texture-art",
+        "description": "texture-art",
+        "peekOfCode": "def get_image_from_bytes(byte_contents: bytes) -> Image:\n    \"\"\"_summary_\n    Args:\n        byte_contents (bytes): Input image bytes.\n    Returns:\n        Image: Output image.\n    \"\"\"\n    return Image.open(io.BytesIO(byte_contents)).convert(\"RGBA\")\ndef get_image_from_path(image_path: str) -> Image:\n    \"\"\"_summary_",
+        "detail": "texture-art",
+        "documentation": {}
+    },
+    {
+        "label": "get_image_from_path",
+        "kind": 2,
+        "importPath": "texture-art",
+        "description": "texture-art",
+        "peekOfCode": "def get_image_from_path(image_path: str) -> Image:\n    \"\"\"_summary_\n    Args:\n        image_path (str): Input image path.\n    Returns:\n        Image: Output image.\n    \"\"\"\n    return Image.open(image_path).convert(\"RGBA\")\ndef get_random_texture_path(folder_path: str) -> str:\n    \"\"\"_summary_",
+        "detail": "texture-art",
+        "documentation": {}
+    },
+    {
+        "label": "get_random_texture_path",
+        "kind": 2,
+        "importPath": "texture-art",
+        "description": "texture-art",
+        "peekOfCode": "def get_random_texture_path(folder_path: str) -> str:\n    \"\"\"_summary_\n    Args:\n        folder_path (str): The folder where to find images(only jpg)\n    Returns:\n        str: Full path of a selected image\n    \"\"\"\n    # get all .jpg files in the folder\n    jpg_files = [f for f in os.listdir(folder_path) if f.endswith(\".jpg\")]\n    if not jpg_files:",
+        "detail": "texture-art",
+        "documentation": {}
+    },
+    {
+        "label": "apply_texture_with_fit_cover",
+        "kind": 2,
+        "importPath": "texture-art",
+        "description": "texture-art",
+        "peekOfCode": "def apply_texture_with_fit_cover(input_image: Image, texture_image: Image, alpha_threshold=128) -> Image:\n    \"\"\"_summary_\n    Args:\n        input_image (Image): Input image\n        texture_image (Image): Texture image\n        alpha_threshold (int, optional): The alpha value threshold (0-255).\n                               Only areas with an alpha value higher than this threshold\n                               will receive the texture. Default is 128.\n                               - 0 means fully transparent areas are affected.\n                               - 255 means only fully opaque areas are affected",
+        "detail": "texture-art",
+        "documentation": {}
+    }
+]
