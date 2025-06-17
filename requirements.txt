@@ -30,7 +30,7 @@ packaging==24.1
 pandas==2.2.3
 pillow==10.4.0
 pre-commit==4.0.1
-protobuf==5.28.2
+protobuf==5.29.5
 pyarrow==17.0.0
 pydeck==0.9.1
 Pygments==2.18.0
