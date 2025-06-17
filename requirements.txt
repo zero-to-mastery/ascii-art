@@ -50,7 +50,7 @@ streamlit==1.39.0
 tenacity==9.0.0
 tifffile==2024.9.20
 toml==0.10.2
-torch==2.0.0
+torch==2.7.1
 tornado==6.4.1
 transformers==4.37.0
 typing_extensions==4.12.2
